@@ -4,12 +4,14 @@ import styled from "styled-components";
 import logo from "../logo.svg";
 import Image2 from "../Image2.svg";
 import GoAskButton from "../component/main/GoAskButton.jsx";
+import RevceiveQuestionForm from "../component/main/ReceiveQuestionForm.jsx";
 
 const CenteredContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #f9f9f9;
 `;
 
 const Container = styled.div`
@@ -42,6 +44,7 @@ const MainPage = () => {
         <Link to="/main-page">
           <img alt="logo" src={logo} />
         </Link>
+        <RevceiveQuestionForm />
         <img alt="image2" src={Image2} />
       </Container>
     </CenteredContainer>
