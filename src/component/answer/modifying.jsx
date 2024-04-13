@@ -1,7 +1,8 @@
 import styles from "./Style.module.css";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { postAnswer } from "../../api/answer/\bcreate-answer";
+import { inquiryAnswer } from "../../api/answer/inquiry-answer";
 
 //이미지 경로
 import more from "./image/More.svg";
@@ -20,6 +21,7 @@ function Modifying() {
   //input에 내용이 입력되면 버튼
   const [inputContents, setInputContents] = useState("");
   const [isButtonActive, setIsButtonActive] = useState();
+  const [isModifying, setIsModifying] = useState(true);
 
   const handleInputChange = (e) => {
     const text = e.target.value;
@@ -31,6 +33,7 @@ function Modifying() {
     e.preventDefault();
     if (!isButtonActive) return;
 
+    setIsModifying(false);
     if (isButtonActive) {
       try {
         await postAnswer(inputContents);
@@ -39,6 +42,20 @@ function Modifying() {
       }
     }
   };
+
+  //답변 완료 버튼을 눌렀을 때 기능
+  const [modifiedContent, setModifiedContent] = useState("");
+
+  const answerDone = async () => {
+    try {
+      inquiryAnswer(setModifiedContent);
+    } catch (error) {
+      console.log("내용을 받아오지 못했습니다.");
+    }
+  };
+  useEffect(() => {
+    answerDone();
+  }, []);
 
   //좋아요, 싫어요 버튼에 대한 기능
   const [thumbsUpCount, setThumbsUpCount] = useState(0);
@@ -83,22 +100,29 @@ function Modifying() {
             <AnswerInfo>
               <div className={styles.title}>아초는 고양이</div>
             </AnswerInfo>
-            <textarea
-              className={styles.inputAnswer}
-              value={inputContents}
-              onChange={handleInputChange}
-              placeholder="답변을 입력해주세요"
-            />
+            {isModifying && (
+              <div>
+                <textarea
+                  className={styles.inputAnswer}
+                  value={inputContents}
+                  onChange={handleInputChange}
+                  placeholder="답변을 입력해주세요"
+                />
+                {/* 이벤트에 따라서 버튼 색상이 바뀌게 하고 싶은데 css클래스를 어떻게 적용해야 할지 모르겠습니다. */}
+                <button
+                  type="submit"
+                  onClick={handleButtonClick}
+                  className={isButtonActive ? "modidfyDone" : "notModify"}
+                  disabled={!isButtonActive}
+                >
+                  수정완료
+                </button>
+              </div>
+            )}
 
-            {/* 이벤트에 따라서 버튼 색상이 바뀌게 하고 싶은데 css클래스를 어떻게 적용해야 할지 모르겠습니다. */}
-            <button
-              type="submit"
-              onClick={handleButtonClick}
-              className={isButtonActive ? "modidfyDone" : "notModify"}
-              disabled={!isButtonActive}
-            >
-              수정완료
-            </button>
+            {!isModifying && (
+              <div className={styles.answerContent}> {modifiedContent}</div>
+            )}
           </div>
         </div>
         <div className={styles.answerBottom}>

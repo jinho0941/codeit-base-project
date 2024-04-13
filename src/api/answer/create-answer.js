@@ -1,5 +1,4 @@
-//답변을 생성해서 보내는 api
-
+//답변 생성
 import axios from "axios";
 
 export const postAnswer = async (content) => {

@@ -38,7 +38,7 @@ const AnswerPage = () => {
     background: var(--brown10);
     position: absolute;
     left: 50%;
-    top: 145%;
+    top: 100%;
     transform: translate(-50%, -50%);
   `;
 
@@ -51,7 +51,6 @@ const AnswerPage = () => {
       <Questions>
         <div>3개의 질문이 있습니다</div>
         <Modifying />
-        <ModifyMenu />
       </Questions>
     </>
   );
