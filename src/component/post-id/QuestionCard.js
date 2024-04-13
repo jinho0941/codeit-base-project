@@ -2,10 +2,11 @@ import styled from "styled-components";
 import thumbsUpImg from "../../images/post-id-images/thumbs-up.svg";
 import thumbsDownImg from "../../images/post-id-images/thumbs-down.svg";
 
-const StyledQuestionCard = styled.div`
+const QuestionCardWrapper = styled.div`
   padding: 32px;
   margin-top: 20px;
-  width: 684px;
+  width: 100%;
+  /* width: 684px; */
   border-radius: 16px;
   background: var(--Grayscale-10, #fff);
 
@@ -111,15 +112,9 @@ const ThumbsDown = styled.div`
   line-height: 18px; /* 128.571% */
 `;
 
-/** 질문 데이터 받아오는 코드
- * 1) subjectId 에 맞는 질문 리스트 출력
- * 2) ex) 5-3/subjects/${subjectId}/questions/ 중 results 가 질문 리스트들
- * 3) results 중 content 가 실제 질문 string 존재 => 이 내용을 바인딩
- */
-
 function QuestionCard({ question, profile }) {
   return (
-    <StyledQuestionCard>
+    <QuestionCardWrapper>
       <QuestionCardResult>답변완료</QuestionCardResult>
       <QuestionCardQuestion>
         <QuestionCardTerm>
@@ -148,7 +143,7 @@ function QuestionCard({ question, profile }) {
           <ThumbsDown>싫어요</ThumbsDown>
         </QuestionCardBottomStatus>
       </QuestionCardBottom>
-    </StyledQuestionCard>
+    </QuestionCardWrapper>
   );
 }
 
