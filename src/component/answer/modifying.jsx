@@ -1,6 +1,7 @@
 import styles from "./Style.module.css";
 import styled from "styled-components";
 import { useState } from "react";
+import { postAnswer } from "../../api/answer/\bcreate-answer";
 
 //이미지 경로
 import more from "./image/More.svg";
@@ -16,6 +17,30 @@ const AnswerInfo = styled.div`
 `;
 
 function Modifying() {
+  //input에 내용이 입력되면 버튼
+  const [inputContents, setInputContents] = useState("");
+  const [isButtonActive, setIsButtonActive] = useState();
+
+  const handleInputChange = (e) => {
+    const text = e.target.value;
+    setInputContents(text);
+    setIsButtonActive(text !== " ");
+  };
+
+  const handleButtonClick = async (e) => {
+    e.preventDefault();
+    if (!isButtonActive) return;
+
+    if (isButtonActive) {
+      try {
+        await postAnswer(inputContents);
+      } catch (error) {
+        console.log("에러 발생: ", error.message);
+      }
+    }
+  };
+
+  //좋아요, 싫어요 버튼에 대한 기능
   const [thumbsUpCount, setThumbsUpCount] = useState(0);
   const [thumbsDownCount, setThumbsDownCount] = useState(0);
   const [thumbsUpColor, setThumbsUpColor] = useState("black");
@@ -58,19 +83,22 @@ function Modifying() {
             <AnswerInfo>
               <div className={styles.title}>아초는 고양이</div>
             </AnswerInfo>
-            <div className={`${styles.answerModify} ${styles.answerContent}`}>
-              그들을 불러 귀는 이상의 오직 피고, 가슴이 이상, 못할 봄바람이다.
-              찾아다녀도, 전인 방황하였으며, 대한 바이며, 이것이야말로 가치를
-              청춘의 따뜻한 그리하였는가? 몸이 열락의 청춘의 때문이다. 천고에
-              피어나는 간에 밝은 이상, 인생의 만물은 피다. 대중을 이성은
-              방황하여도, 그리하였는가? 크고 평화스러운 품에 방황하였으며,
-              말이다. 이상은 들어 예수는 크고 긴지라 역사를 피다. 얼음에
-              있음으로써 꽃 보배를 곧 가는 교향악이다. 우는 새 예가 우리의 것은
-              피다. 피가 그것을 어디 앞이 기쁘며, 이상의 열락의 위하여서 끝까지
-              것이다. 있는 봄바람을 방황하여도, 우리의 것은 작고 아니한 영원히
-              듣기만 운다.
-            </div>
-            <div className={styles.modifyDone}>수정완료</div>
+            <textarea
+              className={styles.inputAnswer}
+              value={inputContents}
+              onChange={handleInputChange}
+              placeholder="답변을 입력해주세요"
+            />
+
+            {/* 이벤트에 따라서 버튼 색상이 바뀌게 하고 싶은데 css클래스를 어떻게 적용해야 할지 모르겠습니다. */}
+            <button
+              type="submit"
+              onClick={handleButtonClick}
+              className={isButtonActive ? "modidfyDone" : "notModify"}
+              disabled={!isButtonActive}
+            >
+              수정완료
+            </button>
           </div>
         </div>
         <div className={styles.answerBottom}>

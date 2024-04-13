@@ -36,7 +36,7 @@ const AnswerPage = () => {
     border-radius: 16px;
     border: 1px solid var(--browm30);
     background: var(--brown10);
-    position: fixed;
+    position: absolute;
     left: 50%;
     top: 145%;
     transform: translate(-50%, -50%);
@@ -50,7 +50,6 @@ const AnswerPage = () => {
       </PostionDeleteButton>
       <Questions>
         <div>3개의 질문이 있습니다</div>
-        <DeleteAnswer />
         <Modifying />
         <ModifyMenu />
       </Questions>
