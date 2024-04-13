@@ -8,12 +8,27 @@ const StyledContentsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 700px;
-  padding-bottom: 16px;
-  margin-top: 200px;
+  width: calc(100vw - 600px);
+  margin-left: 300px;
+  margin-right: 300px;
+  padding: 16px;
+  margin-top: 100px;
+
   border-radius: 16px;
   border: 1px solid #c7bbb5;
   background: #f5f1ee;
+
+  @media only screen and (max-width: 1200px) {
+    width: calc(100vw - 64px);
+    margin-left: 32px;
+    margin-right: 32px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    width: calc(100vw - 48px);
+    margin-left: 24px;
+    margin-right: 24px;
+  }
 `;
 
 function ContentsContainer({ profile }) {

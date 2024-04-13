@@ -5,16 +5,19 @@ import facebookImg from "../../images/post-id-images/facebookImage.svg";
 import { useState } from "react";
 
 const Profile = styled.div`
-  position: absolute;
-  padding-top: 40px;
-  margin-top: 129px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -100px;
   width: 170px;
   text-align: center;
+  z-index: 3;
 `;
 
 const ProfileImage = styled.img`
-  width: 136px;
-  border-radius: 100px;
+  width: 150px; /* 초기 크기를 지정합니다. */
+  height: 150px;
+  border-radius: 50%; /* 동그랗게 만듭니다. */
 `;
 
 const ProfileName = styled.div`
@@ -30,6 +33,7 @@ const ProfileName = styled.div`
 const ProfileShare = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 5px;
 `;
 
 const LinkBase = styled.img`
