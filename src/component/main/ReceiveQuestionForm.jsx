@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import personIcon from "../../Person.svg";
+import personIcon from "../../images/Person.svg";
 
 const FormContainer = styled.div`
   width: 400px;
@@ -12,6 +12,11 @@ const FormContainer = styled.div`
   border: 1px solid #ffffff;
   flex-direction: column;
   background-color: #ffffff;
+  margin-top: 32px;
+
+  @media (max-width: 767px) {
+    width: 305px;
+  }
 `;
 
 const InputContainer = styled.div`
@@ -23,6 +28,9 @@ const InputContainer = styled.div`
   border: 1px solid #818181;
   border-radius: 8px;
   margin-bottom: 20px;
+  @media (max-width: 767px) {
+    width: 257px;
+  }
 `;
 
 const StyledInput = styled.input`
@@ -45,6 +53,8 @@ const StyledButton = styled.button`
   font-weight: 400;
   padding: 12px 24px;
   border-radius: 8px;
+  @media (max-width: 767px) {
+    width: 257px;
 `;
 
 function RevceiveQuestionForm() {
