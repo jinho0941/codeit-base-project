@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { deleteAll } from "../../api/answer/delete-answer";
 
 function DeleteButton() {
   const Button = styled.button`
+    cursor: pointer;
     width: 100px;
     height: 35px;
     padding: 0 24px;
@@ -14,7 +16,7 @@ function DeleteButton() {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   `;
 
-  return <Button>삭제하기</Button>;
+  return <Button onClick={deleteAll}>삭제하기</Button>;
 }
 
 export default DeleteButton;

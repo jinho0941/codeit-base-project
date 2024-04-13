@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { postAnswer } from "../../api/answer/\bcreate-answer";
 import { inquiryAnswer } from "../../api/answer/inquiry-answer";
+import { deleteAll } from "../../api/answer/delete-answer";
 
 //이미지 경로
 import more from "./image/More.svg";
@@ -18,7 +19,9 @@ const AnswerInfo = styled.div`
 `;
 
 function Modifying() {
-  //input에 내용이 입력되면 버튼
+  //케밥 버튼 기능
+
+  //input에 내용이 입력되면 버튼 색상 바꾸기
   const [inputContents, setInputContents] = useState("");
   const [isButtonActive, setIsButtonActive] = useState();
   const [isModifying, setIsModifying] = useState(true);
@@ -87,7 +90,8 @@ function Modifying() {
     <>
       <div className={styles.card}>
         <div className={styles.frame}>
-          <div className={styles.badge2}>미답변</div>
+          {isModifying && <div className={styles.badge2}>미답변</div>}
+          {!isModifying && <div className={styles.badge}>답변완료</div>}
           <img className={styles.kebab} src={more} alt="케밥버튼" />
         </div>
         <div className={styles.question}>
@@ -108,11 +112,12 @@ function Modifying() {
                   onChange={handleInputChange}
                   placeholder="답변을 입력해주세요"
                 />
-                {/* 이벤트에 따라서 버튼 색상이 바뀌게 하고 싶은데 css클래스를 어떻게 적용해야 할지 모르겠습니다. */}
                 <button
                   type="submit"
                   onClick={handleButtonClick}
-                  className={isButtonActive ? "modidfyDone" : "notModify"}
+                  className={
+                    isButtonActive ? styles.modifyDone : styles.notModify
+                  }
                   disabled={!isButtonActive}
                 >
                   수정완료
