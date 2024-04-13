@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import arrowDown from "../../images/list/Arrow-down.svg";
+import arrowUp from "../../images/list/Arrow-up.svg";
 
-//
-
-// 드롭다운 컴포넌트 스타일
 const DropdownContainer = styled.div`
+  position: relative; /* 상대 위치 지정 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,8 +41,8 @@ const DropdownContent = styled.div`
   box-shadow: 0px 4px 4px 0px #8c8c8c40;
   display: ${(props) => (props.open ? "block" : "none")};
   position: absolute;
-  top: 35%;
-  width: 78px;
+  top: 100%; /* 버튼 아래에 표시 */
+  width: 88px;
 `;
 
 const DropdownOption = styled.div`
@@ -60,27 +60,43 @@ const DropdownOption = styled.div`
 `;
 
 const Dropdown = ({ options }) => {
-  const imgUrl = "../../images";
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
-  const [arrowImg, setArrowImg] = useState("../../images/Arrow-down.svg");
+  const [arrowImg, setArrowImg] = useState(arrowDown);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+        setArrowImg(arrowDown);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
     if (isOpen) {
-      setArrowImg(`${imgUrl}/Arrow-down.svg`);
+      setArrowImg(arrowDown);
     } else {
-      setArrowImg(`${imgUrl}/Arrow-up.svg`);
+      setArrowImg(arrowUp);
     }
   };
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
-    setArrowImg("../../images/Arrow-down.svg");
+    setArrowImg(arrowDown);
   };
 
   return (
-    <DropdownContainer>
+    <DropdownContainer ref={dropdownRef}>
       <DropdownButton onClick={toggleDropdown}>
         {selectedOption}
         <DropdownButtonArrowImg src={arrowImg} alt="아래 화살표" />
@@ -96,9 +112,8 @@ const Dropdown = ({ options }) => {
   );
 };
 
-// 사용자 정의 드롭다운 메뉴를 사용하는 예제
 const CustomDropdownMenu = () => {
-  const options = ["이름순", "최신순"];
+  const options = ["최신순", "이름순"];
 
   return <Dropdown options={options} />;
 };

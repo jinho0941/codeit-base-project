@@ -3,6 +3,7 @@ import { styled, createGlobalStyle } from "styled-components";
 import Header from "../component/list/Header";
 import Title from "../component/list/Title";
 import Cards from "../component/list/Cards";
+// import Pagenation from "../component/list/Pagenation";
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -15,24 +16,19 @@ const GlobalStyle = createGlobalStyle`
 const Body = styled.div`
   margin-left: auto;
   margin-right: auto;
-  padding-left: 130px;
-  padding-right: 130px;
+  padding-left: 100px;
+  padding-right: 100px;
 
   @media (min-width: 1200px) {
     max-width: 1200px;
     width: 100%;
   }
-  @media (max-width: 767px) {
-    padding: 0 24px;
+  @media (max-width: 1124px) {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
-`;
-
-const Main = styled.main`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
 `;
 
 function ListPage() {
@@ -42,9 +38,8 @@ function ListPage() {
       <Body>
         <Header />
         <Title />
-        <Main>
-          <Cards />
-        </Main>
+        <Cards />
+        {/* <Pagenation /> */}
       </Body>
     </>
   );

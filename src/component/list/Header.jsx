@@ -1,16 +1,21 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
+import logo from "../../images/list/logo.svg";
 const HeaderSection = styled.header`
   margin: 40px 0;
+  width: 100%;
   height: 60px;
   display: flex;
   justify-content: space-between;
 
+  @media (max-width: 1124px) {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
   @media (max-width: 767px) {
     flex-direction: column;
     align-items: center;
-    gap: 10px;
   }
 `;
 const StyledLogoImg = styled.img`
@@ -20,6 +25,7 @@ const StyledLogoImg = styled.img`
 const StyledAnswerLinkButton = styled.button`
   background-color: #f5f1ee;
   color: #542f1a;
+  cursor: pointer;
   width: 160px;
   height: 46px;
   border-radius: 8px;
@@ -36,7 +42,7 @@ function HeaderContainer() {
   return (
     <HeaderSection>
       <Link to="/">
-        <StyledLogoImg src="../../images/logo.svg" alt="openmind 로고" />
+        <StyledLogoImg src={logo} alt="openmind 로고" />
       </Link>
       <StyledAnswerLinkButton>답변하러가기 →</StyledAnswerLinkButton>
     </HeaderSection>
