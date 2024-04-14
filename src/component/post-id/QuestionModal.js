@@ -36,6 +36,18 @@ const ModalWrapper = styled.div`
   margin: auto;
 
   z-index: 999;
+
+  @media only screen and (max-width: 1200px) {
+    width: calc(100vw - 64px);
+    margin-left: 32px;
+    margin-right: 32px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    width: calc(100vw - 48px);
+    margin-left: 24px;
+    margin-right: 24px;
+  }
 `;
 
 const ModalContainerForm = styled.form`
