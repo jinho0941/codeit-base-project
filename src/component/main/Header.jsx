@@ -13,6 +13,7 @@ const StyledDiv = styled.div`
 
   @media (max-width: 767px) {
     justify-content: center;
+    align-items: center;
   }
 `;
 
