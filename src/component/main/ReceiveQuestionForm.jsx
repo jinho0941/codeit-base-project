@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import personIcon from "../../images/Person.svg";
 
 const FormContainer = styled.div`
@@ -35,7 +37,7 @@ const InputContainer = styled.div`
 
 const StyledInput = styled.input`
   width: 280px;
-  heigt: 22px;
+  height: 22px;
   font-size: 16px;
   font-weight: 400;
   color: #818181;
@@ -53,21 +55,51 @@ const StyledButton = styled.button`
   font-weight: 400;
   padding: 12px 24px;
   border-radius: 8px;
+  cursor: pointer;
   @media (max-width: 767px) {
     width: 257px;
+  }
 `;
 
-function RevceiveQuestionForm() {
+function ReceiveQuestionForm() {
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+
+  const handleInputChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "https://openmind-api.vercel.app/5-3/subjects/",
+        { name }
+      );
+      const feedId = response.data.id;
+      navigate(`/post/${feedId}/answer`);
+    } catch (error) {
+      console.error("Error creating feed:", error);
+      alert("Failed to create feed");
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <FormContainer>
         <InputContainer>
-          <img src={personIcon} alt="사람 아이콘" />
-          <StyledInput type="text" placeholder="이름을 입력하세요." />
+          <img src={personIcon} alt="Person Icon" />
+          <StyledInput
+            type="text"
+            placeholder="이름을 입력하세요."
+            value={name}
+            onChange={handleInputChange}
+          />
         </InputContainer>
-        <StyledButton>질문 받기</StyledButton>
+        <StyledButton type="submit">질문 받기</StyledButton>
       </FormContainer>
     </form>
   );
 }
-export default RevceiveQuestionForm;
+
+export default ReceiveQuestionForm;
