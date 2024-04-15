@@ -1,9 +1,8 @@
 import styles from "./Style.module.css";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { postAnswer } from "../../api/answer/\bcreate-answer";
+import { postAnswer } from "../../api/answer/create-answer";
 import { inquiryAnswer } from "../../api/answer/inquiry-answer";
-import { deleteAll } from "../../api/answer/delete-answer";
 
 //이미지 경로
 import more from "./image/More.svg";

@@ -11,9 +11,9 @@ import styled from "styled-components";
 //컴포넌트 경로
 import Main from "../component/answer/main";
 import DeleteButton from "../component/answer/deleteButton";
-import ModifyMenu from "../component/answer/modifymenu";
+// import ModifyMenu from "../component/answer/modifymenu";
 import Modifying from "../component/answer/modifying";
-import DeleteAnswer from "../component/answer/delete-answer";
+// import DeleteAnswer from "../component/answer/delete-answer";
 
 const AnswerPage = () => {
   const params = useParams();

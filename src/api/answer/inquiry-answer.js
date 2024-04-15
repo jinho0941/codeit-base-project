@@ -4,7 +4,7 @@ import axios from "axios";
 export const inquiryAnswer = async (content) => {
   try {
     const response = await axios.get(
-      "http://openmind-api.vercel.app/5-3/answer/49/",
+      "http://openmind-api.vercel.app/5-3/answers/49/",
       {
         content: content,
       }
