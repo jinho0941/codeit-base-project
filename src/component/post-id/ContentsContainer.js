@@ -33,19 +33,49 @@ const StyledContentsContainer = styled.div`
 
 function ContentsContainer({ profile }) {
   const [questions, setQuestions] = useState([]);
-  const handleLoadQuestions = async () => {
-    const res = await getQuestion();
+  const [offset, setOffset] = useState(0);
+  const limit = 8;
+  const [loading, setLoading] = useState(false);
 
-    return res.data.results;
+  const handleLoadQuestions = async () => {
+    let resData;
+    try {
+      setLoading(true);
+      const res = await getQuestion({ offset, limit });
+      resData = res.data.results;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+
+    if (offset === 0) {
+      setQuestions(resData);
+    } else {
+      setQuestions((prevData) => [...prevData, ...resData]);
+    }
+
+    setOffset((prevOffset) => prevOffset + limit);
   };
 
   useEffect(() => {
-    handleLoadQuestions()
-      .then((r) => {
-        setQuestions(r);
-      })
-      .catch((error) => console.error(error));
+    handleLoadQuestions();
   }, []);
+
+  const handleScroll = () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+    if (scrollTop + clientHeight === scrollHeight) {
+      handleLoadQuestions();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [loading]);
 
   if (!questions) {
     return <div>Loading...</div>;

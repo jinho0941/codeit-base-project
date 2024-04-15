@@ -8,8 +8,9 @@ export async function getSubject() {
   return response;
 }
 
-export async function getQuestion() {
-  const response = await axios.get(`${BASE_URL}/questions/`);
+export async function getQuestion({ offset, limit }) {
+  const query = `?offset=${offset}&limit=${limit}`;
+  const response = await axios.get(`${BASE_URL}/questions/${query}`);
 
   return response;
 }
