@@ -1,59 +1,81 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import logo from "../images/logo.svg";
+import Image2 from "../images/Image2.svg";
+import RevceiveQuestionForm from "../component/main/ReceiveQuestionForm.jsx";
+import Header from "../component/main/Header.jsx";
 
 const CenteredContainer = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: top;
   height: 100vh;
-`
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: url("${Image2}");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: bottom;
+
+  @media (max-width: 767px) {
+    background-size: contain;
+  }
+`;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+  margin-top: 100px;
+  margin-bottom: 0px;
+`;
 
-const Button = styled.button`
-  margin: 10px;
-  padding: 8px 16px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+const StyledLogoImage = styled.img`
+  width: 456px;
+  height: auto;
 
-  &:hover {
-    background-color: #0056b3;
+  @media (max-width: 767px) {
+    width: 248px;
   }
-`
+`;
 
 const MainPage = () => {
-  return (
-    <CenteredContainer>
-      <Container>
-        <div>Main page</div>
-        <Link to='/apiTest'>
-          <Button>ApiTestPage</Button>
-        </Link>
-        <Link to='/'>
-          <Button>MainPage</Button>
-        </Link>
-        <Link to='/post/:postId/answer'>
-          <Button>AnswerPage</Button>
-        </Link>
-        <Link to='/post/:postId'>
-          <Button>PostIdPage</Button>
-        </Link>
-        <Link to='/list'>
-          <Button>ListPage</Button>
-        </Link>
-      </Container>
-    </CenteredContainer>
-  )
-}
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
 
-export default MainPage
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return (
+    <>
+      <CenteredContainer>
+        {isMobile ? (
+          <Container>
+            <StyledLogoImage alt="logo" src={logo} />
+            <Header />
+            <RevceiveQuestionForm />
+          </Container>
+        ) : (
+          <>
+            <Header />
+            <Container>
+              <StyledLogoImage alt="logo" src={logo} />
+              <RevceiveQuestionForm />
+            </Container>
+          </>
+        )}
+      </CenteredContainer>
+    </>
+  );
+};
+
+export default MainPage;
