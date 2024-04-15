@@ -17,7 +17,11 @@ function ContentsTitle({ questions }) {
   return (
     <StyledContentsTitle>
       <img src={questionImg} alt="question"></img>
-      <p>{questions.length}개의 질문이 있습니다.</p>
+      {questions.length !== 0 ? (
+        <p>{questions.length}개의 질문이 있습니다.</p>
+      ) : (
+        <p>아직 질문이 없습니다.</p>
+      )}
     </StyledContentsTitle>
   );
 }

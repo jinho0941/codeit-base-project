@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const BASE_URL = 'https://openmind-api.vercel.app/5-3/subjects/4840';
+const BASE_URL = "https://openmind-api.vercel.app/5-3/subjects/4840";
 
 export async function getSubject() {
   const response = await axios.get(`${BASE_URL}/`);
