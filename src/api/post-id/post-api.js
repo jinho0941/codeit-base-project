@@ -22,3 +22,23 @@ export async function createQuestion(inputValue) {
 
   return response;
 }
+
+// export async function getAnswer() {
+//   const response = await axios.get(`${BASE_URL}/questions/`, {
+//     content: inputValue,
+//   });
+
+//   return response;
+// }
+
+// export async function createAnswer() {
+//   const response = await axios.post(
+//     "https://openmind-api.vercel.app/5-3/questions/8265/answers/",
+//     {
+//       content: "test",
+//       isRejected: true,
+//     }
+//   );
+
+//   return response;
+// }

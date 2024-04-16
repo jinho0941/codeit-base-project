@@ -116,25 +116,34 @@ const ThumbsDown = styled.div`
 function QuestionCard({ question, profile }) {
   return (
     <QuestionCardWrapper>
-      {/* Todo : 답변완료 표시 부분 수정 */}
-      <QuestionCardResult>답변완료</QuestionCardResult>
+      <QuestionCardResult>
+        {question.answer ? "답변완료" : "미답변"}
+      </QuestionCardResult>
       <QuestionCardQuestion>
         <QuestionCardTerm>
-          <div>질문</div>
-          <div> · {calculateTimeDiff(question.createdAt)}</div>
+          <div>질문 ·</div>
+          <div>{calculateTimeDiff(question.createdAt)}</div>
         </QuestionCardTerm>
         <QuestionCardQuestionTitle>
           {question.content}
         </QuestionCardQuestionTitle>
       </QuestionCardQuestion>
       <QuestionCardAnswer>
-        <img src={profile.imageSource} alt="profile"></img>
+        {question.answer ? (
+          <img src={profile.imageSource} alt="profile"></img>
+        ) : null}
         <QuestionCardAnswerContent>
           <QuestionCardAnswerProfile>
-            <div>{profile.name}</div>
-            <div>2주전</div>
+            <div>{question.answer ? profile.name : null}</div>
+            <QuestionCardTerm>
+              {question.answer
+                ? `${calculateTimeDiff(question.answer.createdAt)}`
+                : null}
+            </QuestionCardTerm>
           </QuestionCardAnswerProfile>
-          <div className="feedcard-answer-main">답변</div>
+          <div className="feedcard-answer-main">
+            {question.answer ? `${question.answer.content}` : null}
+          </div>
         </QuestionCardAnswerContent>
       </QuestionCardAnswer>
       <QuestionCardBottom>
