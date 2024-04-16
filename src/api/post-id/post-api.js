@@ -23,6 +23,39 @@ export async function createQuestion(inputValue) {
   return response;
 }
 
+export async function createLike(id) {
+  const response = await axios.post(
+    `https://openmind-api.vercel.app/5-3/questions/${id}/reaction/`,
+    {
+      type: "like",
+    }
+  );
+
+  return response;
+}
+
+export async function createDislike(id) {
+  const response = await axios.post(
+    `https://openmind-api.vercel.app/5-3/questions/${id}/reaction/`,
+    {
+      type: "dislike",
+    }
+  );
+
+  return response;
+}
+
+// export async function createDislike() {
+//   const response = await axios.post(
+//     `https://openmind-api.vercel.app/5-3/questions/8265/reaction/`,
+//     {
+//       type: "dislike",
+//     }
+//   );
+
+//   return response;
+// }
+
 // export async function getAnswer() {
 //   const response = await axios.get(`${BASE_URL}/questions/`, {
 //     content: inputValue,

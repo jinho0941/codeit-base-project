@@ -2,6 +2,8 @@ import styled from "styled-components";
 import thumbsUpImg from "../../images/post-id-images/thumbs-up.svg";
 import thumbsDownImg from "../../images/post-id-images/thumbs-down.svg";
 import { calculateTimeDiff } from "./utils";
+import { createDislike, createLike } from "../../api/post-id/post-api";
+import { useState } from "react";
 
 const QuestionCardWrapper = styled.div`
   padding: 32px;
@@ -114,6 +116,19 @@ const ThumbsDown = styled.div`
 `;
 
 function QuestionCard({ question, profile }) {
+  const [like, setLike] = useState(question.like);
+  const [dislike, setDislike] = useState(question.dislike);
+
+  const handleLikeClick = async () => {
+    const res = await createLike(question.id);
+    setLike(res.data.like);
+  };
+
+  const handleDislikeClick = async () => {
+    const res = await createDislike(question.id);
+    setDislike(res.data.dislike);
+  };
+
   return (
     <QuestionCardWrapper>
       <QuestionCardResult>
@@ -148,10 +163,18 @@ function QuestionCard({ question, profile }) {
       </QuestionCardAnswer>
       <QuestionCardBottom>
         <QuestionCardBottomStatus>
-          <img src={thumbsUpImg} alt="thumbs-up"></img>
-          <ThumbsUp>좋아요 {question.like}</ThumbsUp>
-          <img src={thumbsDownImg} alt="thumbs-down"></img>
-          <ThumbsDown>싫어요 {question.dislike}</ThumbsDown>
+          <img
+            src={thumbsUpImg}
+            alt="thumbs-up"
+            onClick={handleLikeClick}
+          ></img>
+          <ThumbsUp onClick={handleLikeClick}>좋아요 {like}</ThumbsUp>
+          <img
+            src={thumbsDownImg}
+            alt="thumbs-down"
+            onClick={handleDislikeClick}
+          ></img>
+          <ThumbsDown onClick={handleDislikeClick}>싫어요 {dislike}</ThumbsDown>
         </QuestionCardBottomStatus>
       </QuestionCardBottom>
     </QuestionCardWrapper>
