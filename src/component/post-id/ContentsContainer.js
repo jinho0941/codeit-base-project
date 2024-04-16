@@ -33,6 +33,7 @@ const StyledContentsContainer = styled.div`
 
 function ContentsContainer({ profile }) {
   const [questions, setQuestions] = useState([]);
+  const [questionsLength, setQuestionsLength] = useState(0);
   const [offset, setOffset] = useState(0);
   const limit = 8;
   const [loading, setLoading] = useState(false);
@@ -42,7 +43,7 @@ function ContentsContainer({ profile }) {
     try {
       setLoading(true);
       const res = await getQuestion({ offset, limit });
-      resData = res.data.results;
+      resData = res.data;
     } catch (error) {
       console.error(error);
     } finally {
@@ -50,12 +51,13 @@ function ContentsContainer({ profile }) {
     }
 
     if (offset === 0) {
-      setQuestions(resData);
+      setQuestions(resData.results);
     } else {
-      setQuestions((prevData) => [...prevData, ...resData]);
+      setQuestions((prevData) => [...prevData, ...resData.results]);
     }
 
     setOffset(offset + limit);
+    setQuestionsLength(resData.count);
   };
 
   useEffect(() => {
@@ -83,7 +85,7 @@ function ContentsContainer({ profile }) {
 
   return (
     <StyledContentsContainer>
-      <ContentsTitle questions={questions} />
+      <ContentsTitle questionsLength={questionsLength} />
       <QuestionCardList questions={questions} profile={profile} />
     </StyledContentsContainer>
   );

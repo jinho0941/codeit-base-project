@@ -13,12 +13,12 @@ const StyledContentsTitle = styled.div`
   line-height: 25px; /* 125% */
 `;
 
-function ContentsTitle({ questions }) {
+function ContentsTitle({ questionsLength }) {
   return (
     <StyledContentsTitle>
       <img src={questionImg} alt="question"></img>
-      {questions.length !== 0 ? (
-        <p>{questions.length}개의 질문이 있습니다.</p>
+      {questionsLength !== 0 ? (
+        <p>{questionsLength}개의 질문이 있습니다.</p>
       ) : (
         <p>아직 질문이 없습니다.</p>
       )}
