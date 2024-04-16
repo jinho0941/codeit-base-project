@@ -130,6 +130,8 @@ function QuestionModal({ modalVisible, onModalState, profile }) {
 
     try {
       await createQuestion(inputValue);
+      handleModalClose();
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }

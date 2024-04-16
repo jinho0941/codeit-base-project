@@ -55,7 +55,7 @@ function ContentsContainer({ profile }) {
       setQuestions((prevData) => [...prevData, ...resData]);
     }
 
-    setOffset((prevOffset) => prevOffset + limit);
+    setOffset(offset + limit);
   };
 
   useEffect(() => {
