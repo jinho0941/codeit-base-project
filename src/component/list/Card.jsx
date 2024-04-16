@@ -12,7 +12,9 @@ const Card = styled.div`
     display: ${(props) => (props.$hideonsmallscreen ? "none" : "block")};
   }
 `;
-const CardContent = styled.div``;
+const CardContent = styled.div`
+  background-color: #fff;
+`;
 const CardImg = styled.img`
   width: 60px;
   height: 60px;
@@ -23,12 +25,15 @@ const CardMessageIcon = styled.img`
   height: 18px;
 `;
 const CardName = styled.p`
+  background-color: #fff;
+
   font-size: 20px;
   font-weight: 400;
 `;
-// const CardQuestionCount = styled.p`
-// `
-const CardQuestionSection = styled.div``;
+
+const CardQuestionSection = styled.div`
+  background-color: #fff;
+`;
 function Cards({ item }) {
   return (
     <Card>
