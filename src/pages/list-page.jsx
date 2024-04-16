@@ -2,7 +2,7 @@
 import { styled, createGlobalStyle } from "styled-components";
 import Header from "../component/list/Header";
 import Title from "../component/list/Title";
-import Cards from "../component/list/Cards";
+import CardContainer from "../component/list/CardList";
 // import Pagenation from "../component/list/Pagenation";
 
 const GlobalStyle = createGlobalStyle`
@@ -38,7 +38,7 @@ function ListPage() {
       <Body>
         <Header />
         <Title />
-        <Cards />
+        <CardContainer />
         {/* <Pagenation /> */}
       </Body>
     </>

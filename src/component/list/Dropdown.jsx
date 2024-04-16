@@ -4,7 +4,7 @@ import arrowDown from "../../images/list/Arrow-down.svg";
 import arrowUp from "../../images/list/Arrow-up.svg";
 
 const DropdownContainer = styled.div`
-  position: relative; /* 상대 위치 지정 */
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;

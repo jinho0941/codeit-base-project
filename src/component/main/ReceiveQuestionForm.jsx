@@ -77,6 +77,9 @@ function ReceiveQuestionForm() {
         { name }
       );
       const feedId = response.data.id;
+      // ID를 로컬 스토리지에 저장
+      localStorage.setItem("questionId", feedId);
+
       navigate(`/post/${feedId}/answer`);
     } catch (error) {
       console.error("Error creating feed:", error);
