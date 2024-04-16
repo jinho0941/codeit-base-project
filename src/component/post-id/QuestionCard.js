@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import thumbsUpImg from "../../images/post-id-images/thumbs-up.svg";
 import thumbsDownImg from "../../images/post-id-images/thumbs-down.svg";
+import { calculateTimeDiff } from "./utils";
 
 const QuestionCardWrapper = styled.div`
   padding: 32px;
@@ -115,11 +116,12 @@ const ThumbsDown = styled.div`
 function QuestionCard({ question, profile }) {
   return (
     <QuestionCardWrapper>
+      {/* Todo : 답변완료 표시 부분 수정 */}
       <QuestionCardResult>답변완료</QuestionCardResult>
       <QuestionCardQuestion>
         <QuestionCardTerm>
           <div>질문</div>
-          <div> · 2주전</div>
+          <div> · {calculateTimeDiff(question.createdAt)}</div>
         </QuestionCardTerm>
         <QuestionCardQuestionTitle>
           {question.content}
@@ -138,9 +140,9 @@ function QuestionCard({ question, profile }) {
       <QuestionCardBottom>
         <QuestionCardBottomStatus>
           <img src={thumbsUpImg} alt="thumbs-up"></img>
-          <ThumbsUp>좋아요</ThumbsUp>
+          <ThumbsUp>좋아요 {question.like}</ThumbsUp>
           <img src={thumbsDownImg} alt="thumbs-down"></img>
-          <ThumbsDown>싫어요</ThumbsDown>
+          <ThumbsDown>싫어요 {question.dislike}</ThumbsDown>
         </QuestionCardBottomStatus>
       </QuestionCardBottom>
     </QuestionCardWrapper>
