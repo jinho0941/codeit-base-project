@@ -5,12 +5,12 @@ const StyledAddQuestion = styled.button`
   bottom: 24px;
   right: 24px;
   border-radius: 200px;
-  background: var(--Brown-40, #542f1a);
+  background: #542f1a;
 
   /* 3pt */
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
-  color: var(--Grayscale-10, #fff);
+  color: #fff;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 20px;

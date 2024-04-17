@@ -21,7 +21,7 @@ const ModalWrapper = styled.div`
   height: 454px;
   flex-shrink: 0;
   border-radius: 24px;
-  background: var(--Grayscale-10, #fff);
+  background: #fff;
 
   /* 2pt */
   box-shadow: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
@@ -59,7 +59,7 @@ const ModalTitle = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 50px;
-  color: var(--Grayscale-60, #000);
+  color: #000;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Actor;
   font-size: 24px;
@@ -76,7 +76,7 @@ const ModalSubject = styled.div`
   display: flex;
   align-items: center;
 
-  color: var(--Grayscale-60, #000);
+  color: #000;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 16px;
@@ -95,7 +95,7 @@ const ModalContent = styled.textarea`
   width: 100%;
   border: none;
   border-radius: 8px;
-  background: var(--Grayscale-20, #f9f9f9);
+  background: #f9f9f9;
   padding: 16px;
   height: 180px;
 `;
@@ -105,9 +105,8 @@ const ModalButton = styled.button`
   border: none;
   border-radius: 8px;
   background-color: ${({ disabled }) => (disabled ? "#C7BBB5" : "#542f1a")};
-  /* background: var(--Brown-40, #542f1a); */
   padding: 12px 24px;
-  color: var(--Grayscale-10, #fff);
+  color: #fff;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 16px;
