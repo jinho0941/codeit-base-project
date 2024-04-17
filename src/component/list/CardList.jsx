@@ -2,14 +2,14 @@ import styled from "styled-components";
 import Cards from "./Card.jsx";
 import { useEffect, useState } from "react";
 import api from "../../utils/api.js";
-const CardSection = styled.section`
+const StyledCardSection = styled.section`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const CardList = styled.div`
+const StyledCardList = styled.div`
   padding-top: 20px;
   display: grid;
   grid-template-columns: repeat(4, 220px);
@@ -32,33 +32,40 @@ const CardList = styled.div`
   }
 `;
 
-function CardListContainer() {
+function CardList({ selectedOption }) {
   const [data, setData] = useState(null);
   const limit = 8;
   const offset = 0;
+
   useEffect(() => {
     async function fetchData() {
       const response = await api.get(
         `/subjects/?limit=${limit}&offset=${offset}`
       );
-      console.log(response.data);
       setData(response.data);
     }
     fetchData();
-  }, []);
-  console.log(data);
+  }, [selectedOption]);
 
   return (
-    <CardSection>
-      <CardList>
-        {data && data.results ? (
-          data.results.map((item) => <Cards key={item.id} item={item} />)
-        ) : (
-          <div>Loading...</div>
-        )}
-      </CardList>
-    </CardSection>
+    <StyledCardSection>
+      <StyledCardList>
+        {data &&
+          data.results &&
+          data.results
+            .sort((a, b) => {
+              if (selectedOption === "최신순") {
+                return new Date(b.createdAt) - new Date(a.createdAt);
+              } else if (selectedOption === "이름순") {
+                return a.name.localeCompare(b.name);
+              } else {
+                return 0;
+              }
+            })
+            .map((item) => <Cards key={item.id} item={item} />)}
+      </StyledCardList>
+    </StyledCardSection>
   );
 }
 
-export default CardListContainer;
+export default CardList;
