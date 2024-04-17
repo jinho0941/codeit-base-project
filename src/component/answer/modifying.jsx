@@ -1,8 +1,11 @@
 import styles from "./Style.module.css";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { createAnswer } from "../../api/answer/create-answer";
-import { inquiryAnswer } from "../../api/answer/inquiry-answer";
+import {
+  createAnswer,
+  inquiryAnswer,
+  modifyAnswer,
+} from "../../api/answer/answer";
 import OptionMenu from "./option-menu";
 
 //이미지 경로
@@ -19,12 +22,26 @@ const AnswerInfo = styled.div`
 `;
 
 function Modifying() {
+  //질문들 가져오기
+  // const [questions, setQuestions] = useState([]);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await getQuestion();
+  //       setQuestions(response.data);
+  //     } catch (error) {
+  //       console.error("에러발성");
+  //     }
+  //   }
+  //   fetchData();
+  // });
+
   //input에 내용이 입력되면 버튼 색상 바꾸기
   const [inputContents, setInputContents] = useState("");
   const [isButtonActive, setIsButtonActive] = useState();
   const [isModifying, setIsModifying] = useState(true);
-  // const [request, setRequest] = useState();
-  // const [reqeust, setRequest] = useState("");
+  const [request, setRequest] = useState();
 
   const handleInputChange = (e) => {
     const text = e.target.value;
@@ -35,19 +52,18 @@ function Modifying() {
   const handleButtonClick = async (e) => {
     e.preventDefault();
     const result = await createAnswer();
-    console.log(result);
-    // setRequest(result.data);
+    setRequest(result.data);
     if (!isButtonActive) return;
 
     setIsModifying(false);
-    // if (isButtonActive) {
-    // try {
-    //   const postResult = await postAnswer();
-    //   console.log(postResult);
-    // } catch (error) {
-    //   console.log("에러 발생: ", error.message);
-    // }
-    // }
+    if (isButtonActive) {
+      try {
+        const postResult = await createAnswer();
+        console.log(postResult);
+      } catch (error) {
+        console.log("에러 발생: ", error.message);
+      }
+    }
   };
 
   //답변 완료 버튼을 눌렀을 때 기능
@@ -108,8 +124,9 @@ function Modifying() {
           <div className={styles.answerContainer}>
             <AnswerInfo>
               <div className={styles.title}>아초는 고양이</div>
-              {/* <div>{request}</div> */}
+              <div>{request}</div>
             </AnswerInfo>
+
             {isModifying && (
               <div>
                 <textarea
