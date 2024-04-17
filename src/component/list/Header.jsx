@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../../images/list/logo.svg";
 const HeaderSection = styled.header`
@@ -39,12 +39,25 @@ const StyledAnswerLinkButton = styled.button`
   }
 `;
 function HeaderContainer() {
+  const navigate = useNavigate();
+
+  const handleAnsewerButtonClick = () => {
+    const storedId = localStorage.getItem("questionId");
+    if (storedId) {
+      navigate(`/post/${storedId}/answer`);
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <HeaderSection>
       <Link to="/">
         <StyledLogoImg src={logo} alt="openmind 로고" />
       </Link>
-      <StyledAnswerLinkButton>답변하러가기 →</StyledAnswerLinkButton>
+      <StyledAnswerLinkButton onClick={handleAnsewerButtonClick}>
+        답변하러가기 →
+      </StyledAnswerLinkButton>
     </HeaderSection>
   );
 }

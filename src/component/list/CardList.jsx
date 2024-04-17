@@ -1,5 +1,7 @@
 import styled from "styled-components";
-
+import Cards from "./Card.jsx";
+import { useEffect, useState } from "react";
+import api from "../../utils/api.js";
 const CardSection = styled.section`
   width: 100%;
   display: flex;
@@ -29,33 +31,34 @@ const CardList = styled.div`
     padding-right: 24px;
   }
 `;
-const Card = styled.div`
-  background-color: #ffffff;
-  border-radius: 16px;
-  border: 1px solid #818181;
-  padding: 20px;
-  color: #000000;
 
-  @media (max-width: 982px) {
-    display: ${(props) => (props.$hideonsmallscreen ? "none" : "block")};
-  }
-`;
+function CardListContainer() {
+  const [data, setData] = useState(null);
+  const limit = 8;
+  const offset = 0;
+  useEffect(() => {
+    async function fetchData() {
+      const response = await api.get(
+        `/subjects/?limit=${limit}&offset=${offset}`
+      );
+      console.log(response.data);
+      setData(response.data);
+    }
+    fetchData();
+  }, []);
+  console.log(data);
 
-function CardContainer() {
   return (
     <CardSection>
       <CardList>
-        <Card>a</Card>
-        <Card>b</Card>
-        <Card>c</Card>
-        <Card>d</Card>
-        <Card>e</Card>
-        <Card>f</Card>
-        <Card $hideonsmallscreen={true}>g</Card>
-        <Card $hideonsmallscreen={true}>h</Card>
+        {data && data.results ? (
+          data.results.map((item) => <Cards key={item.id} item={item} />)
+        ) : (
+          <div>Loading...</div>
+        )}
       </CardList>
     </CardSection>
   );
 }
 
-export default CardContainer;
+export default CardListContainer;
