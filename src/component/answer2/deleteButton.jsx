@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { deleteAnswer } from "../../api/answer/answer";
+import { deleteAnswer } from "../../api/answer/answer2";
 
 function DeleteButton() {
   const Button = styled.button`

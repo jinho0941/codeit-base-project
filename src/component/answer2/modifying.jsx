@@ -5,7 +5,7 @@ import {
   createAnswer,
   inquiryAnswer,
   modifyAnswer,
-} from "../../api/answer/answer";
+} from "../../api/answer/answer2";
 import OptionMenu from "./option-menu";
 
 //이미지 경로
@@ -22,7 +22,7 @@ const AnswerInfo = styled.div`
 `;
 
 function Modifying() {
-  //질문들 가져오기
+  // //질문들 가져오기
   // const [questions, setQuestions] = useState([]);
 
   // useEffect(() => {
@@ -51,18 +51,18 @@ function Modifying() {
 
   const handleButtonClick = async (e) => {
     e.preventDefault();
-    const result = await createAnswer();
-    setRequest(result.data);
+    // const result = await createAnswer();
+    // setRequest(result.data);
     if (!isButtonActive) return;
 
     setIsModifying(false);
     if (isButtonActive) {
-      try {
-        const postResult = await createAnswer();
-        console.log(postResult);
-      } catch (error) {
-        console.log("에러 발생: ", error.message);
-      }
+      // try {
+      //   const postResult = await createAnswer();
+      //   console.log(postResult);
+      // } catch (error) {
+      //   console.log("에러 발생: ", error.message);
+      // }
     }
   };
 
@@ -130,7 +130,7 @@ function Modifying() {
             {isModifying && (
               <div>
                 <textarea
-                  className={`${styles.inputAnswer} ${styles.notMofidy}`}
+                  className={`${styles.inputAnswer}`}
                   value={inputContents}
                   onChange={handleInputChange}
                   placeholder="답변을 입력해주세요"

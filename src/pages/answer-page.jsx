@@ -1,57 +1,57 @@
-// 수연님 작성 페이지
-import { useParams } from "react-router-dom";
-import styled from "styled-components";
-// import styles from "../component/answer/MainStyle.module.css";
+import { createGlobalStyle } from "styled-components";
+import Container from "../component/answer/Container";
+import Background from "../component/answer/Background";
+import StyledProfile from "../component/answer/StyledProfile";
+import ContentsContainer from "../component/answer/ContentsContainer";
+import { useEffect, useState } from "react";
+import { getSubject } from "../api/answer/answer";
 
-// 이미지 경로
-// import Image2 from "../component/answer/image/Image2.svg";
-// import logo from "../component/answer/image/logo.svg";
-// import Ellipse1 from "../component/answer/image/Ellipse1.svg";
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
 
-//컴포넌트 경로
-import Main from "../component/answer/main";
-import DeleteButton from "../component/answer/deleteButton";
-import Modifying from "../component/answer/modifying";
+  body {
+    margin: 0;
+  }
+`;
 
-const AnswerPage = () => {
-  const params = useParams();
-  const postId = params.postId;
+function AnswerPage() {
+  const [profile, setProfile] = useState(null);
 
-  console.log(postId);
+  const handleLoadProfile = async () => {
+    const result = await getSubject();
 
-  const PostionDeleteButton = styled.div`
-    position: absolute;
-    left: 70%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  `;
-  const Questions = styled.div`
-    display: inline-flex;
-    padding: 16px;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    border-radius: 16px;
-    border: 1px solid var(--browm30);
-    background: var(--brown10);
-    position: absolute;
-    left: 50%;
-    top: 100%;
-    transform: translate(-50%, -50%);
-  `;
+    return result;
+  };
+
+  useEffect(() => {
+    handleLoadProfile()
+      .then((r) => {
+        const { name, imageSource } = r.data;
+
+        setProfile({
+          name,
+          imageSource,
+        });
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  if (!profile) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
-      <Main />
-      <PostionDeleteButton>
-        <DeleteButton />
-      </PostionDeleteButton>
-      <Questions>
-        <div>3개의 질문이 있습니다</div>
-        <Modifying />
-      </Questions>
+      <GlobalStyle />
+      <Container>
+        <Background />
+        <StyledProfile profile={profile} />
+        <ContentsContainer profile={profile} />
+      </Container>
     </>
   );
-};
+}
 
 export default AnswerPage;

@@ -1,34 +1,46 @@
 import axios from "axios";
 
-const ANSWER_URL = "https://openmind-api.vercel.app/5-3/questions/1234";
-const ANSWERS_URL = "https://openmind-api.vercel.app/5-3/answers/1234/";
+const BASE_URL = "https://openmind-api.vercel.app/5-3/subjects/4840";
 
-//답변 생성
-export async function createAnswer(inputContents) {
-  const respose = await axios.post(`${ANSWER_URL}/answers/`, {
-    content: inputContents,
+export async function getSubject() {
+  const response = await axios.get(`${BASE_URL}/`);
+
+  return response;
+}
+
+export async function getQuestion({ offset, limit }) {
+  const query = `?offset=${offset}&limit=${limit}`;
+  const response = await axios.get(`${BASE_URL}/questions/${query}`);
+
+  return response;
+}
+
+export async function createQuestion(inputValue) {
+  const response = await axios.post(`${BASE_URL}/questions/`, {
+    content: inputValue,
   });
 
-  return respose;
+  return response;
 }
 
-//답변 조회
-export async function inquiryAnswer() {
-  const response = await axios.get(`${ANSWERS_URL}`);
+export async function createLike(id) {
+  const response = await axios.post(
+    `https://openmind-api.vercel.app/5-3/questions/${id}/reaction/`,
+    {
+      type: "like",
+    }
+  );
 
   return response;
 }
 
-//답변 삭제
-export async function deleteAnswer() {
-  const response = await axios.get(`${ANSWERS_URL}`);
-
-  return response;
-}
-
-//답변 수정
-export async function modifyAnswer() {
-  const response = await axios.put(`${ANSWERS_URL}`);
+export async function createDislike(id) {
+  const response = await axios.post(
+    `https://openmind-api.vercel.app/5-3/questions/${id}/reaction/`,
+    {
+      type: "dislike",
+    }
+  );
 
   return response;
 }

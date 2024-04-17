@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Style.module.css";
-import more from "./image/More.svg";
+import more from "../../images/answer/More.svg";
 
 const OptionMenu = ({ handleModifyClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
