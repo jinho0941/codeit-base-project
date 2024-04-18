@@ -5,8 +5,7 @@ import Title from "../component/list/Title";
 import CardList from "../component/list/CardList";
 import Dropdown from "../component/list/Dropdown";
 import { useState } from "react";
-import Pagenation from "../component/list/Pagenation";
-
+import Pagenation from "../component/list/Pagination";
 const GlobalStyle = createGlobalStyle`
   *{
     background-color: #f9f9f9;
@@ -32,6 +31,18 @@ const Body = styled.div`
     padding-right: 0;
   }
 `;
+const SectionWrapper = styled.div`
+  @media (max-width: 767px) {
+    gap: 36px;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top: 20px;
+    text-align: center;
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+`;
 
 function ListPage() {
   const options = ["최신순", "이름순"];
@@ -42,12 +53,14 @@ function ListPage() {
       <GlobalStyle />
       <Body>
         <Header />
-        <Title />
-        <Dropdown
-          options={options}
-          selectedOption={selectedOption}
-          onChange={setSelectedOption}
-        />
+        <SectionWrapper>
+          <Title />
+          <Dropdown
+            options={options}
+            selectedOption={selectedOption}
+            onChange={setSelectedOption}
+          />
+        </SectionWrapper>
         <CardList selectedOption={selectedOption} />
         <Pagenation />
       </Body>
