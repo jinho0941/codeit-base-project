@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import arrowRight from "../../images/arrow-right.svg";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import arrowRight from '../../images/arrow-right.svg'
 
 const StyledLink = styled(Link)`
   width: 161px;
@@ -16,21 +16,21 @@ const StyledLink = styled(Link)`
   align-items: center;
   text-decoration: none;
   margin-top: 45px;
-  margin-right: 291px;
+  margin-right: 50px;
   cursor: pointer; // 커서를 포인터로 설정하여 링크처럼 보이게 함
   @media (max-width: 767px) {
     width: 126px;
     height: 34px;
     margin-right: 0;
   }
-`;
+`
 
 function GoAskButton() {
   return (
-    <StyledLink to="/list">
+    <StyledLink to='/list'>
       질문하러 가기
-      <img src={arrowRight} alt="Arrow Right" />
+      <img src={arrowRight} alt='Arrow Right' />
     </StyledLink>
-  );
+  )
 }
-export default GoAskButton;
+export default GoAskButton
