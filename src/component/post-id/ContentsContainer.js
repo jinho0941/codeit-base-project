@@ -1,8 +1,9 @@
-import styled from "styled-components";
-import ContentsTitle from "./ContentsTitle";
-import QuestionCardList from "./QuestionCardList";
-import { useEffect, useState } from "react";
-import { getQuestion } from "../../api/post-id/post-api";
+import styled from 'styled-components'
+import ContentsTitle from './ContentsTitle'
+import QuestionCardList from './QuestionCardList'
+import { useEffect, useState } from 'react'
+import { getQuestion } from '../../api/post-id/post-api'
+import { useParams } from 'react-router-dom'
 
 const StyledContentsContainer = styled.div`
   display: flex;
@@ -29,56 +30,57 @@ const StyledContentsContainer = styled.div`
     margin-left: 24px;
     margin-right: 24px;
   }
-`;
+`
 
-function ContentsContainer({ profile }) {
-  const [questions, setQuestions] = useState([]);
-  const [questionsLength, setQuestionsLength] = useState(0);
-  const [offset, setOffset] = useState(0);
-  const [loading, setLoading] = useState(false);
+function ContentsContainer({ profile, id }) {
+  const [questions, setQuestions] = useState([])
+  const [questionsLength, setQuestionsLength] = useState(0)
+  const [offset, setOffset] = useState(0)
+  const [loading, setLoading] = useState(false)
 
-  const limit = 8;
+  const limit = 8
 
   const handleLoadQuestions = async () => {
-    let resData;
+    let resData
     try {
-      setLoading(true);
-      const res = await getQuestion({ offset, limit });
-      resData = res.data;
+      setLoading(true)
+      console.log(id)
+      const res = await getQuestion({ offset, limit, id })
+      resData = res.data
     } catch (error) {
-      console.error(error);
+      console.error(error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
 
     if (offset === 0) {
-      setQuestions(resData.results);
+      setQuestions(resData.results)
     } else {
-      setQuestions((prevData) => [...prevData, ...resData.results]);
+      setQuestions((prevData) => [...prevData, ...resData.results])
     }
 
-    setOffset(offset + limit);
-    setQuestionsLength(resData.count);
-  };
+    setOffset(offset + limit)
+    setQuestionsLength(resData.count)
+  }
 
   useEffect(() => {
-    handleLoadQuestions();
-  }, []);
+    handleLoadQuestions()
+  }, [])
 
   const handleScroll = () => {
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement
 
     if (scrollTop + clientHeight === scrollHeight) {
-      handleLoadQuestions();
+      handleLoadQuestions()
     }
-  };
+  }
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll)
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [loading]);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [loading])
 
   return (
     <StyledContentsContainer>
@@ -91,7 +93,7 @@ function ContentsContainer({ profile }) {
         <div>Loading...</div>
       )}
     </StyledContentsContainer>
-  );
+  )
 }
 
-export default ContentsContainer;
+export default ContentsContainer
