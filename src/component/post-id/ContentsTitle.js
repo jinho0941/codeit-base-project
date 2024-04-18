@@ -4,7 +4,7 @@ import questionImg from "../../images/post-id-images/question.svg";
 const StyledContentsTitle = styled.div`
   display: flex;
   align-items: center;
-  color: var(--Brown-40, #542f1a);
+  color: #542f1a;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Actor;
   font-size: 20px;

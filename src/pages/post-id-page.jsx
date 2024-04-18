@@ -1,12 +1,13 @@
-import { createGlobalStyle } from "styled-components";
-import Container from "../component/post-id/Container";
-import Background from "../component/post-id/Background";
-import StyledProfile from "../component/post-id/StyledProfile";
-import ContentsContainer from "../component/post-id/ContentsContainer";
-import AddQuestion from "../component/post-id/AddQuestion";
-import QuestionModal from "../component/post-id/QuestionModal";
-import { useEffect, useState } from "react";
-import { getSubject } from "../api/post-id/post-api";
+import { createGlobalStyle } from 'styled-components'
+import { useEffect, useState } from 'react'
+import Container from '../component/post-id/Container'
+import Background from '../component/post-id/Background'
+import StyledProfile from '../component/post-id/StyledProfile'
+import ContentsContainer from '../component/post-id/ContentsContainer'
+import AddQuestion from '../component/post-id/AddQuestion'
+import QuestionModal from '../component/post-id/QuestionModal'
+import { getSubject } from '../api/post-id/post-api'
+import { useParams } from 'react-router-dom'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -16,36 +17,37 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
   }
-`;
+`
 
 function App() {
-  const [profile, setProfile] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [profile, setProfile] = useState(null)
+  const [modalVisible, setModalVisible] = useState(false)
+  const params = useParams()
 
   const handleLoadProfile = async () => {
-    const result = await getSubject();
+    const result = await getSubject(params.postId)
 
-    return result;
-  };
+    return result
+  }
 
   useEffect(() => {
     handleLoadProfile()
       .then((r) => {
-        const { name, imageSource } = r.data;
+        const { name, imageSource } = r.data
 
         setProfile({
           name,
           imageSource,
-        });
+        })
       })
-      .catch((error) => console.error(error));
-  }, []);
+      .catch((error) => console.error(error))
+  }, [])
 
   const handleModal = () =>
-    modalVisible ? setModalVisible(false) : setModalVisible(true);
+    modalVisible ? setModalVisible(false) : setModalVisible(true)
 
   if (!profile) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
@@ -54,7 +56,7 @@ function App() {
       <Container>
         <Background />
         <StyledProfile profile={profile} />
-        <ContentsContainer profile={profile} />
+        <ContentsContainer profile={profile} id={params.postId} />
       </Container>
       <AddQuestion onModalClick={handleModal} />
       {modalVisible ? (
@@ -65,7 +67,7 @@ function App() {
         />
       ) : null}
     </>
-  );
+  )
 }
 
-export default App;
+export default App

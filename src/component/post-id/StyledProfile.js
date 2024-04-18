@@ -2,7 +2,7 @@ import styled from "styled-components";
 import linkImg from "../../images/post-id-images/link.svg";
 import kakaoImg from "../../images/post-id-images/kakaoImage.svg";
 import facebookImg from "../../images/post-id-images/facebookImage.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Profile = styled.div`
   display: flex;
@@ -15,9 +15,9 @@ const Profile = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  width: 150px; /* 초기 크기를 지정합니다. */
+  width: 150px;
   height: 150px;
-  border-radius: 50%; /* 동그랗게 만듭니다. */
+  border-radius: 50%;
 `;
 
 const ProfileName = styled.div`
@@ -47,24 +47,13 @@ const Link = styled(LinkBase)`
   background: #542f1a;
 `;
 
-const Kakao = styled(LinkBase)`
+const Kakaotalk = styled(LinkBase)`
   background: #fee500;
 `;
 
 const Facebook = styled(LinkBase)`
   background: #1877f2;
 `;
-
-const copyToClipBoard = (text) => {
-  navigator.clipboard
-    .writeText(text)
-    .then(() => {
-      console.log("URL copied to clipboard", text);
-    })
-    .catch((error) => {
-      console.error("Failed to copy URL to clipboard:", error);
-    });
-};
 
 const Toast = styled.div`
   position: fixed;
@@ -75,14 +64,29 @@ const Toast = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   border-radius: 5px;
-  z-index: 1000;
+  z-index: 5;
 `;
 
 function StyledProfile({ profile }) {
+  const { Kakao } = window;
+
+  const realUrl = "http://localhost:3000/";
+
   const [showToast, setShowToast] = useState(false);
 
+  const copyToClipBoard = (text) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        console.log("URL copied to clipboard", text);
+      })
+      .catch((error) => {
+        console.error("Failed to copy URL to clipboard:", error);
+      });
+  };
+
   const handleClick = () => {
-    const url = "http://localhost:3000/";
+    const url = window.location.href;
     copyToClipBoard(url);
 
     setShowToast(true);
@@ -92,12 +96,44 @@ function StyledProfile({ profile }) {
   };
 
   const handleKaKaoClick = () => {
-    window.open("https://www.kakaocorp.com/page/");
+    Kakao.Share.sendDefault({
+      objectType: "feed",
+      content: {
+        title: "오픈마인드",
+        description: "질문 공유 사이트",
+        imageUrl:
+          "https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
+        link: {
+          mobileWebUrl: realUrl,
+        },
+      },
+      buttons: [
+        {
+          title: "질문 하러가기",
+          link: {
+            mobileWebUrl: realUrl,
+          },
+        },
+      ],
+    });
   };
 
   const handleFacebookClick = () => {
-    window.open("https://www.facebook.com/?locale=ko_KR");
+    const currentURL = window.location.href;
+
+    // Open Facebook Share Dialog with the current URL
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        currentURL
+      )}`,
+      "_blank"
+    );
   };
+
+  useEffect(() => {
+    Kakao.cleanup();
+    Kakao.init(""); // APP_KEY 필요
+  }, [Kakao]);
 
   return (
     <Profile>
@@ -106,7 +142,7 @@ function StyledProfile({ profile }) {
       <ProfileShare>
         <Link src={linkImg} alt="link" onClick={handleClick} />
         {showToast && <Toast>URL이 복사되었습니다</Toast>}
-        <Kakao src={kakaoImg} alt="kakao" onClick={handleKaKaoClick} />
+        <Kakaotalk src={kakaoImg} alt="kakao" onClick={handleKaKaoClick} />
         <Facebook
           src={facebookImg}
           alt="facebook"

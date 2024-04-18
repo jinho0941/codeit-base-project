@@ -9,9 +9,8 @@ const QuestionCardWrapper = styled.div`
   padding: 32px;
   margin-top: 20px;
   width: 100%;
-  /* width: 684px; */
   border-radius: 16px;
-  background: var(--Grayscale-10, #fff);
+  background: #fff;
 
   /* 1pt */
   box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
@@ -21,10 +20,10 @@ const QuestionCardResult = styled.span`
   padding: 4px 12px;
   border: 1px solid black;
   border-radius: 8px;
-  border: 1px solid var(--Brown-40, #542f1a);
-  background: var(--Grayscale-10, #fff);
+  border: 1px solid #542f1a;
+  background: #fff;
 
-  color: var(--Brown-40, #542f1a);
+  color: #542f1a;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 14px;
@@ -39,7 +38,7 @@ const QuestionCardQuestion = styled.div`
 
 const QuestionCardTerm = styled.div`
   display: flex;
-  color: var(--Grayscale-40, #818181);
+  color: #818181;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 14px;
@@ -49,7 +48,7 @@ const QuestionCardTerm = styled.div`
 `;
 
 const QuestionCardQuestionTitle = styled.div`
-  color: var(--Grayscale-60, #000);
+  color: #000;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Actor;
   font-size: 18px;
@@ -96,23 +95,27 @@ const QuestionCardBottomStatus = styled.div`
 
 const ThumbsUp = styled.div`
   margin-right: 32px;
-  color: var(--Blue-50, #1877f2);
+  color: #1877f2;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
+
+  cursor: pointer;
 `;
 
 const ThumbsDown = styled.div`
-  color: var(--Grayscale-40, #818181);
+  color: #818181;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
+
+  cursor: pointer;
 `;
 
 function QuestionCard({ question, profile }) {
@@ -157,7 +160,13 @@ function QuestionCard({ question, profile }) {
             </QuestionCardTerm>
           </QuestionCardAnswerProfile>
           <div className="feedcard-answer-main">
-            {question.answer ? `${question.answer.content}` : null}
+            {question.answer ? (
+              !question.answer.isRejected ? (
+                `${question.answer.content}`
+              ) : (
+                <div style={{ color: "red" }}>답변거절</div>
+              )
+            ) : null}
           </div>
         </QuestionCardAnswerContent>
       </QuestionCardAnswer>
@@ -167,13 +176,15 @@ function QuestionCard({ question, profile }) {
             src={thumbsUpImg}
             alt="thumbs-up"
             onClick={handleLikeClick}
-          ></img>
+            style={{ cursor: "pointer" }}
+          />
           <ThumbsUp onClick={handleLikeClick}>좋아요 {like}</ThumbsUp>
           <img
             src={thumbsDownImg}
             alt="thumbs-down"
             onClick={handleDislikeClick}
-          ></img>
+            style={{ cursor: "pointer" }}
+          />
           <ThumbsDown onClick={handleDislikeClick}>싫어요 {dislike}</ThumbsDown>
         </QuestionCardBottomStatus>
       </QuestionCardBottom>

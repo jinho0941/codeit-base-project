@@ -1,46 +1,46 @@
-import axios from "axios";
+import api from '../../utils/api'
 
-const BASE_URL = "https://openmind-api.vercel.app/5-3/subjects/4840";
+/**
+ * Todo
+ * 1. 주소 부분 4840 부분 하드코딩 => props 로 id 값을 받아서 넣도록 구현해야 함.
+ * 2. '../../utils/api.js' 에 존재하는 BASE_URL 로 변환
+ */
 
-export async function getSubject() {
-  const response = await axios.get(`${BASE_URL}/`);
+export async function getSubject(id) {
+  const response = await api.get(`/subjects/${id}/`)
 
-  return response;
+  return response
 }
 
-export async function getQuestion({ offset, limit }) {
-  const query = `?offset=${offset}&limit=${limit}`;
-  const response = await axios.get(`${BASE_URL}/questions/${query}`);
+export async function getQuestion({ offset, limit, id }) {
+  console.log(id)
+  const query = `?offset=${offset}&limit=${limit}`
+  const response = await api.get(`/subjects/${id}/questions/${query}`)
 
-  return response;
+  return response
 }
 
-export async function createQuestion(inputValue) {
-  const response = await axios.post(`${BASE_URL}/questions/`, {
+export async function createQuestion(inputValue, id) {
+  console.log(id)
+  const response = await api.post(`/subjects/${id}/questions/`, {
     content: inputValue,
-  });
+  })
 
-  return response;
+  return response
 }
 
 export async function createLike(id) {
-  const response = await axios.post(
-    `https://openmind-api.vercel.app/5-3/questions/${id}/reaction/`,
-    {
-      type: "like",
-    }
-  );
+  const response = await api.post(`/questions/${id}/reaction/`, {
+    type: 'like',
+  })
 
-  return response;
+  return response
 }
 
 export async function createDislike(id) {
-  const response = await axios.post(
-    `https://openmind-api.vercel.app/5-3/questions/${id}/reaction/`,
-    {
-      type: "dislike",
-    }
-  );
+  const response = await api.post(`/questions/${id}/reaction/`, {
+    type: 'dislike',
+  })
 
-  return response;
+  return response
 }

@@ -1,8 +1,9 @@
-import questionImg from "../../images/post-id-images/question.svg";
-import closeImg from "../../images/post-id-images/close.svg";
-import styled from "styled-components";
-import { useState } from "react";
-import { createQuestion } from "../../api/post-id/post-api";
+import questionImg from '../../images/post-id-images/question.svg'
+import closeImg from '../../images/post-id-images/close.svg'
+import styled from 'styled-components'
+import { useState } from 'react'
+import { createQuestion } from '../../api/post-id/post-api'
+import { useParams } from 'react-router-dom'
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -13,15 +14,15 @@ const ModalBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 30;
 
-  display: ${({ modalVisible }) => (modalVisible ? "block" : "none")};
-`;
+  display: ${({ modalVisible }) => (modalVisible ? 'block' : 'none')};
+`
 
 const ModalWrapper = styled.div`
   width: 612px;
   height: 454px;
   flex-shrink: 0;
   border-radius: 24px;
-  background: var(--Grayscale-10, #fff);
+  background: #fff;
 
   /* 2pt */
   box-shadow: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
@@ -48,36 +49,36 @@ const ModalWrapper = styled.div`
     margin-left: 24px;
     margin-right: 24px;
   }
-`;
+`
 
 const ModalContainerForm = styled.form`
   padding: 40px 40px 70px 40px;
-`;
+`
 
 const ModalTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 50px;
-  color: var(--Grayscale-60, #000);
-  font-feature-settings: "clig" off, "liga" off;
+  color: #000;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Actor;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
   line-height: 30px; /* 125% */
-`;
+`
 
 const ModalAskQuestion = styled.div`
   display: flex;
-`;
+`
 
 const ModalSubject = styled.div`
   display: flex;
   align-items: center;
 
-  color: var(--Grayscale-60, #000);
-  font-feature-settings: "clig" off, "liga" off;
+  color: #000;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Pretendard;
   font-size: 16px;
   font-style: normal;
@@ -87,56 +88,59 @@ const ModalSubject = styled.div`
   & img {
     width: 28px;
     border-radius: 100px;
+    margin-left: 4px;
+    margin-right: 4px;
   }
-`;
+`
 
 const ModalContent = styled.textarea`
   margin-top: 15px;
   width: 100%;
   border: none;
   border-radius: 8px;
-  background: var(--Grayscale-20, #f9f9f9);
+  background: #f9f9f9;
   padding: 16px;
   height: 180px;
-`;
+`
 
 const ModalButton = styled.button`
   width: 100%;
   border: none;
   border-radius: 8px;
-  background-color: ${({ disabled }) => (disabled ? "#C7BBB5" : "#542f1a")};
-  /* background: var(--Brown-40, #542f1a); */
+  background-color: ${({ disabled }) => (disabled ? '#C7BBB5' : '#542f1a')};
   padding: 12px 24px;
-  color: var(--Grayscale-10, #fff);
-  font-feature-settings: "clig" off, "liga" off;
+  color: #fff;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Pretendard;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 22px; /* 137.5% */
-  cursor: ${({ disabled }) => (disabled ? "" : "pointer")};
-`;
+  cursor: ${({ disabled }) => (disabled ? '' : 'pointer')};
+`
 
 function QuestionModal({ modalVisible, onModalState, profile }) {
-  const [inputValue, setInputValue] = useState(undefined);
-  const handleModalClose = () => onModalState(false);
+  const [inputValue, setInputValue] = useState(undefined)
+  const handleModalClose = () => onModalState(false)
+  const params = useParams()
+  const postId = params.postId
 
   const handleInputChange = (e) => {
-    const value = e.target.value;
+    const value = e.target.value
 
-    setInputValue(value);
-  };
+    setInputValue(value)
+  }
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
-      await createQuestion(inputValue);
-      handleModalClose();
-      window.location.reload();
+      await createQuestion(inputValue, postId)
+      handleModalClose()
+      window.location.reload()
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return (
     <>
@@ -145,33 +149,34 @@ function QuestionModal({ modalVisible, onModalState, profile }) {
         <ModalContainerForm onSubmit={handleSubmit}>
           <ModalTitle>
             <ModalAskQuestion>
-              <img src={questionImg} alt="question" />
+              <img src={questionImg} alt='question' />
               <div>질문을 작성하세요</div>
             </ModalAskQuestion>
             <img
               src={closeImg}
-              alt="close"
-              width="28px"
+              alt='close'
+              width='28px'
               onClick={handleModalClose}
+              style={{ cursor: 'pointer' }}
             />
           </ModalTitle>
           <ModalSubject>
             <div>To.</div>
-            <img src={profile.imageSource} alt="profile" />
+            <img src={profile.imageSource} alt='profile' />
             <div>{profile.name}</div>
           </ModalSubject>
           <ModalContent
-            placeholder="질문을 입력해주세요."
+            placeholder='질문을 입력해주세요.'
             value={inputValue}
             onChange={handleInputChange}
           />
-          <ModalButton disabled={!inputValue} type="submit">
+          <ModalButton disabled={!inputValue} type='submit'>
             질문 보내기
           </ModalButton>
         </ModalContainerForm>
       </ModalWrapper>
     </>
-  );
+  )
 }
 
-export default QuestionModal;
+export default QuestionModal
