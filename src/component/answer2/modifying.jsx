@@ -1,11 +1,15 @@
 import styles from "./Style.module.css";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { postAnswer } from "../../api/answer/create-answer";
-import { inquiryAnswer } from "../../api/answer/inquiry-answer";
+import {
+  createAnswer,
+  inquiryAnswer,
+  modifyAnswer,
+} from "../../api/answer/answer2";
+import OptionMenu from "./option-menu";
 
 //이미지 경로
-import more from "./image/More.svg";
+// import more from "./image/More.svg";
 import Ellipse1 from "./image/Ellipse1.svg";
 // import Rectangle from "./image/Rectangle.svg";
 import thumbsUp from "./image/thumbs-up.svg";
@@ -18,12 +22,26 @@ const AnswerInfo = styled.div`
 `;
 
 function Modifying() {
-  //케밥 버튼 기능
+  // //질문들 가져오기
+  // const [questions, setQuestions] = useState([]);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await getQuestion();
+  //       setQuestions(response.data);
+  //     } catch (error) {
+  //       console.error("에러발성");
+  //     }
+  //   }
+  //   fetchData();
+  // });
 
   //input에 내용이 입력되면 버튼 색상 바꾸기
   const [inputContents, setInputContents] = useState("");
   const [isButtonActive, setIsButtonActive] = useState();
   const [isModifying, setIsModifying] = useState(true);
+  const [request, setRequest] = useState();
 
   const handleInputChange = (e) => {
     const text = e.target.value;
@@ -33,15 +51,18 @@ function Modifying() {
 
   const handleButtonClick = async (e) => {
     e.preventDefault();
+    // const result = await createAnswer();
+    // setRequest(result.data);
     if (!isButtonActive) return;
 
     setIsModifying(false);
     if (isButtonActive) {
-      try {
-        await postAnswer(inputContents);
-      } catch (error) {
-        console.log("에러 발생: ", error.message);
-      }
+      // try {
+      //   const postResult = await createAnswer();
+      //   console.log(postResult);
+      // } catch (error) {
+      //   console.log("에러 발생: ", error.message);
+      // }
     }
   };
 
@@ -50,7 +71,8 @@ function Modifying() {
 
   const answerDone = async () => {
     try {
-      inquiryAnswer(setModifiedContent);
+      let a = await inquiryAnswer(setModifiedContent);
+      console.log(a);
     } catch (error) {
       console.log("내용을 받아오지 못했습니다.");
     }
@@ -91,7 +113,7 @@ function Modifying() {
         <div className={styles.frame}>
           {isModifying && <div className={styles.badge2}>미답변</div>}
           {!isModifying && <div className={styles.badge}>답변완료</div>}
-          <img className={styles.kebab} src={more} alt="케밥버튼" />
+          <OptionMenu />
         </div>
         <div className={styles.question}>
           <div className={styles.date}>질문 · 2주전</div>
@@ -102,11 +124,13 @@ function Modifying() {
           <div className={styles.answerContainer}>
             <AnswerInfo>
               <div className={styles.title}>아초는 고양이</div>
+              <div>{request}</div>
             </AnswerInfo>
+
             {isModifying && (
               <div>
                 <textarea
-                  className={styles.inputAnswer}
+                  className={`${styles.inputAnswer}`}
                   value={inputContents}
                   onChange={handleInputChange}
                   placeholder="답변을 입력해주세요"

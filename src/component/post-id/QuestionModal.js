@@ -11,7 +11,7 @@ const ModalBackground = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  z-index: 30;
 
   display: ${({ modalVisible }) => (modalVisible ? "block" : "none")};
 `;
@@ -120,6 +120,7 @@ const ModalButton = styled.button`
 function QuestionModal({ modalVisible, onModalState, profile }) {
   const [inputValue, setInputValue] = useState(undefined);
   const handleModalClose = () => onModalState(false);
+
   const handleInputChange = (e) => {
     const value = e.target.value;
 
@@ -130,13 +131,16 @@ function QuestionModal({ modalVisible, onModalState, profile }) {
 
     try {
       await createQuestion(inputValue);
+      handleModalClose();
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <ModalBackground modalVisible={modalVisible}>
+    <>
+      <ModalBackground modalVisible={modalVisible} onClick={handleModalClose} />
       <ModalWrapper>
         <ModalContainerForm onSubmit={handleSubmit}>
           <ModalTitle>
@@ -166,7 +170,7 @@ function QuestionModal({ modalVisible, onModalState, profile }) {
           </ModalButton>
         </ModalContainerForm>
       </ModalWrapper>
-    </ModalBackground>
+    </>
   );
 }
 

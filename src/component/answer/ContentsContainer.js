@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ContentsTitle from "./ContentsTitle";
 import QuestionCardList from "./QuestionCardList";
 import { useEffect, useState } from "react";
-import { getQuestion } from "../../api/post-id/post-api";
+import { getQuestion } from "../../api/answer/answer";
 
 const StyledContentsContainer = styled.div`
   display: flex;

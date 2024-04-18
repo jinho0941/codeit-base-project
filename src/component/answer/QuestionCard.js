@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import thumbsUpImg from "../../images/post-id-images/thumbs-up.svg";
 import thumbsDownImg from "../../images/post-id-images/thumbs-down.svg";
+
 import { calculateTimeDiff } from "./utils";
-import { createDislike, createLike } from "../../api/post-id/post-api";
+import { createDislike, createLike } from "../../api/answer/answer";
 import { useState } from "react";
+import Modifying from "./Modifying";
+import Kebab from "./Kebab";
 
 const QuestionCardWrapper = styled.div`
   padding: 32px;
@@ -60,6 +63,9 @@ const QuestionCardQuestionTitle = styled.div`
 
 const QuestionCardAnswer = styled.div`
   display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
 
   & img {
     width: 48px;
@@ -70,11 +76,16 @@ const QuestionCardAnswer = styled.div`
 
 const QuestionCardAnswerContent = styled.div`
   margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 `;
 
 const QuestionCardAnswerProfile = styled.div`
   display: flex;
-
+  gap: 8px;
+  align-items: center;
   & div {
     margin-right: 8px;
   }
@@ -115,7 +126,8 @@ const ThumbsDown = styled.div`
   line-height: 18px; /* 128.571% */
 `;
 
-function QuestionCard({ question, profile }) {
+function QuestionCard({ question, profile, handleModifyClick }) {
+  const isModifying = true;
   const [like, setLike] = useState(question.like);
   const [dislike, setDislike] = useState(question.dislike);
 
@@ -133,7 +145,9 @@ function QuestionCard({ question, profile }) {
     <QuestionCardWrapper>
       <QuestionCardResult>
         {question.answer ? "답변완료" : "미답변"}
+        <Kebab></Kebab>
       </QuestionCardResult>
+
       <QuestionCardQuestion>
         <QuestionCardTerm>
           <div>질문 ·</div>
@@ -143,22 +157,15 @@ function QuestionCard({ question, profile }) {
           {question.content}
         </QuestionCardQuestionTitle>
       </QuestionCardQuestion>
+      {/* 답변 작성할 수 있는 곳 */}
       <QuestionCardAnswer>
-        {question.answer ? (
-          <img src={profile.imageSource} alt="profile"></img>
-        ) : null}
+        <img src={profile.imageSource} alt="profile"></img>
+
         <QuestionCardAnswerContent>
           <QuestionCardAnswerProfile>
-            <div>{question.answer ? profile.name : null}</div>
-            <QuestionCardTerm>
-              {question.answer
-                ? `${calculateTimeDiff(question.answer.createdAt)}`
-                : null}
-            </QuestionCardTerm>
+            <div>{profile.name}</div>
           </QuestionCardAnswerProfile>
-          <div className="feedcard-answer-main">
-            {question.answer ? `${question.answer.content}` : null}
-          </div>
+          <Modifying isModifying={isModifying} />
         </QuestionCardAnswerContent>
       </QuestionCardAnswer>
       <QuestionCardBottom>
