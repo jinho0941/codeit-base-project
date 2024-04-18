@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+
 import arrowDown from "../../images/list/Arrow-down.svg";
 import arrowUp from "../../images/list/Arrow-up.svg";
 
@@ -59,9 +60,8 @@ const DropdownOption = styled.div`
   }
 `;
 
-const Dropdown = ({ options }) => {
+const Dropdown = ({ options, onChange, selectedOption }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(options[0]);
   const [arrowImg, setArrowImg] = useState(arrowDown);
   const dropdownRef = useRef(null);
 
@@ -90,9 +90,9 @@ const Dropdown = ({ options }) => {
   };
 
   const handleOptionClick = (option) => {
-    setSelectedOption(option);
     setIsOpen(false);
     setArrowImg(arrowDown);
+    onChange(option);
   };
 
   return (
@@ -112,10 +112,4 @@ const Dropdown = ({ options }) => {
   );
 };
 
-const CustomDropdownMenu = () => {
-  const options = ["최신순", "이름순"];
-
-  return <Dropdown options={options} />;
-};
-
-export default CustomDropdownMenu;
+export default Dropdown;

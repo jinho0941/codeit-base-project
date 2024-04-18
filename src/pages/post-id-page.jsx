@@ -1,11 +1,11 @@
 import { createGlobalStyle } from "styled-components";
+import { useEffect, useState } from "react";
 import Container from "../component/post-id/Container";
 import Background from "../component/post-id/Background";
 import StyledProfile from "../component/post-id/StyledProfile";
 import ContentsContainer from "../component/post-id/ContentsContainer";
 import AddQuestion from "../component/post-id/AddQuestion";
 import QuestionModal from "../component/post-id/QuestionModal";
-import { useEffect, useState } from "react";
 import { getSubject } from "../api/post-id/post-api";
 
 const GlobalStyle = createGlobalStyle`

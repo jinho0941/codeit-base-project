@@ -1,16 +1,20 @@
 import styled from "styled-components";
 import thumbsUpImg from "../../images/post-id-images/thumbs-up.svg";
 import thumbsDownImg from "../../images/post-id-images/thumbs-down.svg";
+
 import { calculateTimeDiff } from "./utils";
-import { createDislike, createLike } from "../../api/post-id/post-api";
+import { createDislike, createLike } from "../../api/answer/answer";
 import { useState } from "react";
+import Modifying from "./Modifying";
+import Kebab from "./Kebab";
 
 const QuestionCardWrapper = styled.div`
   padding: 32px;
   margin-top: 20px;
   width: 100%;
+  /* width: 684px; */
   border-radius: 16px;
-  background: #fff;
+  background: var(--Grayscale-10, #fff);
 
   /* 1pt */
   box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
@@ -20,10 +24,10 @@ const QuestionCardResult = styled.span`
   padding: 4px 12px;
   border: 1px solid black;
   border-radius: 8px;
-  border: 1px solid #542f1a;
-  background: #fff;
+  border: 1px solid var(--Brown-40, #542f1a);
+  background: var(--Grayscale-10, #fff);
 
-  color: #542f1a;
+  color: var(--Brown-40, #542f1a);
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 14px;
@@ -38,7 +42,7 @@ const QuestionCardQuestion = styled.div`
 
 const QuestionCardTerm = styled.div`
   display: flex;
-  color: #818181;
+  color: var(--Grayscale-40, #818181);
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 14px;
@@ -48,7 +52,7 @@ const QuestionCardTerm = styled.div`
 `;
 
 const QuestionCardQuestionTitle = styled.div`
-  color: #000;
+  color: var(--Grayscale-60, #000);
   font-feature-settings: "clig" off, "liga" off;
   font-family: Actor;
   font-size: 18px;
@@ -59,6 +63,9 @@ const QuestionCardQuestionTitle = styled.div`
 
 const QuestionCardAnswer = styled.div`
   display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
 
   & img {
     width: 48px;
@@ -69,11 +76,16 @@ const QuestionCardAnswer = styled.div`
 
 const QuestionCardAnswerContent = styled.div`
   margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 `;
 
 const QuestionCardAnswerProfile = styled.div`
   display: flex;
-
+  gap: 8px;
+  align-items: center;
   & div {
     margin-right: 8px;
   }
@@ -95,30 +107,27 @@ const QuestionCardBottomStatus = styled.div`
 
 const ThumbsUp = styled.div`
   margin-right: 32px;
-  color: #1877f2;
+  color: var(--Blue-50, #1877f2);
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
-
-  cursor: pointer;
 `;
 
 const ThumbsDown = styled.div`
-  color: #818181;
+  color: var(--Grayscale-40, #818181);
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
-
-  cursor: pointer;
 `;
 
-function QuestionCard({ question, profile }) {
+function QuestionCard({ question, profile, handleModifyClick }) {
+  const isModifying = true;
   const [like, setLike] = useState(question.like);
   const [dislike, setDislike] = useState(question.dislike);
 
@@ -136,7 +145,9 @@ function QuestionCard({ question, profile }) {
     <QuestionCardWrapper>
       <QuestionCardResult>
         {question.answer ? "답변완료" : "미답변"}
+        <Kebab></Kebab>
       </QuestionCardResult>
+
       <QuestionCardQuestion>
         <QuestionCardTerm>
           <div>질문 ·</div>
@@ -146,28 +157,15 @@ function QuestionCard({ question, profile }) {
           {question.content}
         </QuestionCardQuestionTitle>
       </QuestionCardQuestion>
+      {/* 답변 작성할 수 있는 곳 */}
       <QuestionCardAnswer>
-        {question.answer ? (
-          <img src={profile.imageSource} alt="profile"></img>
-        ) : null}
+        <img src={profile.imageSource} alt="profile"></img>
+
         <QuestionCardAnswerContent>
           <QuestionCardAnswerProfile>
-            <div>{question.answer ? profile.name : null}</div>
-            <QuestionCardTerm>
-              {question.answer
-                ? `${calculateTimeDiff(question.answer.createdAt)}`
-                : null}
-            </QuestionCardTerm>
+            <div>{profile.name}</div>
           </QuestionCardAnswerProfile>
-          <div className="feedcard-answer-main">
-            {question.answer ? (
-              !question.answer.isRejected ? (
-                `${question.answer.content}`
-              ) : (
-                <div style={{ color: "red" }}>답변거절</div>
-              )
-            ) : null}
-          </div>
+          <Modifying isModifying={isModifying} />
         </QuestionCardAnswerContent>
       </QuestionCardAnswer>
       <QuestionCardBottom>
@@ -176,15 +174,13 @@ function QuestionCard({ question, profile }) {
             src={thumbsUpImg}
             alt="thumbs-up"
             onClick={handleLikeClick}
-            style={{ cursor: "pointer" }}
-          />
+          ></img>
           <ThumbsUp onClick={handleLikeClick}>좋아요 {like}</ThumbsUp>
           <img
             src={thumbsDownImg}
             alt="thumbs-down"
             onClick={handleDislikeClick}
-            style={{ cursor: "pointer" }}
-          />
+          ></img>
           <ThumbsDown onClick={handleDislikeClick}>싫어요 {dislike}</ThumbsDown>
         </QuestionCardBottomStatus>
       </QuestionCardBottom>

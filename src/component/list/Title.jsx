@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import DropDown from "./Dropdown";
+// import DropDown from "./Dropdown";
 
 const TitleSection = styled.div`
   @media (max-width: 767px) {
@@ -27,11 +27,11 @@ const Title = styled.p`
     white-space: nowrap;
   }
 `;
+
 function TitleContainer() {
   return (
     <TitleSection>
       <Title>누구에게 질문할까요?</Title>
-      <DropDown />
     </TitleSection>
   );
 }

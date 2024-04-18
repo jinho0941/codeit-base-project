@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ContentsTitle from "./ContentsTitle";
 import QuestionCardList from "./QuestionCardList";
 import { useEffect, useState } from "react";
-import { getQuestion } from "../../api/post-id/post-api";
+import { getQuestion } from "../../api/answer/answer";
 
 const StyledContentsContainer = styled.div`
   display: flex;
@@ -35,9 +35,8 @@ function ContentsContainer({ profile }) {
   const [questions, setQuestions] = useState([]);
   const [questionsLength, setQuestionsLength] = useState(0);
   const [offset, setOffset] = useState(0);
-  const [loading, setLoading] = useState(false);
-
   const limit = 8;
+  const [loading, setLoading] = useState(false);
 
   const handleLoadQuestions = async () => {
     let resData;
@@ -80,16 +79,14 @@ function ContentsContainer({ profile }) {
     };
   }, [loading]);
 
+  if (!questions) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <StyledContentsContainer>
-      {questions ? (
-        <>
-          <ContentsTitle questionsLength={questionsLength} />
-          <QuestionCardList questions={questions} profile={profile} />
-        </>
-      ) : (
-        <div>Loading...</div>
-      )}
+      <ContentsTitle questionsLength={questionsLength} />
+      <QuestionCardList questions={questions} profile={profile} />
     </StyledContentsContainer>
   );
 }

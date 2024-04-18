@@ -87,6 +87,8 @@ const ModalSubject = styled.div`
   & img {
     width: 28px;
     border-radius: 100px;
+    margin-left: 4px;
+    margin-right: 4px;
   }
 `;
 
@@ -152,6 +154,7 @@ function QuestionModal({ modalVisible, onModalState, profile }) {
               alt="close"
               width="28px"
               onClick={handleModalClose}
+              style={{ cursor: "pointer" }}
             />
           </ModalTitle>
           <ModalSubject>

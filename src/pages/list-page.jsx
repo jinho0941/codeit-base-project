@@ -2,13 +2,15 @@
 import { styled, createGlobalStyle } from "styled-components";
 import Header from "../component/list/Header";
 import Title from "../component/list/Title";
-import CardContainer from "../component/list/CardList";
-// import Pagenation from "../component/list/Pagenation";
+import CardList from "../component/list/CardList";
+import Dropdown from "../component/list/Dropdown";
+import { useState } from "react";
+import Pagenation from "../component/list/Pagenation";
 
 const GlobalStyle = createGlobalStyle`
   *{
+    background-color: #f9f9f9;
     box-sizing : border-box;
-    background-color : #F9F9F9;
     margin : 0;
     padding : 0;
   }`;
@@ -32,14 +34,22 @@ const Body = styled.div`
 `;
 
 function ListPage() {
+  const options = ["최신순", "이름순"];
+  const [selectedOption, setSelectedOption] = useState(options[0]);
+
   return (
     <>
       <GlobalStyle />
       <Body>
         <Header />
         <Title />
-        <CardContainer />
-        {/* <Pagenation /> */}
+        <Dropdown
+          options={options}
+          selectedOption={selectedOption}
+          onChange={setSelectedOption}
+        />
+        <CardList selectedOption={selectedOption} />
+        <Pagenation />
       </Body>
     </>
   );

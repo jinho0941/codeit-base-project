@@ -15,9 +15,9 @@ const Profile = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  width: 150px;
+  width: 150px; /* 초기 크기를 지정합니다. */
   height: 150px;
-  border-radius: 50%;
+  border-radius: 50%; /* 동그랗게 만듭니다. */
 `;
 
 const ProfileName = styled.div`
@@ -75,14 +75,14 @@ const Toast = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   border-radius: 5px;
-  z-index: 5;
+  z-index: 1000;
 `;
 
 function StyledProfile({ profile }) {
   const [showToast, setShowToast] = useState(false);
 
   const handleClick = () => {
-    const url = window.location.href;
+    const url = "http://localhost:3000/";
     copyToClipBoard(url);
 
     setShowToast(true);
