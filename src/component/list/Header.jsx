@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../../images/list/logo.svg";
+
 const HeaderSection = styled.header`
   margin: 40px 0;
   width: 100%;

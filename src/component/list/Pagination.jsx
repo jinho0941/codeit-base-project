@@ -1,49 +1,97 @@
 // Pagination.jsx
-import React, { useState } from 'react'
-import styled from 'styled-components'
-
+import React, { useState } from "react";
+import styled from "styled-components";
+import ArrowLeft from "../../images/list/Arrow-left.svg";
+import ArrowRight from "../../images/list/Arrow-right.svg";
+const StyledPagination = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+`;
 const PaginationWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-`
+`;
 
-const PaginationItem = styled.span`
+const PaginationItem = styled.ol`
   margin: 0 5px;
   padding: 5px 10px;
-  background-color: ${(props) => (props.active ? '#ccc' : 'transparent')};
-  color: ${(props) => (props.active ? '#fff' : '#333')};
+  color: ${(props) => (props.$active ? "#542F1A" : "#000000")};
   cursor: pointer;
+  font-size: 20px;
+  font-weight: 400;
 
   &:hover {
-    color: ${(props) => (props.active ? '#ccc' : '#0000ff')};
+    color: ${(props) => (props.$active ? "#000000" : "#542F1A")};
   }
-`
+`;
 
-const Pagination = ({ pageCount, currentPage, onPageChange }) => {
-  const [index, setIndex] = useState(0)
+const MovePageButton = styled.button`
+  border: 0px;
+  cursor: pointer;
+  width: 40px
+  height : 40px
+  `;
+const MovePageImg = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+const Pagination = ({ pageCount, onPageChange }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
   function onClick(i) {
-    onPageChange(i)
-    setIndex(i)
+    onPageChange(i);
+    setCurrentPage(i);
   }
-  const start = Math.max(0, Math.min(index - 3, pageCount - 4))
-  const end = Math.min(pageCount, start + 5)
+
+  const start = Math.max(1, Math.min(currentPage - 2, pageCount - 3));
+  const end = Math.min(pageCount, start + 4);
+
+  const goPrevPageClick = () => {
+    const newPage = Math.max(1, currentPage - 5);
+    onPageChange(newPage);
+    setCurrentPage(newPage);
+  };
+
+  const goNextPageClick = () => {
+    const newPage = Math.min(pageCount, currentPage + 5);
+    onPageChange(newPage);
+    setCurrentPage(newPage);
+    console.log("currentPage : ", currentPage);
+  };
 
   const renderPageNumbers = () => {
-    const pageNumbers = []
-    for (let i = 1; i <= pageCount; i++) {
+    const pageNumbers = [];
+    console.log(pageCount);
+    for (let i = start; i <= end; i++) {
       pageNumbers.push(
-        <React.Fragment key={i}>
-          <PaginationItem active={currentPage === i} onClick={() => onClick(i)}>
+        <ul key={i}>
+          <PaginationItem
+            $active={currentPage === i}
+            onClick={() => onClick(i)}
+          >
             {i}
           </PaginationItem>
-        </React.Fragment>,
-      )
+        </ul>
+      );
     }
-    return pageNumbers.slice(start, end)
-  }
 
-  return <PaginationWrapper>{renderPageNumbers()}</PaginationWrapper>
-}
+    return pageNumbers;
+  };
 
-export default Pagination
+  return (
+    <StyledPagination>
+      <MovePageButton onClick={goPrevPageClick}>
+        <MovePageImg src={ArrowLeft} alt="왼쪽 화살표" />
+      </MovePageButton>
+      <PaginationWrapper>{renderPageNumbers()}</PaginationWrapper>
+      <MovePageButton onClick={goNextPageClick}>
+        <MovePageImg src={ArrowRight} alt="오른쪽 화살표" />
+      </MovePageButton>
+    </StyledPagination>
+  );
+};
+
+export default Pagination;

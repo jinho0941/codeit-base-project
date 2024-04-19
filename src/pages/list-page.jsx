@@ -5,7 +5,6 @@ import Title from "../component/list/Title";
 import CardList from "../component/list/CardList";
 import Dropdown from "../component/list/Dropdown";
 import { useState } from "react";
-import Pagenation from "../component/list/Pagination";
 const GlobalStyle = createGlobalStyle`
   *{
     background-color: #f9f9f9;
@@ -62,7 +61,6 @@ function ListPage() {
           />
         </SectionWrapper>
         <CardList selectedOption={selectedOption} />
-        <Pagenation />
       </Body>
     </>
   );

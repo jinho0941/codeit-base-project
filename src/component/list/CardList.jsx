@@ -47,6 +47,7 @@ function CardList({ selectedOption }) {
       const response = await api.get(
         `/subjects/?limit=${limit}&offset=${offset}`
       );
+      console.log(response.data);
       setData(response.data);
     }
     fetchData();
@@ -74,7 +75,6 @@ function CardList({ selectedOption }) {
             .map((item) => <Cards key={item.id} item={item} />)}
       </StyledCardList>
       <Pagination
-        currentPage={data.currentPage}
         pageCount={Math.ceil(data.count / limit)}
         onPageChange={handlePageChange}
       />
