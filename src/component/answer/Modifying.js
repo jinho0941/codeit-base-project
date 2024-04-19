@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import api from "../../utils/api";
 
 const AnswerContainer = styled.div`
   display: flex;
@@ -52,10 +53,53 @@ const ModifyDoneButton = styled.button`
   border: none;
 `;
 
-function Modifying() {
+const KebabButton = styled.button`
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 24px;
+`;
+
+const MenuContainer = styled.div`
+  position: relative;
+`;
+
+const DropdownMenu = styled.div`
+  top: 30px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+`;
+
+const MenuItem = styled.button`
+  display: block;
+  width: 100%;
+  padding: 12px 24px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+`;
+
+function Modifying({ id, answerId }) {
   const [inputContents, setInputContents] = useState("");
   const [isButtonActive, setIsButtonActive] = useState(false);
   const [isEditing, setIsEditing] = useState(true);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (answerId) {
+      getAnswer();
+    }
+  }, [answerId]);
 
   const handleInputChange = (e) => {
     const text = e.target.value;
@@ -63,8 +107,43 @@ function Modifying() {
     setIsButtonActive(text.trim().length > 0);
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
+    try {
+      const response = await api.post(`/questions/${id}/answers/`, {
+        content: inputContents,
+        isRejected: true,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
     setIsEditing(false);
+    setShowAnswer(true);
+  };
+
+  const handleModifyClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleKebabClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleModifyMenuClick = () => {
+    setIsEditing(true);
+    setIsMenuOpen(false);
+  };
+
+  const getAnswer = async () => {
+    try {
+      const response = await api.get(`/answers/${answerId}/`);
+      setInputContents(response.data.content);
+      setIsButtonActive(true);
+      setShowAnswer(response.data.isRejected);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -85,8 +164,17 @@ function Modifying() {
               <NotModifyButton disabled>수정완료</NotModifyButton>
             )}
           </>
-        ) : (
-          <div>{inputContents}</div>
+        ) : null}
+        {showAnswer && !isEditing && <div>{inputContents}</div>}
+        {!isEditing && (
+          <MenuContainer>
+            <KebabButton onClick={handleKebabClick}>...</KebabButton>
+            {isMenuOpen && (
+              <DropdownMenu>
+                <MenuItem onClick={handleModifyMenuClick}>수정하기</MenuItem>
+              </DropdownMenu>
+            )}
+          </MenuContainer>
         )}
       </AnswerContainer>
     </>

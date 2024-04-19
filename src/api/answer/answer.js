@@ -1,46 +1,46 @@
-import axios from 'axios'
+import axios from "axios";
 
-const BASE_URL = 'https://openmind-api.vercel.app/5-3/subjects/4840'
+const BASE_URL = "https://openmind-api.vercel.app/5-3/subjects/5207";
 
 export async function getSubject() {
-  const response = await axios.get(`${BASE_URL}/`)
+  const response = await axios.get(`${BASE_URL}/`);
 
-  return response
+  return response;
 }
 
 export async function getQuestion({ offset, limit }) {
-  const query = `?offset=${offset}&limit=${limit}`
-  const response = await axios.get(`${BASE_URL}/questions/${query}`)
+  const query = `?offset=${offset}&limit=${limit}`;
+  const response = await axios.get(`${BASE_URL}/questions/${query}`);
 
-  return response
+  return response;
 }
 
 export async function createQuestion(inputValue) {
   const response = await axios.post(`${BASE_URL}/questions/`, {
     content: inputValue,
-  })
+  });
 
-  return response
+  return response;
 }
 
 export async function createLike(id) {
   const response = await axios.post(
     `https://openmind-api.vercel.app/5-3/questions/${id}/reaction/`,
     {
-      type: 'like',
-    },
-  )
+      type: "like",
+    }
+  );
 
-  return response
+  return response;
 }
 
 export async function createDislike(id) {
   const response = await axios.post(
     `https://openmind-api.vercel.app/5-3/questions/${id}/reaction/`,
     {
-      type: 'dislike',
-    },
-  )
+      type: "dislike",
+    }
+  );
 
-  return response
+  return response;
 }

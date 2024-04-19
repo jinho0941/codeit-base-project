@@ -5,6 +5,7 @@ import StyledProfile from "../component/answer/StyledProfile";
 import ContentsContainer from "../component/answer/ContentsContainer";
 import { useEffect, useState } from "react";
 import { getSubject } from "../api/answer/answer";
+import Delete from "../component/answer/DeleteButton";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -48,6 +49,7 @@ function AnswerPage() {
       <Container>
         <Background />
         <StyledProfile profile={profile} />
+        <Delete />
         <ContentsContainer profile={profile} />
       </Container>
     </>

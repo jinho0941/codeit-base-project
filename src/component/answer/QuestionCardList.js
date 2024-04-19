@@ -10,6 +10,7 @@ function QuestionCardList({ questions, profile }) {
         questions.map((question) => {
           return (
             <QuestionCard
+              id={question.id}
               key={question.id}
               question={question}
               profile={profile}

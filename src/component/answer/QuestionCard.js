@@ -6,7 +6,6 @@ import { calculateTimeDiff } from "./utils";
 import { createDislike, createLike } from "../../api/answer/answer";
 import { useState } from "react";
 import Modifying from "./Modifying";
-import Kebab from "./Kebab";
 
 const QuestionCardWrapper = styled.div`
   padding: 32px;
@@ -126,10 +125,15 @@ const ThumbsDown = styled.div`
   line-height: 18px; /* 128.571% */
 `;
 
-function QuestionCard({ question, profile, handleModifyClick }) {
+function QuestionCard({ id, question, profile, handleModifyClick }) {
   const isModifying = true;
   const [like, setLike] = useState(question.like);
   const [dislike, setDislike] = useState(question.dislike);
+
+  const answer = question.answer;
+  const isAnswerNotNull = !!question.answer;
+  console.log(answer);
+  console.log(isAnswerNotNull);
 
   const handleLikeClick = async () => {
     const res = await createLike(question.id);
@@ -145,7 +149,6 @@ function QuestionCard({ question, profile, handleModifyClick }) {
     <QuestionCardWrapper>
       <QuestionCardResult>
         {question.answer ? "답변완료" : "미답변"}
-        <Kebab></Kebab>
       </QuestionCardResult>
 
       <QuestionCardQuestion>
@@ -165,7 +168,7 @@ function QuestionCard({ question, profile, handleModifyClick }) {
           <QuestionCardAnswerProfile>
             <div>{profile.name}</div>
           </QuestionCardAnswerProfile>
-          <Modifying isModifying={isModifying} />
+          <Modifying id={id} isModifying={isModifying} />
         </QuestionCardAnswerContent>
       </QuestionCardAnswer>
       <QuestionCardBottom>
