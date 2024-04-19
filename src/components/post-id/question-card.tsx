@@ -75,25 +75,24 @@ export const QuestionCard = ({
   }
 
   return (
-    <Link
-      to={`/post/${postId}/answer`}
-      className='bg-white w-full rounded-xl p-6 flex flex-col cursor-pointer hover:bg-slate-100'
-    >
-      <button
-        className={`mr-auto border rounded-lg py-1 px-2 text-sm font-extrabold ${
-          hasAnswered
-            ? 'border-amber-900 text-amber-900'
-            : 'border-gray-500 text-gray-500'
-        }`}
-      >
-        {hasAnswered ? '답변 완료' : '미답변'}
-      </button>
-      <div className='mt-6 text-xs text-gray-400 flex'>
-        <span>질문 ·</span>
-        <p className='ml-1'>{date}</p>
-      </div>
-      <p className='font-medium text-xl'>{content}</p>
-      <div className='border-t border-gray-300 mt-8' />
+    <div className='bg-white w-full rounded-xl p-6 flex flex-col cursor-pointer hover:bg-slate-100'>
+      <Link to={`/post/${postId}/answer`}>
+        <button
+          className={`mr-auto border rounded-lg py-1 px-2 text-sm font-extrabold ${
+            hasAnswered
+              ? 'border-amber-900 text-amber-900'
+              : 'border-gray-500 text-gray-500'
+          }`}
+        >
+          {hasAnswered ? '답변 완료' : '미답변'}
+        </button>
+        <div className='mt-6 text-xs text-gray-400 flex'>
+          <span>질문 ·</span>
+          <p className='ml-1'>{date}</p>
+        </div>
+        <p className='font-medium text-xl'>{content}</p>
+        <div className='border-t border-gray-300 mt-8' />
+      </Link>
       <div className='mt-6 mb-3 text-gray-500'>
         <div className='flex items-center gap-x-8'>
           <button
@@ -118,6 +117,6 @@ export const QuestionCard = ({
           </button>
         </div>
       </div>
-    </Link>
+    </div>
   )
 }

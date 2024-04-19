@@ -1,3 +1,4 @@
+import { DeleteButton } from './delete-button'
 import { HasQuestions } from './has-questions'
 import { NoQuestions } from './no-questions'
 
@@ -12,9 +13,7 @@ export const Questions = ({ questionCount, name }: Props) => {
   return (
     <div className='xl:px-0 px-10 w-full flex flex-col items-center'>
       <div className='relative mt-20 xl:w-[1111px] w-full flex flex-col items-center bg-amber-800/10 rounded-xl'>
-        <button className='absolute -top-10 right-0 rounded-full bg-amber-900 text-white py-1 px-3 hover:bg-rose-500'>
-          삭제하기
-        </button>
+        <DeleteButton />
         {hasQuestions ? (
           <HasQuestions questionCount={questionCount} name={name} />
         ) : (

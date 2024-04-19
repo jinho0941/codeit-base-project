@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import api from '../../utils/api'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 type Props = {
   id: number
@@ -9,6 +9,7 @@ type Props = {
 
 export const AnswerForm = ({ name, id }: Props) => {
   const [textareaValue, setTextareaValue] = useState<string>('')
+  const navigate = useNavigate()
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextareaValue(event.target.value)
@@ -21,7 +22,7 @@ export const AnswerForm = ({ name, id }: Props) => {
         content: textareaValue,
         isRejected: false,
       })
-      console.log(response)
+      navigate(0)
     } catch (error) {
       console.log('some thing went wrong')
     }

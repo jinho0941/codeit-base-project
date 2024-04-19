@@ -56,7 +56,7 @@ export const QuestionCard = ({
   const date = formatDate(createdAt)
   const [like, setLike] = useState(likes)
   const [dislike, setDislike] = useState(dislikes)
-  const params = useParams<{ postId: string }>()
+  const [isOpen, setIsOpen] = useState(false)
   const likeClicked = async () => {
     try {
       const response = await api.post(`/questions/${id}/reaction/`, {
@@ -79,6 +79,14 @@ export const QuestionCard = ({
     }
   }
 
+  const onModify = () => {
+    
+  }
+
+  const onDelete = () => {
+
+  }
+
   return (
     <li className='bg-white w-full rounded-xl p-6 flex flex-col'>
       <div className='flex justify-between items-center'>
@@ -91,9 +99,38 @@ export const QuestionCard = ({
         >
           {hasAnswered ? '답변 완료' : '미답변'}
         </button>
-        <button className='p-3 rounded-full hover:bg-slate-200 cursor-pointer'>
-          <GoKebabHorizontal className='h-6 w-6' />
-        </button>
+        <div className='relative'>
+          <button
+            onClick={() => {
+              setIsOpen((value) => !value)
+            }}
+            className='p-3 rounded-full hover:bg-slate-200 cursor-pointer'
+          >
+            <GoKebabHorizontal className='h-6 w-6' />
+          </button>
+          {isOpen && (
+            <div className='absolute top-12 -left-0 w-[111px] text-center flex flex-col bg-amber-900 rounded-lg text-white'>
+              {hasAnswered && (
+                <>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className='py-1 rounded-lg  hover:bg-amber-700'
+                  >
+                    수정하기
+                  </button>
+                  <hr />
+                </>
+              )}
+
+              <button
+                onClick={() => setIsOpen(false)}
+                className='py-1 rounded-lg hover:bg-rose-500'
+              >
+                삭제하기
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       <div className='mt-6 text-xs text-gray-400 flex'>
         <span>질문 ·</span>
