@@ -10,7 +10,10 @@ const StyledContentsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: calc(100vw - 600px);
-  margin: 100px 300px 50px 300px;
+  margin-top: 100px;
+  margin-left: 300px;
+  margin-right: 300px;
+  margin-bottom: 50px;
   padding: 16px;
 
   border-radius: 16px;
@@ -42,7 +45,6 @@ function ContentsContainer({ profile, id }) {
     let resData;
     try {
       setLoading(true);
-      console.log(id);
       const res = await getQuestion({ offset, limit, id });
       resData = res.data;
     } catch (error) {
@@ -68,7 +70,7 @@ function ContentsContainer({ profile, id }) {
   const handleScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-    if (scrollTop + clientHeight === scrollHeight) {
+    if (scrollTop + clientHeight >= scrollHeight) {
       handleLoadQuestions();
     }
   };

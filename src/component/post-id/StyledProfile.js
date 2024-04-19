@@ -2,7 +2,6 @@ import styled from "styled-components";
 import linkImg from "../../images/post-id-images/link.svg";
 import kakaoImg from "../../images/post-id-images/kakaoImage.svg";
 import facebookImg from "../../images/post-id-images/facebookImage.svg";
-import logoImg from "../../images/post-id-images/logo.svg";
 import { useState, useEffect } from "react";
 import { FacebookShareButton } from "react-share";
 
@@ -103,7 +102,8 @@ function StyledProfile({ profile }) {
       content: {
         title: "오픈마인드",
         description: "질문 공유 사이트",
-        imageUrl: { logoImg },
+        imageUrl:
+          "http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
         link: {
           mobileWebUrl: realUrl,
         },

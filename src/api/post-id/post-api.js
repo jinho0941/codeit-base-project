@@ -1,4 +1,4 @@
-import api from '../../utils/api'
+import api from "../../utils/api";
 
 /**
  * Todo
@@ -7,40 +7,38 @@ import api from '../../utils/api'
  */
 
 export async function getSubject(id) {
-  const response = await api.get(`/subjects/${id}/`)
+  const response = await api.get(`/subjects/${id}/`);
 
-  return response
+  return response;
 }
 
 export async function getQuestion({ offset, limit, id }) {
-  console.log(id)
-  const query = `?offset=${offset}&limit=${limit}`
-  const response = await api.get(`/subjects/${id}/questions/${query}`)
+  const query = `?offset=${offset}&limit=${limit}`;
+  const response = await api.get(`/subjects/${id}/questions/${query}`);
 
-  return response
+  return response;
 }
 
 export async function createQuestion(inputValue, id) {
-  console.log(id)
   const response = await api.post(`/subjects/${id}/questions/`, {
     content: inputValue,
-  })
+  });
 
-  return response
+  return response;
 }
 
 export async function createLike(id) {
   const response = await api.post(`/questions/${id}/reaction/`, {
-    type: 'like',
-  })
+    type: "like",
+  });
 
-  return response
+  return response;
 }
 
 export async function createDislike(id) {
   const response = await api.post(`/questions/${id}/reaction/`, {
-    type: 'dislike',
-  })
+    type: "dislike",
+  });
 
-  return response
+  return response;
 }
