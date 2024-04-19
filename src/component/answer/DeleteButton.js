@@ -15,10 +15,10 @@ const Button = styled.button`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
-function Delete({ id }) {
+function Delete({ answerId }) {
   const deleteAll = async () => {
     try {
-      await api.delete(`answers/5207/`);
+      await api.delete(`answers/${answerId}`);
     } catch (error) {
       console.log(error);
     }
