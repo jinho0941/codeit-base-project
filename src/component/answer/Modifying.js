@@ -113,7 +113,7 @@ function Modifying({ id, answerId }) {
         content: inputContents,
         isRejected: true,
       });
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -140,7 +140,7 @@ function Modifying({ id, answerId }) {
       setInputContents(response.data.content);
       setIsButtonActive(true);
       setShowAnswer(response.data.isRejected);
-      console.log(response.data);
+      console.log(!!response.data);
     } catch (error) {
       console.log(error);
     }

@@ -1,11 +1,11 @@
-import styled from 'styled-components'
-import thumbsUpImg from '../../images/post-id-images/thumbs-up.svg'
-import thumbsDownImg from '../../images/post-id-images/thumbs-down.svg'
+import styled from "styled-components";
+import thumbsUpImg from "../../images/post-id-images/thumbs-up.svg";
+import thumbsDownImg from "../../images/post-id-images/thumbs-down.svg";
 
-import { calculateTimeDiff } from './utils'
-import { createDislike, createLike } from '../../api/answer/answer'
-import { useState } from 'react'
-import Modifying from './Modifying'
+import { calculateTimeDiff } from "./utils";
+import { createDislike, createLike } from "../../api/answer/answer";
+import { useState } from "react";
+import Modifying from "./Modifying";
 
 const QuestionCardWrapper = styled.div`
   padding: 32px;
@@ -17,7 +17,7 @@ const QuestionCardWrapper = styled.div`
 
   /* 1pt */
   box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
-`
+`;
 
 const QuestionCardResult = styled.span`
   padding: 4px 12px;
@@ -27,38 +27,38 @@ const QuestionCardResult = styled.span`
   background: var(--Grayscale-10, #fff);
 
   color: var(--Brown-40, #542f1a);
-  font-feature-settings: 'clig' off, 'liga' off;
+  font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
-`
+`;
 
 const QuestionCardQuestion = styled.div`
   margin: 32px 0px;
-`
+`;
 
 const QuestionCardTerm = styled.div`
   display: flex;
   color: var(--Grayscale-40, #818181);
-  font-feature-settings: 'clig' off, 'liga' off;
+  font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
-`
+`;
 
 const QuestionCardQuestionTitle = styled.div`
   color: var(--Grayscale-60, #000);
-  font-feature-settings: 'clig' off, 'liga' off;
+  font-feature-settings: "clig" off, "liga" off;
   font-family: Actor;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 133.333% */
-`
+`;
 
 const QuestionCardAnswer = styled.div`
   display: flex;
@@ -71,7 +71,7 @@ const QuestionCardAnswer = styled.div`
     flex-shrink: 0;
     border-radius: 100px;
   }
-`
+`;
 
 const QuestionCardAnswerContent = styled.div`
   margin-left: 12px;
@@ -79,7 +79,7 @@ const QuestionCardAnswerContent = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
-`
+`;
 
 const QuestionCardAnswerProfile = styled.div`
   display: flex;
@@ -88,12 +88,12 @@ const QuestionCardAnswerProfile = styled.div`
   & div {
     margin-right: 8px;
   }
-`
+`;
 
 const QuestionCardBottom = styled.div`
   margin-top: 32px;
   border-top: 1px solid #cfcfcf;
-`
+`;
 
 const QuestionCardBottomStatus = styled.div`
   display: flex;
@@ -102,52 +102,52 @@ const QuestionCardBottomStatus = styled.div`
   & img {
     margin-right: 6px;
   }
-`
+`;
 
 const ThumbsUp = styled.div`
   margin-right: 32px;
   color: var(--Blue-50, #1877f2);
-  font-feature-settings: 'clig' off, 'liga' off;
+  font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
-`
+`;
 
 const ThumbsDown = styled.div`
   color: var(--Grayscale-40, #818181);
-  font-feature-settings: 'clig' off, 'liga' off;
+  font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
-`
+`;
 
 function QuestionCard({ id, question, profile, handleModifyClick }) {
-  const isModifying = true
-  const [like, setLike] = useState(question.like)
-  const [dislike, setDislike] = useState(question.dislike)
+  const isModifying = true;
+  const [like, setLike] = useState(question.like);
+  const [dislike, setDislike] = useState(question.dislike);
 
   const handleLikeClick = async () => {
-    const res = await createLike(question.id)
-    setLike(res.data.like)
-  }
+    const res = await createLike(question.id);
+    setLike(res.data.like);
+  };
 
   const handleDislikeClick = async () => {
-    const res = await createDislike(question.id)
-    setDislike(res.data.dislike)
-  }
+    const res = await createDislike(question.id);
+    setDislike(res.data.dislike);
+  };
 
-  const answer = question.answer
-  const isAnswered = !!answer
-  console.log(answer)
+  const answer = question.answer;
+  const isAnswered = !!answer;
+  console.log(answer);
 
   return (
     <QuestionCardWrapper>
       <QuestionCardResult>
-        {question.answer ? '답변완료' : '미답변'}
+        {question.answer ? "답변완료" : "미답변"}
       </QuestionCardResult>
 
       <QuestionCardQuestion>
@@ -159,9 +159,10 @@ function QuestionCard({ id, question, profile, handleModifyClick }) {
           {question.content}
         </QuestionCardQuestionTitle>
       </QuestionCardQuestion>
+
       {/* 답변 작성할 수 있는 곳 */}
       <QuestionCardAnswer>
-        <img src={profile.imageSource} alt='profile'></img>
+        <img src={profile.imageSource} alt="profile"></img>
 
         <QuestionCardAnswerContent>
           <QuestionCardAnswerProfile>
@@ -178,20 +179,20 @@ function QuestionCard({ id, question, profile, handleModifyClick }) {
         <QuestionCardBottomStatus>
           <img
             src={thumbsUpImg}
-            alt='thumbs-up'
+            alt="thumbs-up"
             onClick={handleLikeClick}
           ></img>
           <ThumbsUp onClick={handleLikeClick}>좋아요 {like}</ThumbsUp>
           <img
             src={thumbsDownImg}
-            alt='thumbs-down'
+            alt="thumbs-down"
             onClick={handleDislikeClick}
           ></img>
           <ThumbsDown onClick={handleDislikeClick}>싫어요 {dislike}</ThumbsDown>
         </QuestionCardBottomStatus>
       </QuestionCardBottom>
     </QuestionCardWrapper>
-  )
+  );
 }
 
-export default QuestionCard
+export default QuestionCard;
