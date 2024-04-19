@@ -2,7 +2,9 @@ import styled from "styled-components";
 import linkImg from "../../images/post-id-images/link.svg";
 import kakaoImg from "../../images/post-id-images/kakaoImage.svg";
 import facebookImg from "../../images/post-id-images/facebookImage.svg";
+import logoImg from "../../images/post-id-images/logo.svg";
 import { useState, useEffect } from "react";
+import { FacebookShareButton } from "react-share";
 
 const Profile = styled.div`
   display: flex;
@@ -101,8 +103,7 @@ function StyledProfile({ profile }) {
       content: {
         title: "오픈마인드",
         description: "질문 공유 사이트",
-        imageUrl:
-          "https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
+        imageUrl: { logoImg },
         link: {
           mobileWebUrl: realUrl,
         },
@@ -118,21 +119,9 @@ function StyledProfile({ profile }) {
     });
   };
 
-  const handleFacebookClick = () => {
-    const currentURL = window.location.href;
-
-    // Open Facebook Share Dialog with the current URL
-    window.open(
-      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-        currentURL
-      )}`,
-      "_blank"
-    );
-  };
-
   useEffect(() => {
     Kakao.cleanup();
-    Kakao.init(""); // APP_KEY 필요
+    Kakao.init(""); // KAKAO_APP_KEY
   }, [Kakao]);
 
   return (
@@ -143,11 +132,9 @@ function StyledProfile({ profile }) {
         <Link src={linkImg} alt="link" onClick={handleClick} />
         {showToast && <Toast>URL이 복사되었습니다</Toast>}
         <Kakaotalk src={kakaoImg} alt="kakao" onClick={handleKaKaoClick} />
-        <Facebook
-          src={facebookImg}
-          alt="facebook"
-          onClick={handleFacebookClick}
-        />
+        <FacebookShareButton url={encodeURIComponent(realUrl)}>
+          <Facebook src={facebookImg} alt="facebook" />
+        </FacebookShareButton>
       </ProfileShare>
     </Profile>
   );
