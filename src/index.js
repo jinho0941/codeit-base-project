@@ -8,7 +8,6 @@ import ListPage from './pages/list-page'
 import PostIdPage from './pages/post-id-page'
 import AnswerPage from './pages/answer-page'
 import MainPage from './pages/main-page'
-import ApiTestPage from './pages/api-test-page'
 
 const router = createBrowserRouter([
   {
@@ -30,10 +29,6 @@ const router = createBrowserRouter([
     path: '/post/:postId/answer',
     element: <AnswerPage />,
     children: [],
-  },
-  {
-    path: '/apiTest',
-    element: <ApiTestPage />,
   },
 ])
 

@@ -1,13 +1,73 @@
-// 진호, 호민님 작성 페이지
-import { useParams } from 'react-router-dom'
+import { createGlobalStyle } from "styled-components";
+import { useEffect, useState } from "react";
+import Container from "../component/post-id/Container";
+import Background from "../component/post-id/Background";
+import StyledProfile from "../component/post-id/StyledProfile";
+import ContentsContainer from "../component/post-id/ContentsContainer";
+import AddQuestion from "../component/post-id/AddQuestion";
+import QuestionModal from "../component/post-id/QuestionModal";
+import { getSubject } from "../api/post-id/post-api";
+import { useParams } from "react-router-dom";
 
-const PostIdPage = () => {
-  const params = useParams()
-  const postId = params.postId
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
 
-  console.log(postId)
+  body {
+    margin: 0;
+  }
+`;
 
-  return <div>post id page</div>
+function App() {
+  const [profile, setProfile] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const params = useParams();
+
+  const handleLoadProfile = async () => {
+    const result = await getSubject(params.postId);
+
+    return result;
+  };
+
+  useEffect(() => {
+    handleLoadProfile()
+      .then((r) => {
+        const { name, imageSource } = r.data;
+
+        setProfile({
+          name,
+          imageSource,
+        });
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  const handleModal = () =>
+    modalVisible ? setModalVisible(false) : setModalVisible(true);
+
+  if (!profile) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <>
+      <GlobalStyle />
+      <Container>
+        <Background />
+        <StyledProfile profile={profile} />
+        <ContentsContainer profile={profile} id={params.postId} />
+      </Container>
+      <AddQuestion onModalClick={handleModal} />
+      {modalVisible ? (
+        <QuestionModal
+          modalVisible={modalVisible}
+          onModalState={setModalVisible}
+          profile={profile}
+        />
+      ) : null}
+    </>
+  );
 }
 
-export default PostIdPage
+export default App;
