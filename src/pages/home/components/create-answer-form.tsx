@@ -31,12 +31,15 @@ const CreateAnswerForm = ({ onCreate }: Props) => {
     >
       <Input
         rounded='lg'
+        size='lg'
         icon={FiUser}
         value={name}
         onChange={onChange}
         placeholder='이름을 입력하세요'
       />
-      <Button rounded='lg'>질문 받기</Button>
+      <Button rounded='lg' size='lg'>
+        질문 받기
+      </Button>
     </form>
   )
 }

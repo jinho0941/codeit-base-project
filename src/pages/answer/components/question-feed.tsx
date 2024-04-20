@@ -1,18 +1,33 @@
 import { BsChatText } from 'react-icons/bs'
-import { IQuestion } from '../../../model/api'
+import { IQuestion, ISubject } from '../../../model/api'
 import { NoQuestions } from '../../../components/no-questions'
 import { QuestionCard } from './question-card'
+import { Button } from '../../../components/ui/button'
 
 type Props = {
+  deleteModalOpen: () => void
   questionCount: number
   questions: IQuestion[]
+  subject: ISubject
+  updateQuestions: () => void
 }
 
-export const QuestionFeed = ({ questionCount, questions }: Props) => {
+export const QuestionFeed = ({
+  deleteModalOpen,
+  questionCount,
+  questions,
+  subject,
+  updateQuestions,
+}: Props) => {
   const hasQuestion = !!questionCount
 
   return (
-    <section className='lg:w-[888px] w-full mx-auto xl:px-0 px-5 pt-12'>
+    <section className='lg:w-[888px] w-full mx-auto xl:px-0 px-5 pt-5'>
+      <div className='py-3 flex justify-end'>
+        <Button onClick={deleteModalOpen} rounded='full' width={120}>
+          삭제하기
+        </Button>
+      </div>
       <div className='bg-amber-800/10 rounded-xl flex flex-col py-3 border border-amber-700 shadow-md'>
         {!hasQuestion ? (
           <NoQuestions />
@@ -29,9 +44,12 @@ export const QuestionFeed = ({ questionCount, questions }: Props) => {
                   id={question.id}
                   createdAt={question.createdAt}
                   content={question.content}
-                  hasAnswered={!!question.answer}
+                  answer={question.answer}
                   likes={question.like}
                   dislikes={question.dislike}
+                  name={subject.name}
+                  img={subject.imageSource}
+                  updateQuestions={updateQuestions}
                 />
               ))}
             </ul>

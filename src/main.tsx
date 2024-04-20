@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import ListPage from './pages/list/page.tsx'
 import PostIdPage from './pages/post-id/page.tsx'
+import AnswerPage from './pages/answer/page.tsx'
 
 const router = createBrowserRouter([
   {
@@ -25,11 +26,15 @@ const router = createBrowserRouter([
     path: '/post/:postId',
     element: <PostIdPage />,
   },
+  {
+    path: '/post/:postId/answer',
+    element: <AnswerPage />,
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <>
     <Toaster position='top-center' />
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  </>,
 )

@@ -22,7 +22,7 @@ const HomePage = () => {
   }
 
   return (
-    <main className='h-screen bg-slate-300'>
+    <main className='h-screen '>
       <DesktopLinkButton />
       <div className='flex flex-col items-center pt-28'>
         <Logo />
