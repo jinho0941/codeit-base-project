@@ -7,6 +7,92 @@ import { IAnswer } from '../../../model/api'
 import { Answer } from './answer'
 import { DeleteQuestionButton } from './delete-question-button'
 
+import styled from 'styled-components'
+
+const StyledDiv = styled.div`
+  background-color: #fff;
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+`
+const FlexContainer = styled.div`
+  display: flex;
+`
+
+const StyledButton = styled.button`
+  margin-right: auto;
+  border: 1px solid;
+  border-radius: 0.25rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: extrabold;
+`
+
+const StyledDiv2 = styled.div`
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: #718096;
+  display: flex;
+`
+
+const StyledParagraph = styled.p`
+  margin-left: 0.25rem;
+`
+
+const StyledDiv3 = styled.div`
+  border-top: 1px solid #d1d5db;
+  margin-top: 2rem;
+`
+const StyledContainer2 = styled.div`
+  margin-top: 1.5rem; /* mt-6 */
+  margin-bottom: 0.75rem; /* mb-3 */
+  color: #718096; /* text-gray-500 */
+`
+
+const StyledStyledContainer3 = styled.div`
+  display: flex;
+  align-items: center; /* items-center */
+  gap: 2rem; /* gap-x-8 */
+`
+
+const StyledLikeButton = styled.button`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    color: #4299e1; /* hover:text-blue-500 */
+  }
+`
+
+const ThumbsUpIcon = styled(FaRegThumbsUp)`
+  height: 1rem; /* h-4 */
+  width: 1rem; /* w-4 */
+`
+
+const StyledSpan = styled.span`
+  margin-left: 0.25rem; /* ml-1 */
+`
+
+const ThumbsDownIcon = styled(FaRegThumbsDown)`
+  height: 1rem; /* h-4 */
+  width: 1rem; /* w-4 */
+`
+
+const StyledDislikeButton = styled.button`
+  display: flex;
+  align-items: center;
+  &:hover {
+    color: #f43f5e; /* hover:text-rose-500 */
+  }
+`
+
 type Props = {
   id: number
   createdAt: string
@@ -102,26 +188,25 @@ export const QuestionCard = ({
   }
 
   return (
-    <div className='bg-white w-full rounded-xl p-6 flex flex-col shadow-lg'>
-      <div className='flex'>
+    <StyledDiv>
+      <FlexContainer>
         <div>
-          <button
-            className={`mr-auto border rounded-lg py-1 px-2 text-sm font-extrabold ${
-              hasAnswered
-                ? 'border-amber-900 text-amber-900'
-                : 'border-gray-500 text-gray-500'
-            }`}
+          <StyledButton
+            style={{
+              borderColor: hasAnswered ? '#ED8E18' : '#718096',
+              color: hasAnswered ? '#ED8E18' : '#718096',
+            }}
           >
             {hasAnswered ? '답변 완료' : '미답변'}
-          </button>
-          <div className='mt-6 text-xs text-gray-400 flex'>
+          </StyledButton>
+          <StyledDiv2>
             <span>질문 ·</span>
-            <p className='ml-1'>{date}</p>
-          </div>
+            <StyledParagraph>{date}</StyledParagraph>
+          </StyledDiv2>
           <p className='font-medium text-xl'>{content}</p>
         </div>
         <DeleteQuestionButton onDelete={onQuestionDelete} />
-      </div>
+      </FlexContainer>
       {!cAnswer ? (
         <AnswerForm name={name} onCreate={onAnswerCreate} />
       ) : (
@@ -134,32 +219,32 @@ export const QuestionCard = ({
           onModify={onAnswerModify}
         />
       )}
-      <div className='border-t border-gray-300 mt-8' />
+      <StyledDiv3 />
 
-      <div className='mt-6 mb-3 text-gray-500'>
-        <div className='flex items-center gap-x-8'>
-          <button
+      <StyledContainer2>
+        <StyledStyledContainer3>
+          <StyledLikeButton
             onClick={likeClicked}
-            className={`flex items-center hover:text-blue-500 ${
-              !!like && 'text-sky-500'
-            }`}
+            style={{
+              color: like ? '#3182ce' : 'inherit',
+            }}
           >
-            <FaRegThumbsUp className='h-4 w-4' />
-            <span className='ml-1'>좋아요</span>
-            {!!like && <span className='ml-1'>{like}</span>}
-          </button>
-          <button
+            <ThumbsUpIcon />
+            <StyledSpan>좋아요</StyledSpan>
+            {!!like && <StyledSpan>{like}</StyledSpan>}
+          </StyledLikeButton>
+          <StyledDislikeButton
             onClick={disLikeClicked}
-            className={`flex items-center hover:text-rose-500 ${
-              !!dislike && 'text-red-500'
-            }`}
+            style={{
+              color: !!dislike ? '#f43f5e' : 'inherit',
+            }}
           >
-            <FaRegThumbsDown className='h-4 w-4 ' />
-            <span className='ml-1'>싫어요</span>
-            {!!dislike && <span className='ml-1'>{dislike}</span>}
-          </button>
-        </div>
-      </div>
-    </div>
+            <ThumbsDownIcon />
+            <StyledSpan>싫어요</StyledSpan>
+            {!!dislike && <StyledSpan>{dislike}</StyledSpan>}
+          </StyledDislikeButton>
+        </StyledStyledContainer3>
+      </StyledContainer2>
+    </StyledDiv>
   )
 }

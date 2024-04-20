@@ -3,6 +3,67 @@ import { IQuestion, ISubject } from '../../../model/api'
 import { NoQuestions } from '../../../components/no-questions'
 import { QuestionCard } from './question-card'
 import { Button } from '../../../components/ui/button'
+import styled from 'styled-components'
+
+const StyledSection = styled.section`
+  width: 100%; /* w-full */
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 3rem; /* pt-12 */
+
+  @media (min-width: 1024px) {
+    width: 888px; /* lg:w-[888px] */
+  }
+
+  @media (min-width: 1280px) {
+    padding-left: 0; /* xl:px-0 */
+    padding-right: 0; /* xl:px-0 */
+  }
+
+  @media (max-width: 1280px) {
+    padding-left: 0.625rem; /* px-5 */
+    padding-right: 0.625rem; /* px-5 */
+  }
+`
+
+const StyledDiv = styled.div`
+  background-color: rgba(255, 193, 7, 0.1); /* bg-amber-800/10 */
+  border-radius: 0.75rem; /* rounded-xl */
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.75rem; /* py-3 */
+  border: 1px solid #c99700; /* border */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+`
+
+const StyledH2 = styled.h2`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 500; /* font-medium */
+  color: #ffc107; /* text-amber-800 */
+`
+
+const StyledSpan = styled.span`
+  margin-left: 0.75rem; /* ml-3 */
+`
+
+const StyledUl = styled.ul`
+  margin-top: 1.25rem; /* mt-5 */
+  width: 100%; /* w-full */
+  padding: 1.25rem; /* p-5 */
+  list-style-type: none;
+  & > * + * {
+    margin-top: 1.25rem; /* space-y-5 */
+  }
+`
+const StyledDiv1 = styled.div`
+  padding-top: 0.75rem; /* py-3이 0.75rem에 해당함 */
+  display: flex; /* flexbox를 사용하여 요소들을 가로로 정렬 */
+  justify-content: flex-end; /* 가로 방향으로 끝으로 정렬 */
+`
 
 type Props = {
   deleteModalOpen: () => void
@@ -22,22 +83,22 @@ export const QuestionFeed = ({
   const hasQuestion = !!questionCount
 
   return (
-    <section className='lg:w-[888px] w-full mx-auto xl:px-0 px-5 pt-5'>
-      <div className='py-3 flex justify-end'>
+    <StyledSection>
+      <StyledDiv1>
         <Button onClick={deleteModalOpen} rounded='full' width={120}>
           삭제하기
         </Button>
-      </div>
-      <div className='bg-amber-800/10 rounded-xl flex flex-col py-3 border border-amber-700 shadow-md'>
+      </StyledDiv1>
+      <StyledDiv>
         {!hasQuestion ? (
           <NoQuestions />
         ) : (
           <>
-            <h2 className='flex justify-center items-center text-2xl font-medium text-amber-800'>
-              <BsChatText /> <span className='ml-3'>{questionCount}</span>개의
-              질문이 있습니다.
-            </h2>
-            <ul className='mt-5 w-full space-y-5 p-5'>
+            <StyledH2>
+              <BsChatText /> <StyledSpan>{questionCount}</StyledSpan>개의 질문이
+              있습니다.
+            </StyledH2>
+            <StyledUl>
               {questions.map((question) => (
                 <QuestionCard
                   key={question.id}
@@ -52,10 +113,10 @@ export const QuestionFeed = ({
                   updateQuestions={updateQuestions}
                 />
               ))}
-            </ul>
+            </StyledUl>
           </>
         )}
-      </div>
-    </section>
+      </StyledDiv>
+    </StyledSection>
   )
 }

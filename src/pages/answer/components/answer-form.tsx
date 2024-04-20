@@ -1,4 +1,51 @@
 import { useState } from 'react'
+import styled from 'styled-components'
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  border-radius: 1rem;
+  width: 100%;
+  z-index: 20;
+  padding-left: 5rem;
+`
+
+const StyledDiv = styled.div`
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+`
+
+const StyledSpan = styled.span`
+  margin-left: 0.5rem;
+  font-weight: 600;
+`
+
+const StyledTextarea = styled.textarea`
+  margin-top: 1.25rem;
+  background-color: #eeeeee;
+  height: 10rem;
+  resize: none;
+  border: none;
+  padding: 0.5rem;
+  outline: none;
+  border-radius: 0.75rem;
+`
+
+const StyledButton = styled.button`
+  margin-top: 0.75rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  background-color: #ffa300;
+  padding: 1rem;
+  color: #fff;
+  border-radius: 0.75rem;
+  &:disabled {
+    background-color: rgba(111, 111, 22, 0.3);
+  }
+  transition: background-color 0.2s;
+`
 
 type Props = {
   name: string
@@ -17,26 +64,18 @@ export const AnswerForm = ({ name, onCreate }: Props) => {
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className='flex flex-col ml-auto rounded-2xl w-full z-20 pl-20'
-    >
-      <div className='mt-10 flex items-center'>
-        <span className='ml-2 font-semibold'>{name}</span>
-      </div>
-      <textarea
+    <StyledForm onSubmit={onSubmit}>
+      <StyledDiv>
+        <StyledSpan>{name}</StyledSpan>
+      </StyledDiv>
+      <StyledTextarea
         placeholder='질문을 입력해주세요'
-        className='mt-5 bg-slate-100 h-40 resize-none border-none p-2 outline-none rounded-xl'
         value={textareaValue}
         onChange={handleChange}
       />
-      <button
-        type='submit'
-        disabled={!textareaValue}
-        className='mt-3 mb-8 w-full bg-amber-900 p-4 text-white rounded-xl disabled:bg-amber-900/30 transition duration-200'
-      >
+      <StyledButton type='submit' disabled={!textareaValue}>
         답변 완료
-      </button>
-    </form>
+      </StyledButton>
+    </StyledForm>
   )
 }

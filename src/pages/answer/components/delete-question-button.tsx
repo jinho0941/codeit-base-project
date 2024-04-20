@@ -1,4 +1,9 @@
 import { Button } from '../../../components/ui/button'
+import styled from 'styled-components'
+
+const DivWithMarginAuto = styled.div`
+  margin-left: auto;
+`
 
 type Props = {
   onDelete: () => void
@@ -6,10 +11,10 @@ type Props = {
 
 export const DeleteQuestionButton = ({ onDelete }: Props) => {
   return (
-    <div className='ml-auto'>
+    <DivWithMarginAuto>
       <Button onClick={onDelete} rounded='full' size='sm'>
         삭제
       </Button>
-    </div>
+    </DivWithMarginAuto>
   )
 }

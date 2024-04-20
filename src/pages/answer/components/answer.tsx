@@ -4,6 +4,48 @@ import { formatDate } from '../../../utils/date'
 import { useState } from 'react'
 import { AnswerActionMenu } from './answer-action-menu'
 import { ModifyForm } from './modify-form'
+import styled from 'styled-components'
+
+const FlexContainer = styled.div`
+  margin-top: 2rem;
+  display: flex;
+`
+
+const FlexColumnContainer = styled.div`
+  margin-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+`
+
+const FlexItemsCenter = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const Heading2 = styled.h2`
+  font-size: 1.25rem;
+`
+
+const DateSpan = styled.span`
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+`
+
+const RelativeDiv = styled.div`
+  position: relative;
+`
+
+const StyledButton = styled.button`
+  margin-left: 0.25rem;
+  padding: 0.75rem;
+  &:hover {
+    background-color: #cbd5e1;
+  }
+  border-radius: 50%;
+`
+const ContentParagraph = styled.p`
+  margin-top: 0.5rem;
+`
 
 type Props = {
   img: string
@@ -45,30 +87,27 @@ export const Answer = ({
           closeForm={onClose}
         />
       ) : (
-        <div className='mt-8 flex'>
+        <FlexContainer>
           <Avatar imgUrl={img} />
-          <div className='ml-5 flex flex-col'>
-            <div className='flex items-center'>
-              <h2 className='text-xl'>{name}</h2>
-              <span className='ml-2 text-sm'>{date}</span>
-              <div className='relative'>
-                <button
-                  onClick={() => setIsOpenMenu((value) => !value)}
-                  className='ml-1 p-3 hover:bg-slate-200 rounded-full'
-                >
+          <FlexColumnContainer>
+            <FlexItemsCenter>
+              <Heading2>{name}</Heading2>
+              <DateSpan>{date}</DateSpan>
+              <RelativeDiv>
+                <StyledButton onClick={() => setIsOpenMenu((value) => !value)}>
                   <GoKebabHorizontal />
-                </button>
+                </StyledButton>
                 {isOpenMenu && (
                   <AnswerActionMenu
                     onDelete={onDelete}
                     onModifyOpen={onModifyOpen}
                   />
                 )}
-              </div>
-            </div>
-            <p className='mt-2'>{content}</p>
-          </div>
-        </div>
+              </RelativeDiv>
+            </FlexItemsCenter>
+            <ContentParagraph>{content}</ContentParagraph>
+          </FlexColumnContainer>
+        </FlexContainer>
       )}
     </>
   )

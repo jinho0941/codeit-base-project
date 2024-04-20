@@ -2,6 +2,65 @@ import { GrAlert } from 'react-icons/gr'
 import { useNavigate, useParams } from 'react-router-dom'
 import api from '../../../utils/api'
 import { Modal } from '../../../components/ui/modal'
+import styled from 'styled-components'
+
+const AbsoluteCenteredDiv = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 1.5rem;
+  width: 666px;
+  border-radius: 0.75rem;
+`
+
+const FlexColumnCentered = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const DeleteConfirmationText = styled.div`
+  margin-top: 0.75rem;
+  font-size: 1.875rem;
+  color: #ed1e79;
+  font-weight: bold;
+`
+
+const AlertIcon = styled(GrAlert)`
+  height: 4rem;
+  width: 4rem;
+  color: #ed1e79;
+`
+
+const GridContainer = styled.div`
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.25rem;
+`
+
+const StyledButton = styled.button`
+  padding: 0.75rem;
+  border-width: 2px;
+  border-radius: 0.75rem;
+  &:hover {
+    background-color: #e5e7eb;
+  }
+`
+
+const DeleteButton = styled.button`
+  padding: 0.75rem;
+  border-width: 2px;
+  border-radius: 0.75rem;
+  background-color: #ed1e79;
+  color: #fff;
+  &:hover {
+    background-color: #b4004e;
+  }
+`
 
 type Props = {
   onClose: () => void
@@ -23,28 +82,18 @@ export const DeleteModal = ({ onClose }: Props) => {
 
   return (
     <Modal onClose={onClose}>
-      <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 w-[666px] rounded-xl'>
-        <div className='flex flex-col items-center'>
-          <GrAlert className='h-16 w-16 text-rose-500' />
-          <div className='mt-3 text-3xl text-rose-500 font-bold'>
+      <AbsoluteCenteredDiv>
+        <FlexColumnCentered>
+          <AlertIcon />
+          <DeleteConfirmationText>
             정말 삭제하시겠습니까?
-          </div>
-        </div>
-        <div className='mt-7 mb-3 grid grid-cols-2 gap-x-5'>
-          <button
-            onClick={onClose}
-            className='p-3 border-[2px] rounded-xl hover:bg-gray-200'
-          >
-            취소하기
-          </button>
-          <button
-            onClick={deletePost}
-            className='p-3 border-[2px] rounded-xl hover:bg-rose-700 bg-rose-500 text-white'
-          >
-            삭제하기
-          </button>
-        </div>
-      </div>
+          </DeleteConfirmationText>
+        </FlexColumnCentered>
+        <GridContainer>
+          <StyledButton onClick={onClose}>취소하기</StyledButton>
+          <DeleteButton onClick={deletePost}>삭제하기</DeleteButton>
+        </GridContainer>
+      </AbsoluteCenteredDiv>
     </Modal>
   )
 }
