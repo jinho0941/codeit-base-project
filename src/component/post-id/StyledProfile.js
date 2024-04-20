@@ -121,7 +121,7 @@ function StyledProfile({ profile }) {
 
   useEffect(() => {
     Kakao.cleanup();
-    Kakao.init(""); // KAKAO_APP_KEY
+    Kakao.init("76555a6801feb9d435c1edae90898fc1"); // KAKAO_APP_KEY
   }, [Kakao]);
 
   return (
