@@ -1,4 +1,4 @@
-import { useState, useTransition } from 'react'
+import { useState } from 'react'
 import { FiUser } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import api from '../../utils/api'
@@ -17,7 +17,9 @@ export const Form = () => {
     e.preventDefault()
     try {
       const response = await api.post('/subjects/', { name: inputValue })
-      navigate(`/post/${response.data.id}/answer`)
+      const postId = response.data.id
+      localStorage.setItem('postId', postId)
+      navigate(`/post/${postId}/answer`)
     } catch (error) {
       toast.error('something went wrong')
     }

@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import api from '../../utils/api'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   id: number
   name: string
+  value?: string
 }
 
-export const AnswerForm = ({ name, id }: Props) => {
-  const [textareaValue, setTextareaValue] = useState<string>('')
+export const AnswerForm = ({ name, id, value = '' }: Props) => {
+  const [textareaValue, setTextareaValue] = useState<string>(value)
   const navigate = useNavigate()
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -17,8 +18,7 @@ export const AnswerForm = ({ name, id }: Props) => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      console.log(id)
-      const response = await api.post(`/questions/${id}/answers/`, {
+      await api.post(`/questions/${id}/answers/`, {
         content: textareaValue,
         isRejected: false,
       })

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FaArrowRight } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   onNameSortClick: () => void
@@ -7,6 +8,7 @@ type Props = {
 }
 
 export const Header = ({ onNameSortClick, onDateSortClick }: Props) => {
+  const navigation = useNavigate()
   const [selectedValue, setSelectedValue] = useState('')
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value)
@@ -17,11 +19,24 @@ export const Header = ({ onNameSortClick, onDateSortClick }: Props) => {
     }
   }
 
+  const onClick = () => {
+    const postId = localStorage.getItem('postId')
+    console.log(postId)
+    if (!postId) {
+      navigation('/')
+      return
+    }
+    navigation(`/post/${postId}/answer`)
+  }
+
   return (
     <>
       <div className='flex justify-center sm:justify-between items-center mx-20 py-10'>
         <img src='/logo.png' className='w-[222px]' />
-        <button className='sm:flex hidden border border-amber-900 bg-amber-700/10 text-amber-900 px-4 py-3 items-center rounded-lg'>
+        <button
+          onClick={onClick}
+          className='sm:flex hidden border border-amber-900 bg-amber-700/10 text-amber-900 px-4 py-3 items-center rounded-lg'
+        >
           <span>답변하러 가기</span>
           <FaArrowRight className='inline ml-2' />
         </button>

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { FaRegThumbsDown, FaRegThumbsUp } from 'react-icons/fa'
 import api from '../../utils/api'
-import { Link, useParams } from 'react-router-dom'
 import { AnswerForm } from './answer-form'
 import { GoKebabHorizontal } from 'react-icons/go'
 import { Answer } from './answer'
@@ -57,6 +56,8 @@ export const QuestionCard = ({
   const [like, setLike] = useState(likes)
   const [dislike, setDislike] = useState(dislikes)
   const [isOpen, setIsOpen] = useState(false)
+  const [isModify, setIsModify] = useState(false)
+
   const likeClicked = async () => {
     try {
       const response = await api.post(`/questions/${id}/reaction/`, {
@@ -80,12 +81,11 @@ export const QuestionCard = ({
   }
 
   const onModify = () => {
-    
+    setIsModify(true)
+    setIsOpen(false)
   }
 
-  const onDelete = () => {
-
-  }
+  const onDelete = () => {}
 
   return (
     <li className='bg-white w-full rounded-xl p-6 flex flex-col'>
@@ -113,7 +113,7 @@ export const QuestionCard = ({
               {hasAnswered && (
                 <>
                   <button
-                    onClick={() => setIsOpen(false)}
+                    onClick={onModify}
                     className='py-1 rounded-lg  hover:bg-amber-700'
                   >
                     수정하기
@@ -137,15 +137,14 @@ export const QuestionCard = ({
         <p className='ml-1'>{date}</p>
       </div>
       <p className='font-medium text-xl'>{content}</p>
-      {hasAnswered ? (
-        <Answer
-          name={'name'}
-          createdAt={answer.createdAt}
-          content={answer.content}
-        />
+      {isModify ? (
+        <AnswerForm id={id} name={name} value={content} />
+      ) : hasAnswered ? (
+        <Answer name={name} createdAt={createdAt} content={content} />
       ) : (
         <AnswerForm id={id} name={name} />
       )}
+
       <div className='border-t border-gray-300 mt-8' />
       <div className='mt-6 mb-3 text-gray-500'>
         <div className='flex items-center gap-x-8'>
