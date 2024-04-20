@@ -62,7 +62,7 @@ export const QuestionCard = ({
         <span>질문 ·</span>
         <p className='ml-1'>{date}</p>
       </div>
-      <p className='font-medium text-xl'>{content}</p>
+      <p className='font-medium text-xl break-words'>{content}</p>
       <div className='border-t border-gray-300 mt-8' />
 
       <div className='mt-6 mb-3 text-gray-500'>
