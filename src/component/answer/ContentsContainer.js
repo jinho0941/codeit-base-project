@@ -2,17 +2,19 @@ import styled from "styled-components";
 import ContentsTitle from "./ContentsTitle";
 import QuestionCardList from "./QuestionCardList";
 import { useEffect, useState } from "react";
-import { getQuestion } from "../../api/answer/answer";
+import { getQuestion } from "../../api/post-id/post-api";
+import { useParams } from "react-router-dom";
 
 const StyledContentsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: calc(100vw - 600px);
+  margin-top: 100px;
   margin-left: 300px;
   margin-right: 300px;
+  margin-bottom: 50px;
   padding: 16px;
-  margin-top: 100px;
 
   border-radius: 16px;
   border: 1px solid #c7bbb5;
@@ -31,18 +33,19 @@ const StyledContentsContainer = styled.div`
   }
 `;
 
-function ContentsContainer({ profile }) {
+function ContentsContainer({ profile, id }) {
   const [questions, setQuestions] = useState([]);
   const [questionsLength, setQuestionsLength] = useState(0);
   const [offset, setOffset] = useState(0);
-  const limit = 8;
   const [loading, setLoading] = useState(false);
+
+  const limit = 8;
 
   const handleLoadQuestions = async () => {
     let resData;
     try {
       setLoading(true);
-      const res = await getQuestion({ offset, limit });
+      const res = await getQuestion({ offset, limit, id });
       resData = res.data;
     } catch (error) {
       console.error(error);
@@ -67,7 +70,7 @@ function ContentsContainer({ profile }) {
   const handleScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-    if (scrollTop + clientHeight === scrollHeight) {
+    if (scrollTop + clientHeight >= scrollHeight) {
       handleLoadQuestions();
     }
   };
@@ -79,14 +82,16 @@ function ContentsContainer({ profile }) {
     };
   }, [loading]);
 
-  if (!questions) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <StyledContentsContainer>
-      <ContentsTitle questionsLength={questionsLength} />
-      <QuestionCardList questions={questions} profile={profile} />
+      {questions ? (
+        <>
+          <ContentsTitle questionsLength={questionsLength} />
+          <QuestionCardList questions={questions} profile={profile} />
+        </>
+      ) : (
+        <div>Loading...</div>
+      )}
     </StyledContentsContainer>
   );
 }
