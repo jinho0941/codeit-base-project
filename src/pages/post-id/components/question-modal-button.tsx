@@ -1,4 +1,11 @@
+import styled from 'styled-components'
 import { Button } from '../../../components/ui/button'
+
+const FixedDiv = styled.div`
+  position: fixed;
+  bottom: 1.25rem; /* bottom-5 */
+  right: 1.25rem; /* right-5 */
+`
 
 type Props = {
   onOpen: () => void
@@ -6,10 +13,10 @@ type Props = {
 
 export const QuestionModalButton = ({ onOpen }: Props) => {
   return (
-    <div className='fixed bottom-5 right-5'>
+    <FixedDiv>
       <Button onClick={onOpen} rounded='lg' size='lg'>
         질문 작성
       </Button>
-    </div>
+    </FixedDiv>
   )
 }
