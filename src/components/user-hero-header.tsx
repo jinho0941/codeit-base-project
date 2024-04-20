@@ -1,6 +1,47 @@
+import styled from 'styled-components'
 import { Logo } from './logo'
 import { Avatar } from './ui/avatar'
 import { Skeleton } from './ui/skeleton'
+
+const RelativeDiv = styled.div`
+  position: relative;
+`
+const AbsoluteDiv = styled.div`
+  position: absolute;
+  left: 44%;
+  transform: translateX(-50%);
+  width: 200px;
+  top: 33.33%;
+  transform: translateY(-50%);
+  width: 200px;
+
+  @media (min-width: 640px) {
+    width: 250px;
+  }
+`
+
+const Image = styled.img`
+  object-fit: cover;
+  height: 300px;
+  width: 100%;
+`
+
+const AbsoluteDiv2 = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -10px;
+`
+
+const FlexContainer = styled.div`
+  padding-top: 3.5rem; /* 14/4 = 3.5rem */
+  display: flex;
+  justify-content: center;
+`
+
+const Heading = styled.h1`
+  font-size: 1.875rem; /* 3xl에 해당하는 크기 */
+`
 
 type Props = {
   imgUrl: string | undefined
@@ -10,30 +51,26 @@ type Props = {
 export const UserHeroHeader = ({ imgUrl, name }: Props) => {
   return (
     <header>
-      <div className='relative'>
-        <div className='absolute left-1/2 transform -translate-x-1/2 sm:w-[250px] w-[200px] top-1/3 -translate-y-1/2'>
+      <RelativeDiv>
+        <AbsoluteDiv>
           <Logo />
-        </div>
-        <img
-          src='/pb.png'
-          alt='hero'
-          className='object-cover h-[300px] w-full'
-        />
-        <div className='absolute left-1/2 transform -translate-x-1/2 -bottom-10'>
+        </AbsoluteDiv>
+        <Image src='/pb.png' alt='hero' />
+        <AbsoluteDiv2>
           {!imgUrl ? (
             <Skeleton rounded='full' width={122} height={122} />
           ) : (
             <Avatar imgUrl={imgUrl} size='2xl' />
           )}
-        </div>
-      </div>
-      <div className='pt-14 flex justify-center'>
+        </AbsoluteDiv2>
+      </RelativeDiv>
+      <FlexContainer>
         {!name ? (
           <Skeleton rounded='xl' width={200} height={36} />
         ) : (
-          <h1 className='text-3xl'>{name}</h1>
+          <Heading>{name}</Heading>
         )}
-      </div>
+      </FlexContainer>
     </header>
   )
 }

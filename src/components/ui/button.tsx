@@ -17,20 +17,55 @@ export const Button = ({
   width,
   onClick,
 }: Props) => {
+  let dynamicStyle = {}
+
+  if (rounded === 'lg') {
+    dynamicStyle = { borderRadius: '0.375rem' }
+  } else if (rounded === 'xl') {
+    dynamicStyle = { borderRadius: '0.5rem' }
+  } else if (rounded === 'full') {
+    dynamicStyle = { borderRadius: '9999px' }
+  }
+
+  if (size === 'sm') {
+    dynamicStyle = { ...dynamicStyle, padding: '0.25rem 0.5rem' }
+  } else if (size === 'lg') {
+    dynamicStyle = { ...dynamicStyle, padding: '0.75rem 1.25rem' }
+  }
+
   return (
     <button
-      className={`w-full flex items-center justify-center py-2 px-4 disabled:cursor-not-allowed ${
-        outline
-          ? 'border border-amber-800 bg-white text-amber-800 hover:bg-slate-100 disabled:bg-slate-200'
-          : 'bg-amber-800 text-white hover:bg-amber-900 disabled:bg-amber-800/40'
-      }
-      ${rounded === 'lg' && 'rounded-lg'}
-      ${rounded === 'xl' && 'rounded-xl'}
-      ${rounded === 'full' && 'rounded-full'}
-      ${size === 'sm' && 'py-1 px-2'}
-      ${size === 'lg' && 'py-3 px-5'}
-      `}
-      style={{ width }}
+      style={{
+        width: width ? `${width}px` : '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '0.5rem 1rem',
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        ...(outline
+          ? {
+              border: '1px solid #fbbf24',
+              backgroundColor: '#ffffff',
+              color: '#fbbf24',
+              ':hover': {
+                backgroundColor: '#d1d5db',
+              },
+              ':disabled': {
+                backgroundColor: '#e5e7eb',
+              },
+            }
+          : {
+              backgroundColor: '#fbbf24',
+              color: '#ffffff',
+              ':hover': {
+                backgroundColor: '#f59e0b',
+              },
+              ':disabled': {
+                backgroundColor: 'rgba(251, 191, 24, 0.4)',
+              },
+            }),
+        ...dynamicStyle,
+      }}
       disabled={disabled}
       onClick={onClick}
     >

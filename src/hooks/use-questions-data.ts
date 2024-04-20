@@ -21,7 +21,6 @@ const useQuestionsData = (postId: string) => {
         const count = data.count
         setQuestionCount(count)
         setQuestionsData((prev: IQuestion[]) => [...prev, ...questions])
-        console.log(questions)
       } catch (error) {
         console.log(error)
       }
