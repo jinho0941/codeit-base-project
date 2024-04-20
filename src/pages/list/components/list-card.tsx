@@ -1,6 +1,54 @@
 import { IoChatbubbleEllipsesOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 import { Skeleton } from '../../../components/ui/skeleton'
+import styled from 'styled-components'
+
+const StyledLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem; /* p-6 */
+  gap: 1.25rem; /* gap-y-5 */
+  border: 1px solid #2d3748; /* border border-gray-800 */
+  border-radius: 0.75rem; /* rounded-xl */
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(98, 124, 143, 0.1); /* hover:bg-slate-200/50 */
+  }
+`
+const StyledImg = styled.img`
+  border-radius: 9999px; /* rounded-full */
+  height: 5rem; /* h-20 */
+  width: 5rem; /* w-20 */
+`
+
+const StyledName = styled.p`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1; /* line-clamp-1 */
+`
+
+const StyledOuterDiv = styled.div`
+  display: flex;
+  justify-content: space-between; /* justify-between */
+  color: #a0aec0; /* text-gray-400 */
+`
+
+const StyledDiv = styled.div`
+  display: flex;
+  align-items: center; /* items-center */
+`
+
+const StyledParagraph = styled.p`
+  margin-left: 0.25rem; /* ml-1 */
+`
+
+const StyledIcon = styled(IoChatbubbleEllipsesOutline)`
+  height: 1.5rem; /* h-6 */
+  width: 1.5rem; /* w-6 */
+`
 
 type Props = {
   id: number
@@ -11,20 +59,17 @@ type Props = {
 
 export const ListCard = ({ id, img, name, questionCount }: Props) => {
   return (
-    <Link
-      to={`/post/${id}`}
-      className='hover:bg-slate-200/50 border border-gray-800 rounded-xl flex flex-col p-6 gap-y-5 cursor-pointer'
-    >
-      <img src={img} alt='img' className='rounded-full h-20 w-20' />
-      <p className='line-clamp-1'>{name}</p>
-      <div className='flex justify-between text-gray-400'>
-        <div className='flex items-center'>
-          <IoChatbubbleEllipsesOutline className='h-6 w-6' />
-          <p className='ml-1'>받은 질문</p>
-        </div>
+    <StyledLink to={`/post/${id}`}>
+      <StyledImg src={img} alt='img' />
+      <StyledName>{name}</StyledName>
+      <StyledOuterDiv>
+        <StyledDiv>
+          <StyledIcon />
+          <StyledParagraph>받은 질문</StyledParagraph>
+        </StyledDiv>
         <span>{questionCount}</span>
-      </div>
-    </Link>
+      </StyledOuterDiv>
+    </StyledLink>
   )
 }
 

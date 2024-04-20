@@ -1,4 +1,29 @@
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
+import styled from 'styled-components'
+
+const StyledContainer = styled.div`
+  padding-top: 2.5rem; /* pt-10 */
+  display: flex;
+  justify-content: center; /* justify-center */
+`
+
+const StyledLeftIcon = styled(BiChevronLeft)`
+  height: 1.5rem; /* h-6 */
+  width: 1.5rem; /* w-6 */
+`
+
+const StyledRightIcon = styled(BiChevronRight)`
+  height: 1.5rem; /* h-6 */
+  width: 1.5rem; /* w-6 */
+`
+
+const StyledDiv = styled.div`
+  display: flex;
+  gap: 1.25rem; /* gap-x-5 */
+  margin-left: 2.5rem; /* mx-10 */
+  margin-right: 2.5rem; /* mx-10 */
+  align-items: center; /* items-center */
+`
 
 type Props = {
   startPage: number
@@ -26,8 +51,10 @@ export const Pagination = ({
         <button
           key={i}
           onClick={() => goToPage(i)}
-          className={
-            currentPage === i ? 'font-bold text-xl text-indigo-500' : ''
+          style={
+            currentPage === i
+              ? { fontWeight: 'bold', fontSize: '1.25rem', color: '#4f46e5' }
+              : {}
           }
         >
           {i}
@@ -39,24 +66,14 @@ export const Pagination = ({
   }
 
   return (
-    <div className='pt-10 flex justify-center'>
-      <button
-        onClick={goToPrevPage}
-        disabled={currentPage === 1}
-        className='disabled:text-gray-200'
-      >
-        <BiChevronLeft className='h-6 w-6' />
+    <StyledContainer>
+      <button onClick={goToPrevPage} disabled={currentPage === 1}>
+        <StyledLeftIcon />
       </button>
-      <div className='flex gap-x-5 mx-10 items-center'>
-        {generatePageNumbers()}
-      </div>
-      <button
-        onClick={goToNextPage}
-        disabled={currentPage === totalPages}
-        className='disabled:text-gray-200'
-      >
-        <BiChevronRight className='h-6 w-6' />
+      <StyledDiv>{generatePageNumbers()}</StyledDiv>
+      <button onClick={goToNextPage} disabled={currentPage === totalPages}>
+        <StyledRightIcon />
       </button>
-    </div>
+    </StyledContainer>
   )
 }

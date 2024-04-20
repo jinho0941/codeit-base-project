@@ -1,4 +1,12 @@
 import { useState } from 'react'
+import styled from 'styled-components'
+
+const StyledSelect = styled.select`
+  outline: none; /* outline-none */
+  border: 1px solid black; /* border */
+  border-radius: 0.375rem; /* rounded-md */
+  padding: 0.5rem; /* p-2 */
+`
 
 type Props = {
   sortSubjectsByDate: () => void
@@ -20,13 +28,9 @@ export const SortOptions = ({
   }
 
   return (
-    <select
-      value={selectedValue}
-      onChange={handleChange}
-      className='outline-none border rounded-md border-black p-2'
-    >
+    <StyledSelect value={selectedValue} onChange={handleChange}>
       <option value='latest'>최신순</option>
       <option value='name'>이름순</option>
-    </select>
+    </StyledSelect>
   )
 }
