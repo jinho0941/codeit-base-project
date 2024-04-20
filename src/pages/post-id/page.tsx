@@ -9,13 +9,25 @@ import useScrollEvent from '../../hooks/use-scroll-event'
 import { QuestionFeed } from './components/question-feed'
 import { QuestionModalButton } from './components/question-modal-button'
 
+import styled from 'styled-components'
+
+const Main = styled.main`
+  height: 100vh;
+`
+
+const CenteredFlex = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 const PostIdPage = () => {
   const params = useParams<{ postId: string }>()
   const postId = params.postId
+  if (!postId) return
 
-  const { subjectIdData } = useSubjectIdData(postId!)
+  const { subjectIdData } = useSubjectIdData(postId)
   const { questionCount, questionsData, offset, setOffset, updateQuestions } =
-    useQuestionsData(postId!)
+    useQuestionsData(postId)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentOffset, setCurrentOffset] = useState(offset)
@@ -47,14 +59,14 @@ const PostIdPage = () => {
           onClose={onClose}
         />
       )}
-      <main className='h-screen'>
+      <Main>
         <UserHeroHeader
-          imgUrl={subjectIdData?.imageSource}
-          name={subjectIdData?.name}
+          imgUrl={subjectIdData.imageSource}
+          name={subjectIdData.name}
         />
-        <div className='flex justify-center '>
+        <CenteredFlex>
           <ShareIcons />
-        </div>
+        </CenteredFlex>
 
         <QuestionFeed
           questionCount={questionCount || 0}
@@ -62,7 +74,7 @@ const PostIdPage = () => {
         />
 
         <QuestionModalButton onOpen={() => setIsModalOpen(true)} />
-      </main>
+      </Main>
     </>
   )
 }

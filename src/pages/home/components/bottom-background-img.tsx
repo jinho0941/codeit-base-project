@@ -1,7 +1,18 @@
+import styled from 'styled-components'
+
+const BottomBackgroundImgWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1111px; /* Tailwind CSS 클래스를 직접 스타일로 변경 */
+`
+
 export const BottomBackgroundImg = () => {
   return (
-    <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 xl:w-[1111px] md:w-[777px] w-full'>
+    <BottomBackgroundImgWrapper>
       <img src='/bottom.png' alt='bottom-img' />
-    </div>
+    </BottomBackgroundImgWrapper>
   )
 }

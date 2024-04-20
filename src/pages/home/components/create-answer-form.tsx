@@ -3,12 +3,29 @@ import { Button } from '../../../components/ui/button'
 import { Input } from '../../../components/ui/input'
 import { FiUser } from 'react-icons/fi'
 import { toast } from 'sonner'
+import styled from 'styled-components'
+
+const StyledForm = styled.form`
+  margin-top: 5rem; /* mt-20 */
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* gap-y-5 */
+
+  /* Responsive Styles */
+  @media (min-width: 640px) {
+    width: 22.875rem; /* sm:w-[366px] */
+    padding: 0; /* sm:px-0 */
+  }
+  padding: 0.625rem; /* px-5 */
+  margin-left: auto;
+  margin-right: auto;
+`
 
 type Props = {
   onCreate: (name: string) => void
 }
 
-const CreateAnswerForm = ({ onCreate }: Props) => {
+export const CreateAnswerForm = ({ onCreate }: Props) => {
   const [name, setName] = useState('')
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,23 +42,15 @@ const CreateAnswerForm = ({ onCreate }: Props) => {
   }
 
   return (
-    <form
-      className='mt-20 flex flex-col sm:w-[366px] w-full sm:px-0 px-5 mx-auto gap-y-5'
-      onSubmit={onSubmit}
-    >
+    <StyledForm onSubmit={onSubmit}>
       <Input
         rounded='lg'
-        size='lg'
         icon={FiUser}
         value={name}
         onChange={onChange}
         placeholder='이름을 입력하세요'
       />
-      <Button rounded='lg' size='lg'>
-        질문 받기
-      </Button>
-    </form>
+      <Button rounded='lg'>질문 받기</Button>
+    </StyledForm>
   )
 }
-
-export default CreateAnswerForm
