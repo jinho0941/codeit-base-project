@@ -103,8 +103,8 @@ export const QuestionCard = ({
 
   return (
     <div className='bg-white w-full rounded-xl p-6 flex flex-col shadow-lg'>
-      <div className='flex'>
-        <div>
+      <div className='flex flex-col'>
+        <div className='flex justify-between'>
           <button
             className={`mr-auto border rounded-lg py-1 px-2 text-sm font-extrabold ${
               hasAnswered
@@ -114,14 +114,16 @@ export const QuestionCard = ({
           >
             {hasAnswered ? '답변 완료' : '미답변'}
           </button>
-          <div className='mt-6 text-xs text-gray-400 flex'>
-            <span>질문 ·</span>
-            <p className='ml-1'>{date}</p>
-          </div>
-          <p className='font-medium text-xl break-words'>{content}</p>
+          <DeleteQuestionButton onDelete={onQuestionDelete} />
         </div>
-        <DeleteQuestionButton onDelete={onQuestionDelete} />
+        <div className='mt-6 text-xs text-gray-400 flex'>
+          <span>질문 ·</span>
+          <p className='ml-1'>{date}</p>
+        </div>
       </div>
+
+      <p className='font-medium text-xl break-words'>{content}</p>
+
       {!cAnswer ? (
         <AnswerForm name={name} onCreate={onAnswerCreate} />
       ) : (
