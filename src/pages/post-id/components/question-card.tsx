@@ -2,25 +2,33 @@ import { useState } from 'react'
 import { formatDate } from '../../../utils/date'
 import api from '../../../utils/api'
 import { FaRegThumbsDown, FaRegThumbsUp } from 'react-icons/fa'
+import { IAnswer } from '../../../model/api'
+import { Answer } from './answer'
+import { Avatar } from '../../../components/ui/avatar'
 
 type Props = {
   id: number
   createdAt: string
   content: string
-  hasAnswered: boolean
+  answer: IAnswer
   likes: number
   dislikes: number
+  img: string
+  name: string
 }
 
 export const QuestionCard = ({
   id,
   createdAt,
   content,
-  hasAnswered,
+  answer,
   likes,
   dislikes,
+  img,
+  name,
 }: Props) => {
   const date = formatDate(createdAt)
+  const hasAnswered = !!answer
 
   const [like, setLike] = useState(likes)
   const [dislike, setDislike] = useState(dislikes)
@@ -63,6 +71,15 @@ export const QuestionCard = ({
         <p className='ml-1'>{date}</p>
       </div>
       <p className='font-medium text-xl break-words'>{content}</p>
+
+      {hasAnswered && (
+        <Answer
+          img={img}
+          name={name}
+          createdAt={answer.createdAt}
+          content={answer.content}
+        />
+      )}
       <div className='border-t border-gray-300 mt-8' />
 
       <div className='mt-6 mb-3 text-gray-500'>

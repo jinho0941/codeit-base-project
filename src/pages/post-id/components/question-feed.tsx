@@ -1,14 +1,15 @@
 import { BsChatText } from 'react-icons/bs'
-import { IQuestion } from '../../../model/api'
+import { IQuestion, ISubject } from '../../../model/api'
 import { NoQuestions } from '../../../components/no-questions'
 import { QuestionCard } from './question-card'
 
 type Props = {
   questionCount: number
   questions: IQuestion[]
+  subject: ISubject
 }
 
-export const QuestionFeed = ({ questionCount, questions }: Props) => {
+export const QuestionFeed = ({ questionCount, questions, subject }: Props) => {
   const hasQuestion = !!questionCount
 
   return (
@@ -29,9 +30,11 @@ export const QuestionFeed = ({ questionCount, questions }: Props) => {
                   id={question.id}
                   createdAt={question.createdAt}
                   content={question.content}
-                  hasAnswered={!!question.answer}
+                  answer={question.answer!}
                   likes={question.like}
                   dislikes={question.dislike}
+                  img={subject.imageSource}
+                  name={subject.name}
                 />
               ))}
             </ul>

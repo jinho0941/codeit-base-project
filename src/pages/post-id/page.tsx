@@ -59,6 +59,7 @@ const PostIdPage = () => {
         <QuestionFeed
           questionCount={questionCount || 0}
           questions={questionsData}
+          subject={subjectIdData}
         />
 
         <QuestionModalButton onOpen={() => setIsModalOpen(true)} />
