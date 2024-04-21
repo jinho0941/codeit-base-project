@@ -4,7 +4,6 @@ import api from '../../../utils/api'
 import { FaRegThumbsDown, FaRegThumbsUp } from 'react-icons/fa'
 import { IAnswer } from '../../../model/api'
 import { Answer } from './answer'
-import { Avatar } from '../../../components/ui/avatar'
 
 type Props = {
   id: number
