@@ -29,7 +29,6 @@ function AnswerPage() {
   if (!subjectIdData && !isLoading) {
     localStorage.removeItem('postId')
     navigate('/')
-    toast.error('이미 삭제된 페이지입니다. 다시 생성해 주세요.')
     return
   }
 
@@ -46,6 +45,7 @@ function AnswerPage() {
 
   return (
     <main>
+      <hr />
       <button onClick={deleteSubject}>페이지 삭제하기</button>
       {/* header */}
       <section>
@@ -56,6 +56,7 @@ function AnswerPage() {
       <section>
         <span>{questionCount} 개의 질문이 있습니다.</span>
         {/* question items */}
+        <hr />
         {questionsData &&
           questionsData.map((question) => (
             <QuestionCard
