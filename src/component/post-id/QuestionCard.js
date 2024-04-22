@@ -55,6 +55,7 @@ const QuestionCardQuestionTitle = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 133.333% */
+  word-break: break-all;
 `;
 
 const QuestionCardAnswer = styled.div`
