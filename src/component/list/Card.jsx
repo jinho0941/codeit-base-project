@@ -17,62 +17,58 @@ const StyledCard = styled.div`
   //   display: ${(props) => (props.$hideonsmallscreen ? "none" : "block")};
   // }
 `;
-const CardContent = styled.div`
-  background-color: #fff;
-`;
-const CardImg = styled.img`
+
+const StyledCardImg = styled.img`
   width: 60px;
   height: 60px;
   border-radius: 50%;
 `;
-const CardName = styled.div`
+const StyledCardName = styled.div`
   background-color: #fff;
   font-size: 20px;
   font-weight: 400;
 `;
-const CardQuestionSection = styled.div`
+const StyledCardQuestionSection = styled.div`
   background-color: #fff;
   font-size: 16px;
   font-weight: 400;
   display: flex;
   justify-content: space-between;
 `;
-const CardMessageSection = styled.div`
+const StyledCardMessageSection = styled.div`
   background-color: #fff;
   display: flex;
   align-items: center;
   gap: 4px;
 `;
-const CardMessageText = styled.p`
+const StyledCardMessageText = styled.p`
   color: #818181;
   font-weight: 400;
   font-size: 16px;
 `;
-const CardMessageIcon = styled.img`
+const StyledCardMessageIcon = styled.img`
   background-color: #fff;
 
   width: 18px;
   height: 18px;
 `;
 
-function Cards({ item }) {
+function Card({ item }) {
   return (
     <Link to={`/post/${item.id}`} style={{ textDecoration: "none" }}>
       <StyledCard>
-        <CardContent>
-          <CardImg src={item.imageSource} alt="아이템 이미지" />
-          <CardName>{item.name}</CardName>
-        </CardContent>
-        <CardQuestionSection>
-          <CardMessageSection>
-            <CardMessageIcon src={message} alt="메세지 아이콘" />
-            <CardMessageText>받은 질문</CardMessageText>
-          </CardMessageSection>
-          <p>{item.questionCount}</p>
-        </CardQuestionSection>
+        <StyledCardImg src={item.imageSource} alt="아이템 이미지" />
+        <StyledCardName>{item.name}</StyledCardName>
+        <StyledCardQuestionSection>
+          <StyledCardMessageSection>
+            <StyledCardMessageIcon src={message} alt="메세지 아이콘" />
+            <StyledCardMessageText>받은 질문</StyledCardMessageText>
+          </StyledCardMessageSection>
+          <StyledCardMessageText>{item.questionCount}개</StyledCardMessageText>
+        </StyledCardQuestionSection>
       </StyledCard>
     </Link>
   );
 }
 
-export default Cards;
+export default Card;

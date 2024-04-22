@@ -59,12 +59,10 @@ const Pagination = ({ pageCount, onPageChange }) => {
     const newPage = Math.min(pageCount, currentPage + 5);
     onPageChange(newPage);
     setCurrentPage(newPage);
-    console.log("currentPage : ", currentPage);
   };
 
   const renderPageNumbers = () => {
     const pageNumbers = [];
-    console.log(pageCount);
     for (let i = start; i <= end; i++) {
       pageNumbers.push(
         <ul key={i}>
@@ -77,7 +75,6 @@ const Pagination = ({ pageCount, onPageChange }) => {
         </ul>
       );
     }
-
     return pageNumbers;
   };
 
