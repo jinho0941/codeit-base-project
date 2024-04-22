@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import api from "../../utils/api";
+import { deleteAnswer } from "../../api/answer/answer";
+import { useParams } from "react-router-dom";
 
 const Button = styled.button`
   cursor: pointer;
@@ -15,15 +16,20 @@ const Button = styled.button`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
-function Delete({ id }) {
+function Delete() {
+  const params = useParams();
+
   const deleteAll = async () => {
-    try {
-      await api.delete(`answers/5207/`);
-    } catch (error) {
-      console.log(error);
-    }
+    const result = await deleteAnswer(params.answerId);
+
+    return result;
   };
-  return <Button onClick={deleteAll}>삭제하기</Button>;
+
+  return (
+    <Button onClick={deleteAll} id={params.answerId}>
+      삭제하기
+    </Button>
+  );
 }
 
 export default Delete;

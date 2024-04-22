@@ -6,6 +6,7 @@ import ContentsContainer from "../component/answer/ContentsContainer";
 import { useEffect, useState } from "react";
 import { getSubject } from "../api/answer/answer";
 import Delete from "../component/answer/DeleteButton";
+import { useParams } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -19,9 +20,10 @@ const GlobalStyle = createGlobalStyle`
 
 function AnswerPage() {
   const [profile, setProfile] = useState(null);
+  const params = useParams();
 
   const handleLoadProfile = async () => {
-    const result = await getSubject();
+    const result = await getSubject(params.postId);
 
     return result;
   };
@@ -43,14 +45,18 @@ function AnswerPage() {
     return <div>Loading...</div>;
   }
 
+  const handleDelete = async () => {
+    setContents([]);
+  };
+
   return (
     <>
       <GlobalStyle />
       <Container>
         <Background />
         <StyledProfile profile={profile} />
-        <Delete />
-        <ContentsContainer profile={profile} />
+        <Delete onDelete={handleDelete} />
+        <ContentsContainer profile={profile} id={params.postId} />
       </Container>
     </>
   );

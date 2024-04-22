@@ -3,7 +3,6 @@ import ContentsTitle from "./ContentsTitle";
 import QuestionCardList from "./QuestionCardList";
 import { useEffect, useState } from "react";
 import { getQuestion } from "../../api/post-id/post-api";
-import { useParams } from "react-router-dom";
 
 const StyledContentsContainer = styled.div`
   display: flex;

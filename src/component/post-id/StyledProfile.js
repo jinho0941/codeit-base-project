@@ -71,7 +71,7 @@ const Toast = styled.div`
 function StyledProfile({ profile }) {
   const { Kakao } = window;
 
-  const realUrl = "http://localhost:3000/";
+  const realUrl = "https://base-project-dev.netlify.app/";
 
   const [showToast, setShowToast] = useState(false);
 
@@ -121,7 +121,7 @@ function StyledProfile({ profile }) {
 
   useEffect(() => {
     Kakao.cleanup();
-    Kakao.init(""); // KAKAO_APP_KEY
+    Kakao.init("76555a6801feb9d435c1edae90898fc1"); // KAKAO_APP_KEY
   }, [Kakao]);
 
   return (
@@ -132,7 +132,7 @@ function StyledProfile({ profile }) {
         <Link src={linkImg} alt="link" onClick={handleClick} />
         {showToast && <Toast>URL이 복사되었습니다</Toast>}
         <Kakaotalk src={kakaoImg} alt="kakao" onClick={handleKaKaoClick} />
-        <FacebookShareButton url={encodeURIComponent(realUrl)}>
+        <FacebookShareButton url={realUrl}>
           <Facebook src={facebookImg} alt="facebook" />
         </FacebookShareButton>
       </ProfileShare>
