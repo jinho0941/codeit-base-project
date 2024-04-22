@@ -63,6 +63,7 @@ const QuestionCardAnswer = styled.div`
 
   & img {
     width: 48px;
+    height: 48px;
     flex-shrink: 0;
     border-radius: 100px;
   }
@@ -149,7 +150,7 @@ function QuestionCard({ question, profile }) {
       </QuestionCardQuestion>
       <QuestionCardAnswer>
         {question.answer ? (
-          <img src={profile.imageSource} alt="profile"></img>
+          <img src={profile.imageSource} alt="profile" />
         ) : null}
         <QuestionCardAnswerContent>
           <QuestionCardAnswerProfile>
@@ -160,7 +161,10 @@ function QuestionCard({ question, profile }) {
                 : null}
             </QuestionCardTerm>
           </QuestionCardAnswerProfile>
-          <div className="feedcard-answer-main">
+          <div
+            className="feedcard-answer-main"
+            style={{ wordBreak: "break-all" }}
+          >
             {question.answer ? (
               !question.answer.isRejected ? (
                 `${question.answer.content}`
