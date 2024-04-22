@@ -124,6 +124,11 @@ export const Answer = ({ name, img, createdAt, content, onAnswerModify }) => {
     onAnswerModify(text);
   };
 
+  const handleModifyClick = () => {
+    setIsModify(true);
+    setIsMenuOpen(false); // Close the dropdown when '수정하기' is clicked
+  };
+
   return (
     <>
       <UserImage src={img} alt="img" />
@@ -134,7 +139,7 @@ export const Answer = ({ name, img, createdAt, content, onAnswerModify }) => {
           <KebabButton src={More} onClick={handleKebabClick} />
           {isMenuOpen && (
             <DropdownMenu>
-              <MenuItem onClick={() => setIsModify(true)}>수정하기</MenuItem>
+              <MenuItem onClick={handleModifyClick}>수정하기</MenuItem>
             </DropdownMenu>
           )}
         </AnswerInfo>

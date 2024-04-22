@@ -307,10 +307,10 @@ export const QuestionCard = ({
               />
               {isButtonActive ? (
                 <ModifyDoneButton onClick={() => onAnswerCreate(id, text)}>
-                  수정완료
+                  답변완료
                 </ModifyDoneButton>
               ) : (
-                <NotModifyButton disabled>수정완료</NotModifyButton>
+                <NotModifyButton disabled>답변완료</NotModifyButton>
               )}
             </AnswerContainer>
           </>
