@@ -36,7 +36,7 @@ const DropdownButtonArrowImg = styled.img`
   width: 14px;
   height: 14px;
 `;
-const DropdownContent = styled.div`
+const DropdownOptionBox = styled.div`
   border: 1px solid #cfcfcf;
   border-radius: 8px;
   box-shadow: 0px 4px 4px 0px #8c8c8c40;
@@ -101,13 +101,13 @@ const Dropdown = ({ options, onChange, selectedOption }) => {
         {selectedOption}
         <DropdownButtonArrowImg src={arrowImg} alt="아래 화살표" />
       </DropdownButton>
-      <DropdownContent open={isOpen}>
+      <DropdownOptionBox open={isOpen}>
         {options.map((option, index) => (
           <DropdownOption key={index} onClick={() => handleOptionClick(option)}>
             {option}
           </DropdownOption>
         ))}
-      </DropdownContent>
+      </DropdownOptionBox>
     </DropdownContainer>
   );
 };
