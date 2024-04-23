@@ -1,11 +1,11 @@
 // CardList.jsx
 import styled from "styled-components";
-import Cards from "./Card.jsx";
+import Card from "./Card.jsx";
 import { useEffect, useState } from "react";
 import api from "../../utils/api.js";
 import Pagination from "./Pagination.jsx";
 
-const StyledCardSection = styled.section`
+const StyledCardContainer = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@ function CardList({ selectedOption }) {
   };
 
   return (
-    <StyledCardSection>
+    <StyledCardContainer>
       <StyledCardList>
         {data &&
           data.results &&
@@ -72,13 +72,13 @@ function CardList({ selectedOption }) {
                 return 0;
               }
             })
-            .map((item) => <Cards key={item.id} item={item} />)}
+            .map((item) => <Card key={item.id} item={item} />)}
       </StyledCardList>
       <Pagination
         pageCount={Math.ceil(data.count / limit)}
         onPageChange={handlePageChange}
       />
-    </StyledCardSection>
+    </StyledCardContainer>
   );
 }
 

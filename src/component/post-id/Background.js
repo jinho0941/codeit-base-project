@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import backgroundImg from "../../images/post-id-images/background.svg";
 import logoImg from "../../images/post-id-images/logo.svg";
+import { Link } from "react-router-dom";
 
 const StyledBackground = styled.div`
   width: 100%;
@@ -28,7 +29,9 @@ function Background() {
   return (
     <StyledBackground>
       <BackgroundImage />
-      <Logo src={logoImg} alt="logo" />
+      <Link to="/">
+        <Logo src={logoImg} alt="logo" />
+      </Link>
     </StyledBackground>
   );
 }

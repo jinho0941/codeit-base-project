@@ -4,6 +4,8 @@ import kakaoImg from "../../images/post-id-images/kakaoImage.svg";
 import facebookImg from "../../images/post-id-images/facebookImage.svg";
 import { useState, useEffect } from "react";
 import { FacebookShareButton } from "react-share";
+import useSubjectIdData from "../../hooks/use-subject-id-data";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Profile = styled.div`
   display: flex;
@@ -68,12 +70,26 @@ const Toast = styled.div`
   z-index: 5;
 `;
 
-function StyledProfile({ profile }) {
+function UserInfo() {
   const { Kakao } = window;
-
-  const realUrl = "https://base-project-dev.netlify.app/";
-
+  const params = useParams();
+  const postId = params.postId;
+  const navigate = useNavigate();
+  const { subjectIdData, isLoading } = useSubjectIdData(postId);
   const [showToast, setShowToast] = useState(false);
+
+  useEffect(() => {
+    Kakao.cleanup();
+    Kakao.init("76555a6801feb9d435c1edae90898fc1"); // KAKAO_APP_KEY
+  }, [Kakao]);
+  if (!subjectIdData) return null;
+
+  if (!subjectIdData && !isLoading) {
+    localStorage.removeItem("postId");
+    navigate("/");
+    return;
+  }
+  const realUrl = "https://base-project-dev.netlify.app/";
 
   const copyToClipBoard = (text) => {
     navigator.clipboard
@@ -119,15 +135,10 @@ function StyledProfile({ profile }) {
     });
   };
 
-  useEffect(() => {
-    Kakao.cleanup();
-    Kakao.init("76555a6801feb9d435c1edae90898fc1"); // KAKAO_APP_KEY
-  }, [Kakao]);
-
   return (
     <Profile>
-      <ProfileImage src={profile.imageSource} alt="profile" />
-      <ProfileName>{profile.name}</ProfileName>
+      <ProfileImage src={subjectIdData.imageSource} alt="profile" />
+      <ProfileName>{subjectIdData.name}</ProfileName>
       <ProfileShare>
         <Link src={linkImg} alt="link" onClick={handleClick} />
         {showToast && <Toast>URL이 복사되었습니다</Toast>}
@@ -140,4 +151,4 @@ function StyledProfile({ profile }) {
   );
 }
 
-export default StyledProfile;
+export default UserInfo;

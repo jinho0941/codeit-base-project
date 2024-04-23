@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../../images/list/logo.svg";
 
-const HeaderSection = styled.header`
+const StyledHeader = styled.header`
   margin: 40px 0;
   width: 100%;
   height: 60px;
@@ -39,11 +39,12 @@ const StyledAnswerLinkButton = styled.button`
     padding: 8px 12px;
   }
 `;
-function HeaderContainer() {
+function Header() {
   const navigate = useNavigate();
 
   const handleAnsewerButtonClick = () => {
     const storedId = localStorage.getItem("questionId");
+    console.log(storedId);
     if (storedId) {
       navigate(`/post/${storedId}/answer`);
     } else {
@@ -52,15 +53,15 @@ function HeaderContainer() {
   };
 
   return (
-    <HeaderSection>
+    <StyledHeader>
       <Link to="/">
         <StyledLogoImg src={logo} alt="openmind 로고" />
       </Link>
       <StyledAnswerLinkButton onClick={handleAnsewerButtonClick}>
         답변하러가기 →
       </StyledAnswerLinkButton>
-    </HeaderSection>
+    </StyledHeader>
   );
 }
 
-export default HeaderContainer;
+export default Header;
