@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect } from "react";
 
 const useScrollEvent = (callback) => {
   useEffect(() => {
@@ -7,16 +7,16 @@ const useScrollEvent = (callback) => {
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight
       ) {
-        callback()
+        callback();
       }
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [callback])
-}
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [callback]);
+};
 
-export default useScrollEvent
+export default useScrollEvent;

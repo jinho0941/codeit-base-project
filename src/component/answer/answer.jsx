@@ -143,7 +143,7 @@ export const Answer = ({ name, img, createdAt, content, onAnswerModify }) => {
             </DropdownMenu>
           )}
         </AnswerInfo>
-        {!isModify && <div>{content}</div>}
+        {!isModify && <div style={{ wordBreak: "break-all" }}>{content}</div>}
         {isModify && (
           <>
             <TextArea value={text} onChange={handleChange} />

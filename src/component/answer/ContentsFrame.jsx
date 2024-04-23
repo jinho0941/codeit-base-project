@@ -44,15 +44,20 @@ const StyledContentsTitle = styled.div`
   font-weight: 400;
   line-height: 25px; /* 125% */
 `;
-function ContentsFrame() {
+function ContentsFrame({
+  subjectIdData,
+  questionCount,
+  questionsData,
+  updateQuestions,
+}) {
   const params = useParams();
   const postId = params.postId;
 
-  const { subjectIdData, isLoading } = useSubjectIdData(postId);
-  const { questionCount, questionsData, updateQuestions } =
-    useQuestionsData(postId);
+  // const { subjectIdData, isLoading } = useSubjectIdData(postId);
+  // const { questionCount, questionsData, updateQuestions } =
+  //   useQuestionsData(postId);
 
-  if (!subjectIdData) return null;
+  // if (!subjectIdData) return null;
 
   return (
     <StyledContentsContainer>
