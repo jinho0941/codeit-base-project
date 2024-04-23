@@ -1,10 +1,10 @@
-import { useState } from "react";
-import api from "../../utils/api";
-import { Answer } from "./answer";
-import styled from "styled-components";
-import { calculateTimeDiff } from "../post-id/utils";
-import thumbsUpImg from "../../images/post-id-images/thumbs-up.svg";
-import thumbsDownImg from "../../images/post-id-images/thumbs-down.svg";
+import { useState } from 'react'
+import api from '../../utils/api'
+import { Answer } from './answer'
+import styled from 'styled-components'
+import { calculateTimeDiff } from '../post-id/utils'
+import thumbsUpImg from '../../images/post-id-images/thumbs-up.svg'
+import thumbsDownImg from '../../images/post-id-images/thumbs-down.svg'
 
 const QuestionCardWrapper = styled.div`
   display: flex;
@@ -18,14 +18,14 @@ const QuestionCardWrapper = styled.div`
 
   /* 1pt */
   box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
-`;
+`
 
 const AnswerStatus = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: space-between;
-`;
+`
 
 const DeleteButton = styled.button`
   margin-left: auto;
@@ -40,7 +40,7 @@ const DeleteButton = styled.button`
   background: var(--Brown-40, #542f1a);
   color: var(--Grayscale-10, #fff);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-`;
+`
 
 const QuestionCardResult = styled.span`
   padding: 4px 12px;
@@ -50,36 +50,36 @@ const QuestionCardResult = styled.span`
   background: #fff;
 
   color: #542f1a;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
-`;
+`
 
 const QuestionCardTerm = styled.div`
   display: flex;
   color: #818181;
   margin-top: 32px;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
-`;
+`
 
 const QuestionCardQuestionTitle = styled.div`
   color: #000;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Actor;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 133.333% */
   word-break: break-all;
-`;
+`
 
 const AnswerInput = styled.div`
   display: flex;
@@ -87,24 +87,24 @@ const AnswerInput = styled.div`
   margin-top: 32px;
   gap: 12px;
   align-self: stretch;
-`;
+`
 
 const UserImage = styled.img`
   width: 48px;
   height: 48px;
   border-radius: 48px;
-`;
+`
 
 const UserName = styled.div`
   color: #000;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Actor;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 133.333% */
   word-break: break-all;
-`;
+`
 
 const AnswerContainer = styled.div`
   display: flex;
@@ -112,7 +112,7 @@ const AnswerContainer = styled.div`
   align-items: flex-start;
   gap: 4px;
   flex: 1 0 0;
-`;
+`
 
 const TextArea = styled.textarea`
   font-size: 16px;
@@ -126,7 +126,7 @@ const TextArea = styled.textarea`
   background: var(--Grayscale-20, #f9f9f9);
   border: 1px solid var(--Brown-40, #542f1a);
   outline: 1px solid var(--Brown-40, #542f1a);
-`;
+`
 
 const NotModifyButton = styled.button`
   display: flex;
@@ -140,7 +140,7 @@ const NotModifyButton = styled.button`
   background-color: var(--Brown-30, #c7bbb5);
   border-radius: 8px;
   border: none;
-`;
+`
 
 const ModifyDoneButton = styled.button`
   cursor: pointer;
@@ -156,13 +156,13 @@ const ModifyDoneButton = styled.button`
   background: var(--Brown-40, #542f1a);
   border-radius: 8px;
   border: none;
-`;
+`
 
 const QuestionCardBottom = styled.div`
   margin-top: 32px;
   width: 100%;
   border-top: 1px solid #cfcfcf;
-`;
+`
 
 const QuestionCardBottomStatus = styled.div`
   display: flex;
@@ -171,30 +171,49 @@ const QuestionCardBottomStatus = styled.div`
   & img {
     margin-right: 6px;
   }
-`;
+`
 
 const ThumbsUp = styled.div`
   margin-right: 32px;
   cursor: pointer;
   color: var(--Blue-50, #1877f2);
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
-`;
+`
 
 const ThumbsDown = styled.div`
   color: var(--Grayscale-40, #818181);
   cursor: pointer;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
-`;
+`
+
+const RejectButton = styled.button`
+  background-color: red; /* 빨간색 배경 */
+  border: none;
+  color: white;
+  padding: 7px 12px; /* 작은 여백 */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease; /* 호버 효과에 transition 추가 */
+
+  &:hover {
+    background-color: darkred; /* 호버 시 어두운 빨간색 */
+  }
+`
 
 export const QuestionCard = ({
   id,
@@ -207,83 +226,97 @@ export const QuestionCard = ({
   name,
   img,
 }) => {
-  const hasAnswered = !!answer;
-  const [text, setText] = useState("");
-  const [isButtonActive, setIsButtonActive] = useState(false);
-  const [cLike, setCLike] = useState(like);
-  const [cDislike, setCDislike] = useState(dislike);
-  const [cAnswer, setCAnswer] = useState(answer);
+  const hasAnswered = !!answer
+  const [text, setText] = useState('')
+  const [isButtonActive, setIsButtonActive] = useState(false)
+  const [cLike, setCLike] = useState(like)
+  const [cDislike, setCDislike] = useState(dislike)
+  const [cAnswer, setCAnswer] = useState(answer)
 
   const handleChange = (event) => {
-    setText(event.target.value);
-    setIsButtonActive(text.trim().length > 0);
-  };
+    setText(event.target.value)
+    setIsButtonActive(text.trim().length > 0)
+  }
 
   const onAnswerCreate = async (id, content) => {
     try {
       const response = await api.post(`/questions/${id}/answers/`, {
         content,
         isRejected: false,
-      });
-      setCAnswer(response.data);
-      updateQuestions();
+      })
+      setCAnswer(response.data)
+      updateQuestions()
     } catch (error) {
-      console.log("some thing went wrong");
-      console.log(error);
+      console.log('some thing went wrong')
+      console.log(error)
     }
-  };
+  }
 
   const onAnswerModify = async (content) => {
     try {
       const response = await api.patch(`/answers/${cAnswer.id}/`, {
         content,
         idRejected: false,
-      });
-      setCAnswer(response.data);
-      updateQuestions();
+      })
+      setCAnswer(response.data)
+      updateQuestions()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const onQuestionDelete = async () => {
     try {
-      await api.delete(`/questions/${id}/`);
-      updateQuestions();
+      await api.delete(`/questions/${id}/`)
+      updateQuestions()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const likeClicked = async () => {
     try {
       const response = await api.post(`/questions/${id}/reaction/`, {
-        type: "like",
-      });
-      setCLike(response.data.like);
-      updateQuestions();
+        type: 'like',
+      })
+      setCLike(response.data.like)
+      updateQuestions()
     } catch (error) {
-      console.log("some thing went wrong");
+      console.log('some thing went wrong')
     }
-  };
+  }
 
   const disLikeClicked = async () => {
     try {
       const response = await api.post(`/questions/${id}/reaction/`, {
-        type: "dislike",
-      });
-      setCDislike(response.data.dislike);
-      updateQuestions();
+        type: 'dislike',
+      })
+      setCDislike(response.data.dislike)
+      updateQuestions()
     } catch (error) {
-      console.log("some thing went wrong");
+      console.log('some thing went wrong')
     }
-  };
+  }
+
+  const onRejectClicked = async (id) => {
+    try {
+      const response = await api.post(`/questions/${id}/answers/`, {
+        content: 'rejected',
+        isRejected: true,
+      })
+      setCAnswer(response.data)
+      updateQuestions()
+    } catch (error) {
+      console.log('some thing went wrong')
+      console.log(error)
+    }
+  }
 
   return (
     <QuestionCardWrapper>
       <AnswerStatus>
         <QuestionCardResult>
-          {!hasAnswered ? "미답변" : "답변완료"}
+          {!hasAnswered ? '미답변' : '답변완료'}
         </QuestionCardResult>
         <DeleteButton onClick={onQuestionDelete}>질문 삭제하기</DeleteButton>
       </AnswerStatus>
@@ -296,14 +329,17 @@ export const QuestionCard = ({
       <AnswerInput>
         {!hasAnswered ? (
           <>
-            <UserImage src={img} alt="img" />
+            <UserImage src={img} alt='img' />
             <AnswerContainer>
               <UserName>{name}</UserName>
+              <RejectButton onClick={() => onRejectClicked(id)}>
+                답변거부
+              </RejectButton>
               <TextArea
-                type="text"
+                type='text'
                 value={text}
                 onChange={handleChange}
-                placeholder="답변을 입력해주세요"
+                placeholder='답변을 입력해주세요'
               />
               {isButtonActive ? (
                 <ModifyDoneButton onClick={() => onAnswerCreate(id, text)}>
@@ -320,22 +356,23 @@ export const QuestionCard = ({
             img={img}
             createdAt={answer.createdAt}
             content={answer.content}
+            isRejected={answer.isRejected}
             onAnswerModify={onAnswerModify}
           />
         )}
       </AnswerInput>
       <QuestionCardBottom>
         <QuestionCardBottomStatus>
-          <img src={thumbsUpImg} alt="thumbs-up" onClick={likeClicked}></img>
+          <img src={thumbsUpImg} alt='thumbs-up' onClick={likeClicked}></img>
           <ThumbsUp onClick={likeClicked}>좋아요 {like}</ThumbsUp>
           <img
             src={thumbsDownImg}
-            alt="thumbs-down"
+            alt='thumbs-down'
             onClick={disLikeClicked}
           ></img>
           <ThumbsDown onClick={disLikeClicked}>싫어요 {dislike}</ThumbsDown>
         </QuestionCardBottomStatus>
       </QuestionCardBottom>
     </QuestionCardWrapper>
-  );
-};
+  )
+}
