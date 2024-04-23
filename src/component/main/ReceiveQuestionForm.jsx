@@ -84,6 +84,7 @@ function ReceiveQuestionForm() {
         { name },
       )
       const feedId = response.data.id
+      console.log(feedId)
       // ID를 로컬 스토리지에 저장
       localStorage.setItem('questionId', feedId)
 

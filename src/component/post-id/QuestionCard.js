@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import thumbsUpImg from "../../images/post-id-images/thumbs-up.svg";
-import thumbsDownImg from "../../images/post-id-images/thumbs-down.svg";
-import { calculateTimeDiff } from "./utils";
-import { createDislike, createLike } from "../../api/post-id/post-api";
-import { useState } from "react";
+import styled from 'styled-components'
+import thumbsUpImg from '../../images/post-id-images/thumbs-up.svg'
+import thumbsDownImg from '../../images/post-id-images/thumbs-down.svg'
+import { calculateTimeDiff } from './utils'
+import { createDislike, createLike } from '../../api/post-id/post-api'
+import { useState } from 'react'
 
 const QuestionCardWrapper = styled.div`
   padding: 32px;
@@ -14,7 +14,7 @@ const QuestionCardWrapper = styled.div`
 
   /* 1pt */
   box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
-`;
+`
 
 const QuestionCardResult = styled.span`
   padding: 4px 12px;
@@ -24,39 +24,39 @@ const QuestionCardResult = styled.span`
   background: #fff;
 
   color: #542f1a;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
-`;
+`
 
 const QuestionCardQuestion = styled.div`
   margin: 32px 0px;
-`;
+`
 
 const QuestionCardTerm = styled.div`
   display: flex;
   color: #818181;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
-`;
+`
 
 const QuestionCardQuestionTitle = styled.div`
   color: #000;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Actor;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 133.333% */
   word-break: break-all;
-`;
+`
 
 const QuestionCardAnswer = styled.div`
   display: flex;
@@ -67,11 +67,11 @@ const QuestionCardAnswer = styled.div`
     flex-shrink: 0;
     border-radius: 100px;
   }
-`;
+`
 
 const QuestionCardAnswerContent = styled.div`
   margin-left: 12px;
-`;
+`
 
 const QuestionCardAnswerProfile = styled.div`
   display: flex;
@@ -79,12 +79,12 @@ const QuestionCardAnswerProfile = styled.div`
   & div {
     margin-right: 8px;
   }
-`;
+`
 
 const QuestionCardBottom = styled.div`
   margin-top: 32px;
   border-top: 1px solid #cfcfcf;
-`;
+`
 
 const QuestionCardBottomStatus = styled.div`
   display: flex;
@@ -93,12 +93,12 @@ const QuestionCardBottomStatus = styled.div`
   & img {
     margin-right: 6px;
   }
-`;
+`
 
 const ThumbsUp = styled.div`
   margin-right: 32px;
   color: #1877f2;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
@@ -106,11 +106,11 @@ const ThumbsUp = styled.div`
   line-height: 18px; /* 128.571% */
 
   cursor: pointer;
-`;
+`
 
 const ThumbsDown = styled.div`
   color: #818181;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: 'clig' off, 'liga' off;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
@@ -118,26 +118,26 @@ const ThumbsDown = styled.div`
   line-height: 18px; /* 128.571% */
 
   cursor: pointer;
-`;
+`
 
 function QuestionCard({ question, profile }) {
-  const [like, setLike] = useState(question.like);
-  const [dislike, setDislike] = useState(question.dislike);
+  const [like, setLike] = useState(question.like)
+  const [dislike, setDislike] = useState(question.dislike)
 
   const handleLikeClick = async () => {
-    const res = await createLike(question.id);
-    setLike(res.data.like);
-  };
+    const res = await createLike(question.id)
+    setLike(res.data.like)
+  }
 
   const handleDislikeClick = async () => {
-    const res = await createDislike(question.id);
-    setDislike(res.data.dislike);
-  };
+    const res = await createDislike(question.id)
+    setDislike(res.data.dislike)
+  }
 
   return (
     <QuestionCardWrapper>
       <QuestionCardResult>
-        {question.answer ? "답변완료" : "미답변"}
+        {question.answer ? '답변완료' : '미답변'}
       </QuestionCardResult>
       <QuestionCardQuestion>
         <QuestionCardTerm>
@@ -150,7 +150,7 @@ function QuestionCard({ question, profile }) {
       </QuestionCardQuestion>
       <QuestionCardAnswer>
         {question.answer ? (
-          <img src={profile.imageSource} alt="profile" />
+          <img src={profile.imageSource} alt='profile' />
         ) : null}
         <QuestionCardAnswerContent>
           <QuestionCardAnswerProfile>
@@ -162,14 +162,14 @@ function QuestionCard({ question, profile }) {
             </QuestionCardTerm>
           </QuestionCardAnswerProfile>
           <div
-            className="feedcard-answer-main"
-            style={{ wordBreak: "break-all" }}
+            className='feedcard-answer-main'
+            style={{ wordBreak: 'break-all' }}
           >
             {question.answer ? (
               !question.answer.isRejected ? (
                 `${question.answer.content}`
               ) : (
-                <div style={{ color: "red" }}>답변거절</div>
+                <div style={{ color: 'red' }}>답변거부</div>
               )
             ) : null}
           </div>
@@ -179,22 +179,22 @@ function QuestionCard({ question, profile }) {
         <QuestionCardBottomStatus>
           <img
             src={thumbsUpImg}
-            alt="thumbs-up"
+            alt='thumbs-up'
             onClick={handleLikeClick}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
           />
           <ThumbsUp onClick={handleLikeClick}>좋아요 {like}</ThumbsUp>
           <img
             src={thumbsDownImg}
-            alt="thumbs-down"
+            alt='thumbs-down'
             onClick={handleDislikeClick}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
           />
           <ThumbsDown onClick={handleDislikeClick}>싫어요 {dislike}</ThumbsDown>
         </QuestionCardBottomStatus>
       </QuestionCardBottom>
     </QuestionCardWrapper>
-  );
+  )
 }
 
-export default QuestionCard;
+export default QuestionCard
