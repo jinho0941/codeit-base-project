@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# OPENMIND
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 해당 프로젝트는 코드잇 프론트엔드 스프린트 5기 기초 프로젝트 입니다.
+해당 사이트는, 질문을 등록하며 답변을 하는 간단한 사이트입니다.
 
-## Available Scripts
+## 팀장: 임상훈
+### 팀원: 우지석, 유호민, 조수연, 홍진호
 
-In the project directory, you can run:
+### 배포 Link : https://codeit-base-project.netlify.app/
 
-### `npm start`
+메인 페이지는 이름을 입력하여 질문을 생성하는 페이지 입니다.
+![image](https://github.com/user-attachments/assets/49d6ef41-0642-4d0c-8984-a468e4a089ee)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+질문이 등록된 리스트 페이지가 있으며
+![image](https://github.com/user-attachments/assets/b0959c05-7833-4af4-9610-71b41645727c)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+해당 질문을 클릭하면 질문을 할수있는 페이지가 나옵니다.
+![image](https://github.com/user-attachments/assets/f0057aac-de32-4d53-8570-e9cb44f3fbf3)
 
-### `npm test`
+질문 작성하기를 눌러 질문을 생성할수 있습니다.
+![image](https://github.com/user-attachments/assets/f5b4a79b-b8c5-4aff-8797-e40abc77c4be)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+답변은 질문을 생성한사람만 할수 있으며 해당페이지에서 답변을 할수 있습니다.
+![image](https://github.com/user-attachments/assets/98bbc4da-711d-4601-826c-cceef0ef6089)
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+답변을 완료하면 질문페이지에서도 답변이 완료된것을 확인할수 있습니다.
+![image](https://github.com/user-attachments/assets/40096c04-34bf-4a50-8504-7dce585ec2b9)
